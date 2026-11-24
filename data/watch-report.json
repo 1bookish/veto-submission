@@ -1,0 +1,42 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"Test C: the new-domain watch on its own output\"",
+  "per_list": {
+    "2026-11-22": {
+      "list_names": 70000,
+      "suspects": 25,
+      "confirmed_suspects": 1,
+      "precision": 0.04,
+      "base_rate": 0.002,
+      "lift": 19.72,
+      "recall_on_confirmed": 0.007,
+      "lead_days_median": 0,
+      "lead_days_min": 0,
+      "lead_days_max": 0
+    },
+    "2026-11-23": {
+      "list_names": 70000,
+      "suspects": 43,
+      "confirmed_suspects": 0,
+      "precision": 0,
+      "base_rate": 0.0027,
+      "lift": 0,
+      "recall_on_confirmed": 0,
+      "lead_days_median": null,
+      "lead_days_min": null,
+      "lead_days_max": null
+    }
+  },
+  "combined": {
+    "list_names": 140000,
+    "suspects": 68,
+    "confirmed_suspects": 1,
+    "precision": 0.0147,
+    "base_rate": 0.0024,
+    "lift": 6.24,
+    "recall_on_confirmed": 0.003,
+    "lead_days_median": 0,
+    "lead_days_min": 0,
+    "lead_days_max": 0
+  },
+  "note": "small n: the confirmation window is one to two days"
+}

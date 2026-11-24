@@ -29,6 +29,23 @@ export async function nrdList(day) {
   return txt.split(/\r?\n/).filter(Boolean);
 }
 
+/** Suspects in one day's list: domains that imitate a rulebook institution (look-alike letters or a brand token). */
+export function suspectsIn(list, day, { insts = null } = {}) {
+  const out = [];
+  for (const d of list) {
+    const a = analyzeUrl('https://' + d + '/');
+    if (a.official) continue;
+    const hit = a.lookalike || a.brand;
+    const inst = hit?.inst;
+    if (!inst || (insts && !insts.includes(inst.id))) continue;
+    if (WEAK.has(hit.token) && !a.lookalike) continue;
+    if (a.risk < 0.6) continue;
+    const m = mlUrlScore2('https://' + d + '/');
+    out.push({ host: d, inst: inst.id, how: `registered on ${day}${a.lookalike ? ' (look-alike letters)' : ''}`, sources: ['nrd'], nrdDay: day, ml2: m ? m.p : null });
+  }
+  return out;
+}
+
 /** Suspects among the domains registered on the last `days` days (yesterday first). */
 export async function nrdCandidates({ days = 2, insts = null, log = () => {} } = {}) {
   const out = [];
@@ -36,20 +53,9 @@ export async function nrdCandidates({ days = 2, insts = null, log = () => {} } =
     const day = new Date(Date.now() - k * 86400000).toISOString().slice(0, 10);
     let list;
     try { list = await nrdList(day); } catch (e) { log(`newly registered (${day}): ${e.message}`); continue; }
-    let n = 0;
-    for (const d of list) {
-      const a = analyzeUrl('https://' + d + '/');
-      if (a.official) continue;
-      const hit = a.lookalike || a.brand;
-      const inst = hit?.inst;
-      if (!inst || (insts && !insts.includes(inst.id))) continue;
-      if (WEAK.has(hit.token) && !a.lookalike) continue;
-      if (a.risk < 0.6) continue;
-      const m = mlUrlScore2('https://' + d + '/');
-      out.push({ host: d, inst: inst.id, how: `registered on ${day}${a.lookalike ? ' (look-alike letters)' : ''}`, sources: ['nrd'], nrdDay: day, ml2: m ? m.p : null });
-      n++;
-    }
-    log(`newly registered on ${day}: ${list.length.toLocaleString('en')} domains read, ${n} imitate a rulebook institution`);
+    const found = suspectsIn(list, day, { insts });
+    out.push(...found);
+    log(`newly registered on ${day}: ${list.length.toLocaleString('en')} domains read, ${found.length} imitate a rulebook institution`);
   }
   return out;
 }

@@ -59,7 +59,13 @@ Phishing first seen 25 Oct to 24 Nov 2026 that names a UAE brand (a token of fou
 
 The sample is too small for a firm claim. Brand names make this test easier than real life, and the test window was measured after each change, so it is not blind. A stricter whole-name match (added after the run, so not the headline) catches 5 of 5. The full protocol and the diagnostics are in [`docs/RESEARCH_LOG.md`](docs/RESEARCH_LOG.md) (section "Prior art and the UAE test protocol"); the numbers are in `data/uae-report.json`.
 
+### Unseen data (run once, pre-registered)
+
+Phishing.Database URLs whose domains never reached training or the test windows: 292,437 URLs, from a second source that is independent of OpenPhish. The judge catches 89.0 % (95 % interval 88.9 % to 89.1 %), and 93.1 % if suspicious counts as flagged. This test is domain-disjoint, not time-disjoint, and it says nothing about false alarms on unseen legitimate sites. The protocol and the numbers are in [`docs/RESEARCH_LOG.md`](docs/RESEARCH_LOG.md) ("Unseen-data tests") and `data/unseen-report.json`.
 ### What these numbers do not show
+- **Bare new domains.** Applied to every newly registered domain, with no path, the judge flags 17 % of them. Those names are not labelled, so we cannot say how many are wrong. This is not how the watch works, and these flags are not accuracy evidence.
+- **The new-domain watch.** Over two daily lists (22 and 23 Nov) it raised 68 suspects, and one was confirmed in the feed on the same day. That is too little to measure precision or lead time, so we do not claim a lead time.
+
 - **Trusted-site redirects (fixed in audit pass 2):** a link on a trusted site, such as google.com/url?q=, is now judged by the address it sends you to. In a synthetic test before the fix, all 400 such wrappers around known phishing passed; after it, none did. Real prevalence is not measured: the 57,892 OpenPhish rows we hold contain none.
 - **Public file hosts:** phishing on public object storage (S3 and Backblaze B2) was the largest gap we measured: 10 of the 12 misses among 324 URLs that name a rulebook institution. A bucket layer now judges these files on content (a victim e-mail, or a famous name with lure words), and a bucket cannot be called phishing on its host alone. Two of the 10 remain. Benign bucket files are not measured: our splits hold one or two.
 - **UAE names (small sample):** of those 324 URLs, 103 name an institution with an .ae domain, and the judge catches 92.2 % of them after the bucket layer (90.3 % before), against 98.2 % for the rest. Of 21 hand-listed UAE news and public sites that are not on the allowlist, one was flagged (suspicious, by the model alone). Neither is a labelled UAE phishing set.

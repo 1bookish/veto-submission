@@ -1,0 +1,72 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"Unseen-data tests\" (24 Nov, late)",
+  "window": {
+    "test_from": "2026-10-25",
+    "val_from": "2026-10-04",
+    "last_day": "2026-11-24"
+  },
+  "seed": 20261124,
+  "bootstrap_resamples": 1000,
+  "test_A_phishing_database_unseen_by_domain": {
+    "population_lines": 789052,
+    "excluded_seen_domain": 496615,
+    "unseen": 292437,
+    "training_domains_excluded_against": 178531,
+    "phiusiil_phishing_rows_read": 100945,
+    "recall_strict": 0.8896,
+    "recall_strict_95ci": [
+      0.8885,
+      0.8908
+    ],
+    "recall_cautious": 0.9312,
+    "recall_cautious_95ci": [
+      0.9303,
+      0.9322
+    ],
+    "note": "domain-disjoint, not time-disjoint; false alarms on unseen legitimate sites not measured here"
+  },
+  "test_B_new_domains_early_detection": {
+    "per_list": {
+      "2026-11-22": {
+        "names": 70000,
+        "flagged_strict": 12502,
+        "flagged_cautious": 16264,
+        "confirmed": 142,
+        "precision_strict": 0.0042,
+        "precision_cautious": 0.0054,
+        "base_rate_confirmed": 0.002,
+        "recall_strict_on_confirmed": 0.3662,
+        "lead_days_median": 2,
+        "lead_days_min": 0,
+        "lead_days_max": 2
+      },
+      "2026-11-23": {
+        "names": 70000,
+        "flagged_strict": 11523,
+        "flagged_cautious": 15617,
+        "confirmed": 188,
+        "precision_strict": 0.0056,
+        "precision_cautious": 0.0063,
+        "base_rate_confirmed": 0.0027,
+        "recall_strict_on_confirmed": 0.3457,
+        "lead_days_median": 0,
+        "lead_days_min": 0,
+        "lead_days_max": 1
+      }
+    },
+    "combined": {
+      "names": 140000,
+      "flagged_strict": 24025,
+      "flagged_cautious": 31881,
+      "confirmed": 330,
+      "precision_strict": 0.0049,
+      "precision_cautious": 0.0059,
+      "base_rate_confirmed": 0.0024,
+      "recall_strict_on_confirmed": 0.3545,
+      "lead_days_median": 1,
+      "lead_days_min": 0,
+      "lead_days_max": 2
+    },
+    "note": "small n: the window after each list is one to two days"
+  }
+}

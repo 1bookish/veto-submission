@@ -183,3 +183,61 @@ Interpretation:
 Correction: the 2.8% model-alone figure is for the official pages of the 77 listed institutions (split_uae). It is not a figure for institutions outside the list. Open item 13 in 01_INVENTORY_AND_STATUS.md and any other place that says otherwise must be corrected.
 
 Next step for a stronger, blind UAE result: a fresh set of UAE-brand phishing first seen after 24 Nov, with whole-label matching fixed in advance. That needs new data (an OpenPhish feed download), which needs explicit permission and a licence check first.
+
+## Unseen-data tests (24 Nov, late; written before the first run)
+
+Why: the judges will test on data we have not used. Two tests use data that the model and the rules never saw.
+
+### Test A: Phishing.Database, unseen by domain
+
+1. **Population:** data_raw/urlv2/pdb_active.txt (Phishing.Database active list, undated, 789,051 lines). It is a second source, independent of OpenPhish.
+2. **Exclusion:** remove every URL whose registrable domain (the training script's rule) appears in any of these sets: (a) the phishing domains of the training set, rebuilt exactly: OpenPhish rows dated before 4 Oct, plus the Phishing.Database sample that tools/train-url-model2.js draws with seed 7 (160,000 draws, same skip rule); (b) every PhiUSIIL phishing row (a superset of what training used, so the exclusion is conservative); (c) the OpenPhish validation and test windows (from 4 Oct).
+3. **Judge:** judgeOffline only, with no network. Strict = phishing verdict; cautious = phishing or suspicious. Recall with a 95% bootstrap interval (1,000 resamples, seed 20261124).
+4. **Not measured here:** the false-alarm rate on unseen legitimate sites. The held-out figure (0.58 %) stands, and the limit is stated.
+5. **Limit:** Phishing.Database has no dates, so this is a domain-disjoint test, not a time-disjoint one.
+
+### Test B: new domains, early detection
+
+1. **Population:** the raw new-domain lists of 22 and 23 Nov 2026 (data_raw/nrd, one registrable domain per line). Local only: no name is published; only counts and medians are written.
+2. **Judge:** judgeOffline on https://NAME/ at the list date, with no network.
+3. **Confirmation:** a name is confirmed if OpenPhish has any URL on its registrable domain dated on or after its list date, up to 24 Nov.
+4. **Report:** how many names the judge flags (strict and cautious); how many flagged names are confirmed (precision); the base rate of confirmation over all names; recall (confirmed and flagged, over all confirmed); and the lead time in days (median and range) for confirmed names.
+5. **Limit:** the window after each list is only one to two days, so the confirmed count will be small. Report it as small-n, with its interval.
+
+### Rules for both tests
+
+No threshold or rule changes on the basis of these tests. If a defect is found and fixed, it is logged separately, and the fixed code is run once more on the same test. Every result is logged, including weak ones.
+
+### Test C: the new-domain watch on its own output (early detection)
+
+Why: Test B applied the URL judge to every new domain, which is not how the watch works. The watch looks only for names that imitate one of the 77 rulebook institutions. Test C measures the watch itself.
+
+1. **Population:** the watch's suspects on the raw lists of 22 and 23 Nov, computed by the production function suspectsIn in server/nrd.js with the production thresholds (look-alike letters or a brand token, risk at least 0.6, weak tokens only as look-alikes). Local only; no name is written.
+2. **Confirmation and lead time:** as in Test B. A suspect is confirmed if OpenPhish has a URL on its registrable domain dated on or after its list date, up to 24 Nov.
+3. **Report:** suspects per list; precision (confirmed suspects over suspects); base rate (confirmed names over all names in the same list); lift (precision over base rate); recall on confirmed names; lead time in days (median and range).
+4. **Limit:** the confirmation window is one to two days, so the counts are small. Lead time is claimed only for confirmed cases.
+5. **Rule:** no threshold or rule changes on the basis of this test.
+
+## Results of the unseen-data tests (24 Nov, late; each run once; numbers in project/data/unseen-report.json and project/data/watch-report.json)
+
+**Test A, Phishing.Database, unseen by domain**
+- Population 789,052 lines. Excluded 496,615, because their registrable domain was seen in training, validation or test. Unseen: 292,437.
+- Recall, strict: 88.96 % (95 % interval 88.85 % to 89.08 %). Cautious: 93.12 % (93.03 % to 93.22 %).
+- Limits: domain-disjoint, not time-disjoint. No unseen legitimate sites, so no false-alarm figure here.
+
+**Test B, new domains through the judge (not the watch)**
+- 140,000 names (22 and 23 Nov). Flagged strict: 24,025 (17.2 %). Flagged phishing or suspicious: 31,881 (22.8 %).
+- Confirmed later in OpenPhish within one to two days: 330 names (0.24 %). Precision of strict flags: 0.49 %, about twice the base rate.
+- Reading: the judge is built for URLs with paths and for messages, not for bare lists of new domains. The population is unlabelled, so these flags are not accuracy evidence and must not be presented as accuracy.
+
+**Test C, the new-domain watch on its own output**
+- 68 suspects (25 on 22 Nov, 43 on 23 Nov): the same 68 as in the earlier audit.
+- Confirmed: 1 suspect, on the same day (lead 0 days). Precision 1.5 %, base rate 0.24 %, lift about 6 on one event. Recall on the 330 confirmed names: 0.3 %.
+- Reading: the watch sees only look-alikes of the 77 institutions, so it cannot see most phishing. The sample is too small to measure precision or lead time. Lead time is not claimed.
+
+**No-error tests (five new, run in npm test)**
+- 3,000 seeded random inputs through the judge; 1,500 through the model and the analyser; 30 hostile edge cases; a messy list file; a 20,000-URL list.
+- One expectation was corrected, not the code: an input that is not a web address carries score null by design.
+- Full suite: 92 of 92 pass.
+
+**Code change, behaviour unchanged:** server/nrd.js. The per-list check moved into suspectsIn, so Test C runs the production code. It reproduces the 68 suspects.
