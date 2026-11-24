@@ -19,8 +19,22 @@
 | **Android app** | [download veto.apk](https://github.com/MILKI0069/veto-submission/releases/latest/download/veto.apk) (also [`release/veto.apk`](release/veto.apk); source in [`android/`](android/)) |
 | **Browser extension (Chrome, Edge)** | [`release/veto-extension.zip`](release/veto-extension.zip) · load unpacked; source in [`extension/`](extension/) |
 | **Every number in this README** | traced to a file in [`docs/CLAIMS_LEDGER.md`](docs/CLAIMS_LEDGER.md); every test protocol written before it ran in [`docs/RESEARCH_LOG.md`](docs/RESEARCH_LOG.md) |
+| **Build and run** | [How to build and run](#how-to-build-and-run): `npm install`, `npm test`, `npm start` |
 
 ---
+
+## The problem and our solution
+
+**The problem.** 56 % of UAE residents report at least one fraud attempt a month (UAE Cyber Security Council × TRENDS study,
+[Gulf News](https://gulfnews.com/business/banking/over-50-of-uae-residents-report-being-targeted-by-one-financial-fraud-a-month-1.500064786)).
+The scams copy everything a victim trusts: the logo, the sender name, the website, even the voice on the phone. Blocklists only
+know a fake site after someone has been hurt, and most checkers only help people who already suspect something and stop to paste it.
+
+**Our solution.** Veto.ai checks every message, link and website the moment it arrives, on the phone and in the browser, and
+compares it with what 77 UAE banks, police forces and government bodies have publicly said they will **never** ask you to do.
+A scammer can fake a logo; he cannot fake the institution's own rules. Veto explains every verdict in Arabic and English, gives the
+real number to call, watches new certificates and newly registered domains for look-alikes of UAE institutions before the first
+victim, and packs police-ready evidence for a takedown. It works fully offline, so nothing leaves the phone.
 
 ## Works fully offline: the benchmark
 
@@ -167,16 +181,17 @@ Veto easy to use for elderly people and children. Kiki stays hidden and only app
 
 ---
 
-## Coming next: block once, protect the whole family
+## Technical choices, tools, APIs and data
 
-Scammers aim at the most trusting person in a family: an elderly parent, a busy relative, a child with a first phone. Veto's next step turns one person's caution into everyone's protection.
-
-- **Confirm once, blocked everywhere.** When you confirm a scam, Veto blocks that link and that phone number on every device you link: your phone, your laptop with the extension, and the phones and tablets of the family members you add.
-- **Made for children and elderly parents.** A parent looks after a child's device: a scam blocked for the parent is blocked for the child too, and Kiki shows the child a simple STOP instead of the link.
-- **Fast community protection.** With consent, a confirmed scam (only the link or the number, never the message or who received it) joins the offline blocklist every Veto device carries, so one report can protect thousands of people.
-- **Built on what ships today:** Warn family, Report to Aman (800 2626), Link Shield and the on-device blocklist.
-
-Status: designed, not built yet. It needs opt-in family linking, and a review of community reports so that nobody can get a real number blocked with false reports.
+| Area | What we use, and why |
+|---|---|
+| **Engine** | Node.js with no web framework. A rulebook of what 77 UAE institutions never ask for, plus a logistic URL model over 2^20 hashed features of the whole address. Rules make every verdict explainable and citable; the model catches what no rule names. |
+| **Phone** | A native Android app in Java that runs the same engine, with an on-device SMS model. Offline by design, so no message leaves the phone. |
+| **Browser** | A Chrome and Edge extension (Manifest V3) running the same engine; the web app and the [link check](https://milki0069.github.io/veto-submission/check/) run it in the browser. |
+| **Link X-ray** | Microsoft Edge in headless mode, in a sealed session, to see what a suspicious page asks for and where it sends data. |
+| **Early warning** | Public Certificate Transparency logs read directly, and the daily list of newly registered domains (WhoisDS). |
+| **Optional APIs (off by default)** | Anthropic Claude API or Groq for the AI second opinion and translation (it can add a warning, never remove one); abuse.ch and IPQualityScore look-ups; SerpApi, Brave Search and Google Places connectors for search, ads and Maps, built and tested offline, awaiting a key for a live run. |
+| **Data** | Dated phishing from the OpenPhish community feed history (research use) and Phishing.Database; PhiUSIIL (UCI, CC BY 4.0); the Tranco list of popular sites; official pages of the 77 institutions; SmishX for an external SMS test. Held-out sets are split by time and by domain. |
 
 ## How we built and tested it
 
@@ -344,7 +359,18 @@ In the browser, the extension labels each step of a job-task scam as it appears,
 
 ---
 
-## Try it
+## Coming next: block once, protect the whole family
+
+Scammers aim at the most trusting person in a family: an elderly parent, a busy relative, a child with a first phone. Veto's next step turns one person's caution into everyone's protection.
+
+- **Confirm once, blocked everywhere.** When you confirm a scam, Veto blocks that link and that phone number on every device you link: your phone, your laptop with the extension, and the phones and tablets of the family members you add.
+- **Made for children and elderly parents.** A parent looks after a child's device: a scam blocked for the parent is blocked for the child too, and Kiki shows the child a simple STOP instead of the link.
+- **Fast community protection.** With consent, a confirmed scam (only the link or the number, never the message or who received it) joins the offline blocklist every Veto device carries, so one report can protect thousands of people.
+- **Built on what ships today:** Warn family, Report to Aman (800 2626), Link Shield and the on-device blocklist.
+
+Status: designed, not built yet. It needs opt-in family linking, and a review of community reports so that nobody can get a real number blocked with false reports.
+
+## How to build and run
 
 ```bash
 npm install
