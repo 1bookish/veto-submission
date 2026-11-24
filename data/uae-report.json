@@ -1,0 +1,88 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"Prior art and the UAE test protocol\"",
+  "model_version": "veto-url2-2026-11-24",
+  "model_threshold": 0.825,
+  "brand_tokens": 49,
+  "window": [
+    "2026-10-25",
+    "2026-11-24"
+  ],
+  "headline": {
+    "n_phishing": 14,
+    "n_legitimate": 2231,
+    "judge_strict": {
+      "recall": 0.8571,
+      "recall_95ci": [
+        0.6429,
+        1
+      ],
+      "false_alarm_rate": 0,
+      "false_alarm_95ci": [
+        0,
+        0
+      ]
+    },
+    "judge_cautious": {
+      "recall": 0.9286,
+      "recall_95ci": [
+        0.7857,
+        1
+      ],
+      "false_alarm_rate": 0,
+      "false_alarm_95ci": [
+        0,
+        0
+      ]
+    },
+    "model_alone": {
+      "recall": 0.8571,
+      "recall_95ci": [
+        0.6429,
+        1
+      ],
+      "false_alarm_rate": 0.0278,
+      "false_alarm_95ci": [
+        0.0211,
+        0.035
+      ]
+    },
+    "precision_judge_strict_combined": {
+      "value": 1,
+      "ci": [
+        1,
+        1
+      ]
+    }
+  },
+  "breakdown": {
+    "both": 12,
+    "judge_only": 0,
+    "model_only": 0,
+    "neither": 2
+  },
+  "judge_strict_catches_with_rules": 12,
+  "D1": {
+    "same_host_seen_before": 0,
+    "same_registrable_domain_seen_before": 2,
+    "unseen_registrable_n": 12,
+    "unseen_registrable_recall_strict": 0.8333
+  },
+  "D2": {
+    "validation_legitimate_n": 24401,
+    "all_false_alarm_strict": 0.0072,
+    "all_false_alarm_model": 0.0075,
+    "brand_or_login_n": 74,
+    "brand_or_login_false_alarm_strict": 0.1216,
+    "brand_or_login_false_alarm_model": 0.1351
+  },
+  "misses_defanged": [
+    "hxxps://leeandwalsh[.]com/",
+    "hxxps://leeandwalsh[.]com/login-check[.]html"
+  ],
+  "bootstrap": {
+    "resamples": 1000,
+    "seed": 20261124,
+    "method": "stratified percentile, 95%"
+  },
+  "caveat": "Brand-named phishing is the easier case. The test window was measured after each change, so this set is not blind."
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VETO.AI DEMO: a harmless app file with NO CODE (hasCode="false"). It only DECLARES the permission set
+     of a typical Android banking trojan, so the X-ray chamber's app inspector has something real to read. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="demo.veto.securebank.update" android:versionCode="1" android:versionName="9.9-demo">
+  <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="35" />
+  <uses-permission android:name="android.permission.RECEIVE_SMS" />
+  <uses-permission android:name="android.permission.READ_SMS" />
+  <uses-permission android:name="android.permission.SEND_SMS" />
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+  <uses-permission android:name="android.permission.READ_CONTACTS" />
+  <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <application android:label="SecureBank Update" android:hasCode="false">
+    <service android:name="demo.veto.A" android:exported="false"
+        android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+      <intent-filter><action android:name="android.accessibilityservice.AccessibilityService" /></intent-filter>
+    </service>
+    <receiver android:name="demo.veto.D" android:exported="false"
+        android:permission="android.permission.BIND_DEVICE_ADMIN">
+      <intent-filter><action android:name="android.app.action.DEVICE_ADMIN_ENABLED" /></intent-filter>
+    </receiver>
+  </application>
+</manifest>

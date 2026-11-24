@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Veto in-chat highlighter: read-only, only the chat apps listed here (narrowed further at runtime to the
+     apps the user switched on), no gestures, no actions. -->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/chat_screen_desc"
+    android:summary="@string/chat_screen_summary"
+    android:accessibilityEventTypes="typeWindowContentChanged|typeViewScrolled|typeWindowStateChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:notificationTimeout="120"
+    android:canRetrieveWindowContent="true"
+    android:canPerformGestures="false"
+    android:isAccessibilityTool="false"
+    android:packageNames="com.whatsapp,com.whatsapp.w4b,org.telegram.messenger,org.telegram.messenger.web,com.google.android.apps.messaging,com.samsung.android.messaging,com.android.mms,com.android.messaging,org.thoughtcrime.securesms,com.facebook.orca,com.instagram.android,im.thebot.messenger,com.viber.voip,com.imo.android.imoim,com.snapchat.android" />

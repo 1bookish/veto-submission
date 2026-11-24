@@ -1,0 +1,7 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Veto engine</title></head>
+<body>
+<!-- Headless page inside the Android app: loads the SAME engine + rulebook as the web app
+     (copied from /engine and /data at build time) and exposes it to Java as window.K. No network. -->
+<script type="module" src="bridge.js"></script>
+</body></html>

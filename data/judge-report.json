@@ -1,0 +1,246 @@
+{
+ "model": "veto-url2-2026-11-24",
+ "split": "test",
+ "n": 33766,
+ "ms_per_url": 0.432,
+ "all": {
+  "strict": {
+   "n": 33766,
+   "tp": 8539,
+   "fp": 143,
+   "fn": 500,
+   "tn": 24584,
+   "precision": 0.9835,
+   "recall": 0.9447,
+   "f1": 0.9637,
+   "fpr": 0.0058,
+   "accuracy": 0.981
+  },
+  "cautious": {
+   "n": 33766,
+   "tp": 8695,
+   "fp": 260,
+   "fn": 344,
+   "tn": 24467,
+   "precision": 0.971,
+   "recall": 0.9619,
+   "f1": 0.9664,
+   "fpr": 0.0105,
+   "accuracy": 0.9821
+  },
+  "invalid": 0
+ },
+ "new_phishing_domains": {
+  "strict": {
+   "n": 32394,
+   "tp": 7284,
+   "fp": 143,
+   "fn": 383,
+   "tn": 24584,
+   "precision": 0.9807,
+   "recall": 0.95,
+   "f1": 0.9652,
+   "fpr": 0.0058,
+   "accuracy": 0.9838
+  },
+  "cautious": {
+   "n": 32394,
+   "tp": 7385,
+   "fp": 260,
+   "fn": 282,
+   "tn": 24467,
+   "precision": 0.966,
+   "recall": 0.9632,
+   "f1": 0.9646,
+   "fpr": 0.0105,
+   "accuracy": 0.9833
+  },
+  "invalid": 0
+ },
+ "by_source": {
+  "phiusiil_legit": {
+   "n": 13590,
+   "fpr_strict": 0.0011,
+   "fpr_cautious": 0.002
+  },
+  "crawl": {
+   "n": 6350,
+   "fpr_strict": 0.0175,
+   "fpr_cautious": 0.034
+  },
+  "crawl_outbound": {
+   "n": 166,
+   "fpr_strict": 0.0904,
+   "fpr_cautious": 0.0904
+  },
+  "tranco_home": {
+   "n": 4621,
+   "fpr_strict": 0.0004,
+   "fpr_cautious": 0.0004
+  },
+  "openphish_test": {
+   "n": 9039,
+   "recall_strict": 0.9447,
+   "recall_cautious": 0.9619
+  }
+ },
+ "uae_official_heldout": {
+  "urls": 2231,
+  "judge_flagged_allowlist_on": 0,
+  "model_flagged_allowlist_off": 62,
+  "model_false_alarm_rate": 0.0278,
+  "model_examples": [
+   "https://secure-account.wio.io/",
+   "https://dib.ae/personal",
+   "https://dib.ae/personal/accounts",
+   "https://dib.ae/branch-banking/branch-banking",
+   "https://dib.ae/personal/emirati-banking",
+   "https://dib.ae/personal/manage-your-wealth/wajaha-private-banking",
+   "https://dib.ae/personal/manage-your-wealth/aayan-exclusive-banking",
+   "https://dib.ae/personal/mumayyaz-privilege-banking",
+   "https://apps.rakbank.ae/l6OV/we69zqeq",
+   "https://www.business.hsbc.ae/en-gb"
+  ]
+ },
+ "errors": {
+  "false_alarms": [
+   [
+    "https://www.smt.iconnect007.com",
+    0.8052,
+    "ml_url2"
+   ],
+   [
+    "https://www.havit.web.id",
+    0.5206,
+    "ml_url2"
+   ],
+   [
+    "https://www.ci.brooklyn-center.mn.us",
+    0.5418,
+    "ml_url2+deep_subdomain"
+   ],
+   [
+    "https://www.finance.gd",
+    0.961,
+    "lookalike_domain+ml_url2"
+   ],
+   [
+    "https://www.joycasino0kz.xyz",
+    0.5568,
+    "ml_url2+risky_tld"
+   ],
+   [
+    "https://www.maslo.top",
+    0.7855,
+    "ml_url2+risky_tld"
+   ],
+   [
+    "https://www.microsoft-watch.com",
+    0.9002,
+    "brand_in_domain"
+   ],
+   [
+    "https://www.microsoftrnd.co.il",
+    0.9489,
+    "lookalike_domain"
+   ],
+   [
+    "https://www.milesmcbain.xyz",
+    0.6267,
+    "ml_url2+risky_tld"
+   ],
+   [
+    "https://www.binasss.sa.cr",
+    0.5273,
+    "ml_url2"
+   ],
+   [
+    "https://www.05top.tk",
+    0.7874,
+    "ml_url2+risky_tld"
+   ],
+   [
+    "https://www.equalpaydaychi.xyz",
+    0.6484,
+    "ml_url2+risky_tld"
+   ],
+   [
+    "https://www.pwrwmn.shop",
+    0.8735,
+    "ml_url2+odd_tld"
+   ],
+   [
+    "https://www.pcb.iconnect007.com",
+    0.7886,
+    "ml_url2"
+   ],
+   [
+    "https://www.sammlung-online.kuma.art",
+    0.7152,
+    "ml_url2"
+   ]
+  ],
+  "missed": [
+   [
+    "https://f005.backblazeb2.com/file/charterbxhudmailll/index.html",
+    0.2413
+   ],
+   [
+    "https://s0y73.com/",
+    0.1238
+   ],
+   [
+    "https://couriersplease.addliwr.com/",
+    0.1676
+   ],
+   [
+    "https://koloaa.s3.us-east-2.amazonaws.com/newmssaoo.html",
+    0.2609
+   ],
+   [
+    "https://osyrys.eu/in-a-nutshell/",
+    0.069
+   ],
+   [
+    "https://s0y69.com/",
+    0.12
+   ],
+   [
+    "https://apps-tangem.com/",
+    0.0224
+   ],
+   [
+    "https://couriersplease.addliwf.com/",
+    0.1771
+   ],
+   [
+    "https://couriersplease.addliws.com/",
+    0.1771
+   ],
+   [
+    "https://logix-express-shop.fourthwall.com/",
+    0.1324
+   ],
+   [
+    "https://spellapp.com/resources/how-to-use-google-docs",
+    0.0267
+   ],
+   [
+    "https://packagepathfinder.com/",
+    0.0395
+   ],
+   [
+    "https://experts-prevoyance.com/",
+    0.0903
+   ],
+   [
+    "https://f005.backblazeb2.com/file/charternet007/index.html",
+    0.2384
+   ],
+   [
+    "https://spectrunm.s3.us-east-005.backblazeb2.com/index.html",
+    0.2724
+   ]
+  ]
+ }
+}

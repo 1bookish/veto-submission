@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>⚠️ Virus detected, clean your phone now</title>
+<style>
+  body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #b00020; color: #fff; text-align: center; }
+  main { max-width: 380px; margin: 0 auto; padding: 22px 18px; }
+  .big { font-size: 58px; }
+  h1 { font-size: 22px; margin: 6px 0 10px; }
+  .box { background: rgba(0,0,0,.25); border-radius: 10px; padding: 12px; margin: 12px 0; text-align: left; font-size: 14px; }
+  .bar { height: 10px; background: #ffcdd2; border-radius: 6px; overflow: hidden; margin-top: 6px; }
+  .bar i { display: block; height: 100%; width: 28%; background: #ffeb3b; }
+  a.btn { display: block; margin-top: 14px; padding: 15px; background: #ffeb3b; color: #b00020; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 18px; }
+  footer { font-size: 11px; color: #ffcdd2; margin-top: 26px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="big">⚠️</div>
+  <h1>Your phone is infected with (4) viruses!</h1>
+  <p>Your Android system has been damaged by 4 viruses found on websites you visited. If you do not remove the viruses now, your SIM card, photos and contacts will be damaged.</p>
+  <div class="box">Battery damaged: <b>28%</b><div class="bar"><i></i></div></div>
+  <div class="box">Time left before data loss: <b id="t">01:59</b></div>
+  <a class="btn" id="clean" href="/Cleaner-Pro.apk">REMOVE VIRUS NOW</a>
+  <footer>VETO.AI DEMO PAGE · imitates a fake-virus “scareware” page for testing the X-ray chamber · the app is a harmless file with no code</footer>
+</main>
+<script>
+// Typical scareware tricks, the X-ray chamber's watcher records (and neutralises) each one.
+try { navigator.vibrate([400, 200, 400]); } catch (e) {}
+try { for (var i = 0; i < 4; i++) history.pushState({ trap: i }, '', location.href); } catch (e) {}
+window.addEventListener('popstate', function () { history.pushState({ trap: 9 }, '', location.href); });
+window.addEventListener('beforeunload', function (e) { e.preventDefault(); e.returnValue = ''; });
+try { var ac = new (window.AudioContext || window.webkitAudioContext)(); var o = ac.createOscillator(); o.frequency.value = 880; o.connect(ac.destination); } catch (e) {}
+document.getElementById('clean').addEventListener('click', function () { try { document.documentElement.requestFullscreen(); } catch (e) {} });
+var s = 119; setInterval(function () { s = Math.max(0, s - 1); document.getElementById('t').textContent = '0' + Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); }, 1000);
+</script>
+</body>
+</html>

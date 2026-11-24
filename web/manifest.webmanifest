@@ -1,0 +1,41 @@
+{
+  "name": "Veto.ai · Scam Guard",
+  "short_name": "Veto.ai",
+  "description": "Checks scam messages, calls, links and one-time codes on your device against what real UAE institutions say they never ask for.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#eaf3ff",
+  "theme_color": "#eaf3ff",
+  "lang": "en",
+  "dir": "auto",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "shortcuts": [
+    {
+      "name": "Live call guard",
+      "url": "/?view=call"
+    }
+  ]
+}

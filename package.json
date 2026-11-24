@@ -1,0 +1,37 @@
+{
+  "name": "veto",
+  "version": "0.1.0",
+  "description": "Veto, on-device scam guard for the UAE: checks messages, calls, links and one-time codes against what real institutions say they will never ask for.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js",
+    "test": "node --test tests/engine.test.js tests/fusion.test.js tests/context.test.js tests/xray.test.js tests/urlml.test.js tests/sentinel.test.js tests/judge.test.js tests/zip-reader.test.js tests/http.test.js tests/docs.test.js",
+    "eval": "node tests/eval.js",
+    "eval:holdout": "node tests/eval.js --holdout",
+    "eval:all": "node tests/eval.js --all",
+    "bench:smishx": "node tests/bench-smishx.js",
+    "ingest": "node tools/ingest-policy.js",
+    "radar": "node tools/radar.js",
+    "android": "node tools/build-android.js",
+    "pet": "node tools/extract-pet.js",
+    "demo-apk": "node tools/make-demo-apk.js",
+    "train:url": "node tools/train-url-model.js",
+    "sentinel": "node tools/sentinel.js",
+    "logo-refs": "node tools/logo-refs.js",
+    "judge": "node tools/judge.js",
+    "feeds": "node server/feeds.js",
+    "dataset:url": "node tools/url-dataset.js",
+    "train:url2": "node --max-old-space-size=7000 tools/train-url-model2.js",
+    "eval:judge": "node tools/eval-judge.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.11.0",
+    "playwright-core": "^1.48.0"
+  }
+}

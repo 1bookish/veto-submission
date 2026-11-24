@@ -1,0 +1,9 @@
+node_modules/
+.env
+*.log
+.xray-cache/
+shots/
+android/build/
+android/debug.keystore
+assets/_reference/
+var/

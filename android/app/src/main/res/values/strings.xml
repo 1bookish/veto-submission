@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="chat_screen_label">Veto: highlight scams in chats</string>
+  <string name="chat_screen_summary">Outlines scam messages inside the chat apps you chose in Veto.</string>
+  <string name="chat_screen_desc">Veto reads the messages on screen ONLY in the chat apps you switched on in Veto (for example WhatsApp, Telegram, Messages), checks them on this phone, and outlines scam messages in red or amber. It never taps, types, replies or sends anything, never reads any other app, and nothing leaves your phone.</string>
+</resources>

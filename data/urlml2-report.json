@@ -1,0 +1,103 @@
+{
+ "version": "veto-url2-2026-11-24",
+ "split": {
+  "train_before": "2026-10-04",
+  "validation": [
+   "2026-10-04",
+   "2026-10-25"
+  ],
+  "test": [
+   "2026-10-25",
+   "2026-11-24"
+  ],
+  "train": 472582,
+  "validation_n": 30528,
+  "test_n": 33766
+ },
+ "threshold": 0.825,
+ "validation": {
+  "t": 0.825,
+  "precision": 0.9684,
+  "recall": 0.9401,
+  "f1": 0.954,
+  "fpr": 0.0077,
+  "tp": 5760,
+  "fp": 188,
+  "fn": 367,
+  "tn": 24213
+ },
+ "test": {
+  "t": 0.825,
+  "precision": 0.9781,
+  "recall": 0.947,
+  "f1": 0.9623,
+  "fpr": 0.0078,
+  "tp": 8560,
+  "fp": 192,
+  "fn": 479,
+  "tn": 24535,
+  "auc": 0.9965,
+  "recall_at_fpr_0_1pct": 0.8135,
+  "recall_at_fpr_1pct": 0.9581
+ },
+ "test_new_domains": {
+  "t": 0.825,
+  "precision": 0.9743,
+  "recall": 0.9481,
+  "f1": 0.961,
+  "fpr": 0.0078,
+  "tp": 7269,
+  "fp": 192,
+  "fn": 398,
+  "tn": 24535,
+  "note": "phishing only on registrable domains never seen in any training phishing"
+ },
+ "test_by_source": {
+  "phiusiil_legit": {
+   "n": 13590,
+   "fpr": 0.0007
+  },
+  "crawl": {
+   "n": 6350,
+   "fpr": 0.0238
+  },
+  "crawl_outbound": {
+   "n": 166,
+   "fpr": 0.1747
+  },
+  "tranco_home": {
+   "n": 4621,
+   "fpr": 0.0004
+  },
+  "openphish_test": {
+   "n": 9039,
+   "recall": 0.947
+  }
+ },
+ "uae_official": {
+  "urls": 2231,
+  "above_threshold": [
+   "https://secure-account.wio.io/",
+   "https://dib.ae/personal",
+   "https://dib.ae/personal/accounts",
+   "https://dib.ae/branch-banking/branch-banking",
+   "https://dib.ae/personal/emirati-banking",
+   "https://dib.ae/personal/manage-your-wealth/wajaha-private-banking",
+   "https://dib.ae/personal/manage-your-wealth/aayan-exclusive-banking",
+   "https://dib.ae/personal/mumayyaz-privilege-banking",
+   "https://apps.rakbank.ae/l6OV/we69zqeq",
+   "https://www.business.hsbc.ae/en-gb",
+   "https://beta-ask.u.ae/ar/uask",
+   "https://www.mbank.ae/payment/apple-pay/",
+   "https://www.mbank.ae/payment/google-pay/",
+   "https://www.mbank.ae/payment/samsung/",
+   "https://www.mbank.ae/mbank-millionaire-campaign/",
+   "https://www.mbank.ae/business-banking/business-accounts/",
+   "https://www.mbank.ae/business-banking/business-debit-card/",
+   "https://www.mbank.ae/mbankapp/",
+   "https://www.mbank.ae/banky/",
+   "https://www.liv.me/en/personal-loan"
+  ],
+  "max": 1
+ }
+}
