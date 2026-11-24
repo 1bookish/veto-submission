@@ -15,7 +15,7 @@
 | **Live site** | **https://milki0069.github.io/veto-submission/** · download the Android app, open the web app, get the extension |
 | **Web app (no install)** | https://milki0069.github.io/veto-submission/app/ · the same Veto screens in any browser |
 | **Test it in the browser** | https://milki0069.github.io/veto-submission/check/ · paste a message, a link or a whole list of links; same engine |
-| **Demo video (1 minute)** | link in the submission form; the source and the real screenshots it uses are in [`tools/video-render.js`](tools/video-render.js) and [`docs/img/demo/`](docs/img/demo/) |
+| **Demo video (1 minute)** | [watch on Google Drive](https://drive.google.com/file/d/1m2Z7aZArLyuuMnj-L3TL_YaR12q4Xx1p/view?usp=sharing); the source and the real screenshots it uses are in [`tools/video-render.js`](tools/video-render.js) and [`docs/img/demo/`](docs/img/demo/) |
 | **Android app** | [download veto.apk](https://github.com/MILKI0069/veto-submission/releases/latest/download/veto.apk) (also [`release/veto.apk`](release/veto.apk); source in [`android/`](android/)) |
 | **Browser extension (Chrome, Edge)** | [`release/veto-extension.zip`](release/veto-extension.zip) · load unpacked; source in [`extension/`](extension/) |
 | **Every number in this README** | traced to a file in [`docs/CLAIMS_LEDGER.md`](docs/CLAIMS_LEDGER.md); every test protocol written before it ran in [`docs/RESEARCH_LOG.md`](docs/RESEARCH_LOG.md) |
