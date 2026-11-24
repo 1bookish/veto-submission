@@ -21,6 +21,8 @@ const t0 = Date.now();
 const res = rows.map(r => ({ ...r, ...judgeOffline(r.url), label: r.label }));
 const ms = (Date.now() - t0) / rows.length;
 const pick = pred => res.filter(pred);
+// Example URLs in the report are defanged (hxxp, [.]) so the saved file never holds a live, clickable phishing link.
+const defang = u => String(u).replace(/^http/i, 'hxxp').replace(/\./g, '[.]');
 const report = {
   model: model2Info()?.version, split, n: rows.length, ms_per_url: +ms.toFixed(3),
   all: metrics(res),
@@ -33,8 +35,8 @@ const report = {
   // official UAE pages: the JUDGE passes them by design (allowlist); the MODEL alone is the honest test of unknown UAE sites
   uae_official_heldout: (() => { const u = uae.map(r => judgeOffline(r.url)); const m = uae.map(r => mlUrlScore2(r.url)); const mf = m.map((x, k) => !!x && x.p >= x.threshold); return { urls: uae.length, judge_flagged_allowlist_on: u.filter(x => x.verdict !== 'legitimate').length, model_flagged_allowlist_off: mf.filter(Boolean).length, model_false_alarm_rate: +(mf.filter(Boolean).length / Math.max(1, uae.length)).toFixed(4), model_examples: uae.filter((r, k) => mf[k]).slice(0, 10).map(r => r.url) }; })(),
   errors: {
-    false_alarms: pick(r => !r.label && r.verdict === 'phishing').slice(0, 15).map(r => [r.url.slice(0, 120), r.score, r.reasons.map(x => x.id).join('+')]),
-    missed: pick(r => r.label && r.verdict === 'legitimate').slice(0, 15).map(r => [r.url.slice(0, 120), r.score])
+    false_alarms: pick(r => !r.label && r.verdict === 'phishing').slice(0, 15).map(r => [defang(r.url.slice(0, 120)), r.score, r.reasons.map(x => x.id).join('+')]),
+    missed: pick(r => r.label && r.verdict === 'legitimate').slice(0, 15).map(r => [defang(r.url.slice(0, 120)), r.score])
   }
 };
 // optional: the online layer on a random sample (network!), with feeds OFF so it measures zero-day behaviour

@@ -105,140 +105,140 @@
  "errors": {
   "false_alarms": [
    [
-    "https://www.smt.iconnect007.com",
+    "hxxps://www[.]smt[.]iconnect007[.]com",
     0.8052,
     "ml_url2"
    ],
    [
-    "https://www.havit.web.id",
+    "hxxps://www[.]havit[.]web[.]id",
     0.5206,
     "ml_url2"
    ],
    [
-    "https://www.ci.brooklyn-center.mn.us",
+    "hxxps://www[.]ci[.]brooklyn-center[.]mn[.]us",
     0.5418,
     "ml_url2+deep_subdomain"
    ],
    [
-    "https://www.finance.gd",
+    "hxxps://www[.]finance[.]gd",
     0.961,
     "lookalike_domain+ml_url2"
    ],
    [
-    "https://www.joycasino0kz.xyz",
+    "hxxps://www[.]joycasino0kz[.]xyz",
     0.5568,
     "ml_url2+risky_tld"
    ],
    [
-    "https://www.maslo.top",
+    "hxxps://www[.]maslo[.]top",
     0.7855,
     "ml_url2+risky_tld"
    ],
    [
-    "https://www.microsoft-watch.com",
+    "hxxps://www[.]microsoft-watch[.]com",
     0.9002,
     "brand_in_domain"
    ],
    [
-    "https://www.microsoftrnd.co.il",
+    "hxxps://www[.]microsoftrnd[.]co[.]il",
     0.9489,
     "lookalike_domain"
    ],
    [
-    "https://www.milesmcbain.xyz",
+    "hxxps://www[.]milesmcbain[.]xyz",
     0.6267,
     "ml_url2+risky_tld"
    ],
    [
-    "https://www.binasss.sa.cr",
+    "hxxps://www[.]binasss[.]sa[.]cr",
     0.5273,
     "ml_url2"
    ],
    [
-    "https://www.05top.tk",
+    "hxxps://www[.]05top[.]tk",
     0.7874,
     "ml_url2+risky_tld"
    ],
    [
-    "https://www.equalpaydaychi.xyz",
+    "hxxps://www[.]equalpaydaychi[.]xyz",
     0.6484,
     "ml_url2+risky_tld"
    ],
    [
-    "https://www.pwrwmn.shop",
+    "hxxps://www[.]pwrwmn[.]shop",
     0.8735,
     "ml_url2+odd_tld"
    ],
    [
-    "https://www.thenationalbookreview.com",
+    "hxxps://www[.]thenationalbookreview[.]com",
     0.8711,
     "brand_in_domain"
    ],
    [
-    "https://www.pcb.iconnect007.com",
+    "hxxps://www[.]pcb[.]iconnect007[.]com",
     0.7886,
     "ml_url2"
    ]
   ],
   "missed": [
    [
-    "https://f005.backblazeb2.com/file/charterbxhudmailll/index.html",
+    "hxxps://f005[.]backblazeb2[.]com/file/charterbxhudmailll/index[.]html",
     0.2413
    ],
    [
-    "https://s0y73.com/",
+    "hxxps://s0y73[.]com/",
     0.1238
    ],
    [
-    "https://couriersplease.addliwr.com/",
+    "hxxps://couriersplease[.]addliwr[.]com/",
     0.1676
    ],
    [
-    "https://koloaa.s3.us-east-2.amazonaws.com/newmssaoo.html",
+    "hxxps://koloaa[.]s3[.]us-east-2[.]amazonaws[.]com/newmssaoo[.]html",
     0.2609
    ],
    [
-    "https://osyrys.eu/in-a-nutshell/",
+    "hxxps://osyrys[.]eu/in-a-nutshell/",
     0.069
    ],
    [
-    "https://s0y69.com/",
+    "hxxps://s0y69[.]com/",
     0.12
    ],
    [
-    "https://apps-tangem.com/",
+    "hxxps://apps-tangem[.]com/",
     0.0224
    ],
    [
-    "https://couriersplease.addliwf.com/",
+    "hxxps://couriersplease[.]addliwf[.]com/",
     0.1771
    ],
    [
-    "https://couriersplease.addliws.com/",
+    "hxxps://couriersplease[.]addliws[.]com/",
     0.1771
    ],
    [
-    "https://logix-express-shop.fourthwall.com/",
+    "hxxps://logix-express-shop[.]fourthwall[.]com/",
     0.1324
    ],
    [
-    "https://spellapp.com/resources/how-to-use-google-docs",
+    "hxxps://spellapp[.]com/resources/how-to-use-google-docs",
     0.0267
    ],
    [
-    "https://packagepathfinder.com/",
+    "hxxps://packagepathfinder[.]com/",
     0.0395
    ],
    [
-    "https://experts-prevoyance.com/",
+    "hxxps://experts-prevoyance[.]com/",
     0.0903
    ],
    [
-    "https://f005.backblazeb2.com/file/charternet007/index.html",
+    "hxxps://f005[.]backblazeb2[.]com/file/charternet007/index[.]html",
     0.2384
    ],
    [
-    "https://spectrunm.s3.us-east-005.backblazeb2.com/index.html",
+    "hxxps://spectrunm[.]s3[.]us-east-005[.]backblazeb2[.]com/index[.]html",
     0.2724
    ]
   ]
