@@ -2,7 +2,7 @@
 
 # Veto.ai: the scam guard that watches for you
 
-**ScamShield AI hackathon · Abu Dhabi Police × 42 Abu Dhabi · Team veto.ai · November 2026**
+**ScamShield AI hackathon · Abu Dhabi Police × 42 Abu Dhabi · Team veto.ai: Sarah Bawazir, Firaol Tesfaye, Milki Teshome · November 2026**
 
 > Most scam checkers wait for you to copy a suspicious message, open an app, paste it and ask "is this fake?".
 > By then the victim has usually already tapped.
