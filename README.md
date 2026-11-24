@@ -66,7 +66,7 @@ that no domain is in both.
 | Criterion (weight) | What Veto delivers | Proof |
 |---|---|---|
 | **Detection accuracy (30 %)** | **98.3 % precision, 94.5 % recall** on **33,766** held-out links; **96.9 %** of scam SMS caught at **2.4 %** false alarms; **0 of 2,231** official UAE pages wrongly flagged | [`data/judge-report.json`](data/judge-report.json), [`data/sms-cv-report.json`](data/sms-cv-report.json) |
-| **Early detection and coverage (25 %)** | new fake sites seen in public certificate logs a median **17 s** after they appear; **about 70,000** new domains screened a day; SMS, WhatsApp, Telegram, calls, links, e-mail, websites, QR codes, search and Maps; any language | [`data/ct-watch-report-run4.json`](data/ct-watch-report-run4.json) |
+| **Early detection and coverage (25 %)** | new fake sites seen in public certificate logs a median **17 s** after they appear; a live look-alike hunt found **568** registered look-alike domains of UAE institutions, **248** of them live; **about 70,000** new domains screened a day; SMS, WhatsApp, Telegram, calls, links, e-mail, websites, QR codes, search and Maps; any language | [`data/ct-watch-report-run4.json`](data/ct-watch-report-run4.json) |
 | **Explainability and actionability (20 %)** | every warning names the rule the scam breaks, in the institution's own words, gives the real number and offers Report, Warn family and the police number; Kiki shows how serious it is at a glance | [Every feature](#every-feature), [Kiki](#kiki-a-warning-anyone-can-read) |
 | **UAE relevance and innovation (15 %)** | the published rules of **77 UAE institutions**, **34 UAE brands** watched for look-alikes, Arabic and English; it reads messages by itself, with no copying or pasting | [What sets Veto apart](#what-sets-veto-apart) |
 | **Feasibility and presentation (10 %)** | live today: Android app, browser extension, web app and link check, one shared engine, **fully offline**, **153** automated tests, no paid service needed | [live site](https://milki0069.github.io/veto-submission/) |
@@ -166,6 +166,17 @@ Veto easy to use for elderly people and children. Kiki stays hidden and only app
 | On speaker, Veto listens and says HANG UP NOW with the rule the caller broke. | The X-ray typed fake details into a scam page and caught it sending them to a hidden Google spreadsheet; Kiki says what the page really wants. |
 
 ---
+
+## Coming next: block once, protect the whole family
+
+Scammers aim at the most trusting person in a family: an elderly parent, a busy relative, a child with a first phone. Veto's next step turns one person's caution into everyone's protection.
+
+- **Confirm once, blocked everywhere.** When you confirm a scam, Veto blocks that link and that phone number on every device you link: your phone, your laptop with the extension, and the phones and tablets of the family members you add.
+- **Made for children and elderly parents.** A parent looks after a child's device: a scam blocked for the parent is blocked for the child too, and Kiki shows the child a simple STOP instead of the link.
+- **Fast community protection.** With consent, a confirmed scam (only the link or the number, never the message or who received it) joins the offline blocklist every Veto device carries, so one report can protect thousands of people.
+- **Built on what ships today:** Warn family, Report to Aman (800 2626), Link Shield and the on-device blocklist.
+
+Status: designed, not built yet. It needs opt-in family linking, and a review of community reports so that nobody can get a real number blocked with false reports.
 
 ## How we built and tested it
 
