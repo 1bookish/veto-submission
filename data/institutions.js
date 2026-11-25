@@ -141,7 +141,9 @@ export const INSTITUTIONS = [
   I('sib', 'bank', 'Sharjah Islamic Bank', 'مصرف الشارقة الإسلامي', { aliases: ['sharjah islamic bank', 'مصرف الشارقة الإسلامي'], strict: ['SIB'], domains: ['sib.ae'], tokens: ['sib'] }),
   I('ajman', 'bank', 'Ajman Bank', 'مصرف عجمان', { aliases: ['ajman bank', 'مصرف عجمان'], domains: ['ajmanbank.ae'], tokens: ['ajmanbank'] }),
   I('cbi', 'bank', 'Commercial Bank International', 'البنك التجاري الدولي', { aliases: ['commercial bank international', 'البنك التجاري الدولي'], strict: ['CBI'], domains: ['cbiuae.com'], tokens: ['cbiuae'] }),
-  I('uab', 'bank', 'United Arab Bank', 'البنك العربي المتحد', { aliases: ['united arab bank', 'البنك العربي المتحد'], strict: ['UAB'], domains: ['uab.ae'], tokens: ['uab'] }),
+  I('uab', 'bank', 'United Arab Bank', 'البنك العربي المتحد', { aliases: ['united arab bank', 'البنك العربي المتحد'], strict: ['UAB'], domains: ['uab.ae'], tokens: ['uab'],
+    phones: [P('800474', '800 474', true), P('97165987332', '+971 6 598 7332', true), P('97137052111', '+971 3 705 2111', true)] // UAB 2025 annual report, Contact Us: https://www.uab.ae/-/media/project/uab/pdf/2026/feb/uab-annual-report-2025enfinal-adx.pdf
+  }),
   I('bos', 'bank', 'Bank of Sharjah', 'بنك الشارقة', { aliases: ['bank of sharjah', 'بنك الشارقة'], domains: ['bankofsharjah.com'], tokens: ['bankofsharjah'] }),
   I('alhilal', 'bank', 'Al Hilal Bank', 'مصرف الهلال', { aliases: ['al hilal bank', 'alhilal bank', 'مصرف الهلال'], domains: ['alhilalbank.ae'], tokens: ['alhilalbank', 'alhilal'] }),
   I('wio', 'bank', 'Wio Bank', 'ويو بنك', { aliases: ['wio bank', 'wio'], domains: ['wio.io'], tokens: ['wio'] }),
