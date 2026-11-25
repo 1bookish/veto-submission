@@ -61,6 +61,9 @@ h3 { font:700 19px/1.3 var(--display); margin:0 0 4px; }
 .shots { display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:16px; align-items:start; }
 .shots img { width:100%; border-radius:16px; border:1px solid var(--line); }
 .shots figcaption { color:var(--muted); font-size:14px; margin-top:6px; }
+.inside { display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 300px)); gap:22px; justify-content:start; }
+.inside figure { margin:0; } .inside img { width:100%; border-radius:26px; border:8px solid #0b0f16; box-shadow:0 18px 40px rgba(10,30,70,.25); }
+.inside figcaption { color:var(--ink2); font-size:14.5px; margin-top:10px; }
 .tw { overflow-x:auto; } table { border-collapse:collapse; width:100%; font-size:15px; } td, th { text-align:left; padding:9px 8px; border-bottom:1px solid var(--line); vertical-align:top; } th { color:var(--muted); font-size:13px; text-transform:uppercase; letter-spacing:.05em; }
 footer { color:var(--muted); font-size:14px; padding-block:24px; border-top:1px solid var(--line); }
 @media (max-width:820px) { .hero .in { grid-template-columns:1fr; } .phone { margin:0 auto; transform:none; } }
@@ -94,6 +97,12 @@ footer { color:var(--muted); font-size:14px; padding-block:24px; border-top:1px 
     <div class="card"><h3>Veto reads it on the phone</h3><p>Who it claims to be, what it asks for, how it pressures you, where its links really go. No internet needed, nothing uploaded.</p></div>
     <div class="card"><h3>Kiki warns you at once</h3><p>Over the app you are in: why it is a scam, Report, Warn family and the police number, in English or Arabic.</p></div>
   </div>
+  <h2>Inside the app (real screenshots from our phone)</h2>
+  <p class="lead">What the full Android app looks like, so you can see it without installing: switch on the guards once, choose which apps Veto reads, and it watches by itself. <a href="#app">More on the app and why it is not on Google Play yet →</a></p>
+  <div class="inside" style="margin-bottom:8px">
+    <figure><img src="assets/app-guards.webp" alt="Veto app home: Guarding, 5 of 5 guards on"><figcaption><b>Guarding, 5 / 5 on</b>: every permission explained in plain words.</figcaption></figure>
+    <figure><img src="assets/app-settings.webp" alt="Veto app settings and the apps Veto reads"><figcaption><b>Apps Veto reads</b>: only the ones you switch on; online checks off until you choose.</figcaption></figure>
+  </div>
   <div class="band"><div><b>Works fully offline</b><br><span>Every check runs on the device in about 1 millisecond per link. The app shows it after each check: "Network requests during this check: 0".</span></div></div>
   <h2>Real messages, real warnings</h2>
   <p class="lead">Real scams a team member received, and real Veto screens.</p>
@@ -115,6 +124,13 @@ footer { color:var(--muted); font-size:14px; padding-block:24px; border-top:1px 
       <li>To turn on message reading: Settings, Apps, Veto, the ⋮ menu, "Allow restricted settings", then switch on each guard in Veto.</li>
     </ol>
     The phone it was recorded on had it installed directly over a cable, the way developers install test builds. If it will not install, the <a href="app/">web app</a> has the same checks, without the automatic watching (a browser cannot read notifications or calls).</div>
+  <h2 style="margin-top:28px">Inside the app, without installing it</h2>
+  <p class="lead">Two real screenshots from the full Veto app on our phone. You switch on each guard once; from then on each permission does its job by itself: notification access reads new messages, the caller-ID role checks unknown numbers before they ring, the overlay lets Kiki warn you on top of WhatsApp or the dialer. You choose exactly which apps Veto reads, and online checks stay off until you switch them on.</p>
+  <div class="inside">
+    <figure><img src="assets/app-guards.webp" alt="Veto app home: Guarding, 5 of 5 guards on"><figcaption><b>Guarding, 5 / 5 on.</b> Each guard says in plain words what it does and why. Kiki stays hidden until something needs you.</figcaption></figure>
+    <figure><img src="assets/app-settings.webp" alt="Veto app settings: apps Veto reads"><figcaption><b>Settings and the apps Veto reads.</b> WhatsApp, Telegram, SMS, Instagram, BOTIM, Snapchat. Every other app is ignored and never read.</figcaption></figure>
+  </div>
+  <div class="warnbox"><b>Why it is not on Google Play yet.</b> Reading SMS, notifications and calls are powers Google grants only after it reviews an app on Google Play, and Android blocks or limits them for apps installed from anywhere else. Veto is a hackathon build that has not been through that review yet, so your phone may refuse it. Once it is on Google Play it installs like any other app: switch on the guards and Veto watches by itself. Until then these screenshots show exactly what it looks like inside, and the <a href="app/">web app</a> runs the same checks in your browser.</div>
   <h2 style="margin-top:28px">The guards, and exactly why</h2>
   <div class="grid" style="grid-template-columns:1fr">
     <div class="card perm"><div class="ic">▦</div><div><h3>Show Kiki over other apps</h3><p>So the warning appears on top of WhatsApp or the dialer. Kiki only appears when something needs your attention.</p></div><span class="on-pill">On</span></div>
