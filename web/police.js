@@ -493,6 +493,8 @@ function toolsView(d) {
     body = [h('p', { class: 'help' }, T('listHelp')),
       S.validation ? h('details', { class: 'report' }, h('summary', {}, L({en: 'Saved evaluation · 20 labelled URLs', ar: 'تقييم محفوظ · ٢٠ رابطاً مصنّفاً'})),
         h('p', { class: 'help' }, L({en: 'Offline sample of official UAE sites and OpenPhish entries. Training overlap is unknown. Your own labelled list is scored separately below.', ar: 'عينة محلية من مواقع إماراتية رسمية وروابط OpenPhish. التداخل مع بيانات التدريب غير معلوم. تُقيّم قائمتك المصنّفة بشكل مستقل أدناه.'})),
+        h('p', {}, L(S.validationCounts)),
+        h('a', { href: '/data/web-verification-2026-11-25.json', target: '_blank', rel: 'noopener noreferrer' }, L({en: 'Inspect the labelled results and URL hashes', ar: 'عرض النتائج المصنفة وبصمات الروابط'})),
         h('p', {}, S.validation.map(([key, value]) => T(key) + ' ' + value).join(' · '))) : null,
       h('textarea', { id: 'listIn', class: 'field mono', rows: 6, dir: 'ltr', placeholder: T('listPh'), 'aria-label': T('tList'), value: S.listText, oninput: e => { S.listText = e.target.value; } }),
       h('div', { style: 'margin-top:10px' }, h('button', { class: `btn blue${S.listBusy ? ' spin' : ''}`, type: 'button', disabled: S.listBusy, onclick: runList }, ic(S.listBusy ? 'refresh-cw' : 'list-checks'), T('listBtn'))),
@@ -630,6 +632,10 @@ function render() {
     const tp = positive.filter(r => r.verdict === 'phishing').length;
     const fp = negative.filter(r => r.verdict === 'phishing').length;
     const rate = (n, total) => total ? pct(n / total) : '—';
+    S.validationCounts = {
+      en: `${tp} of ${positive.length} phishing URLs flagged; ${positive.length - tp} missed. False alarms on legitimate URLs: ${fp} of ${negative.length}.`,
+      ar: `رُصد ${tp} من أصل ${positive.length} روابط تصيد، وفات الكشف عن ${positive.length - tp}. الإنذارات الخاطئة على الروابط السليمة: ${fp} من ${negative.length}.`
+    };
     S.validation = [['precision', rate(tp, tp + fp)], ['recall', rate(tp, positive.length)], ['falseAlarms', rate(fp, negative.length)]];
     render();
   }).catch(() => {});
