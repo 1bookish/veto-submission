@@ -24,6 +24,30 @@
   </div>
 </header>
 
+<style>
+.fullapp { max-width:980px; margin:4px auto 10px; padding:0 16px; }
+.fullapp details { background:#ffffff; border:1px solid #cfe0f7; border-radius:18px; padding:12px 16px; box-shadow:0 8px 22px rgba(20,60,120,.08); color:#13223b; }
+.fullapp summary { cursor:pointer; font-weight:700; font-size:15px; }
+.fullapp summary span { color:#1a6cf0; }
+.fullapp p { margin:10px 0 0; font-size:14px; color:#3a4a63; line-height:1.5; }
+.fullapp .shots { display:flex; gap:14px; flex-wrap:wrap; margin-top:12px; }
+.fullapp figure { margin:0; flex:1 1 180px; max-width:230px; }
+.fullapp img { width:100%; border-radius:20px; border:6px solid #0b0f16; display:block; }
+.fullapp figcaption { font-size:12.5px; color:#53627a; margin-top:6px; }
+.fullapp a { color:#1a6cf0; font-weight:700; }
+</style>
+<section class="fullapp" dir="ltr" aria-label="The full Android app">
+  <details open>
+    <summary>This is the web version. <span>The full Veto app on Android looks like this ↓</span></summary>
+    <p>On the phone, Veto reads every new SMS, WhatsApp and Telegram notification by itself, checks unknown callers before they ring and pops Kiki up on top of the app you are in. No copying, no pasting. You switch on each guard once and the permissions do the rest. A browser is not allowed to read notifications or calls, so here you paste or type a message yourself; every check below runs the same engine, on this device.</p>
+    <div class="shots">
+      <figure><img src="../assets/app-guards.webp" alt="Veto app: Guarding, 5 of 5 guards on"><figcaption>Real screenshot: the guards, 5 / 5 on</figcaption></figure>
+      <figure><img src="../assets/app-settings.webp" alt="Veto app: settings and the apps Veto reads"><figcaption>Real screenshot: settings and the apps Veto reads</figcaption></figure>
+    </div>
+    <p><b>Why it is not on Google Play yet:</b> Google grants SMS, notification and call powers only after it reviews an app on Google Play, and phones block or limit them for apps installed from elsewhere. Veto is a hackathon build that has not been through that review yet. You can still try the <a href="https://github.com/MILKI0069/veto-submission/releases/latest/download/veto.apk">Android app (veto.apk)</a> with the <a href="../#app">3 install steps</a>.</p>
+  </details>
+</section>
+
 <nav class="tabs" role="tablist">
   <button role="tab" id="tabCheck" aria-selected="true" data-view="check"></button>
   <button role="tab" id="tabCall" aria-selected="false" data-view="call"></button>

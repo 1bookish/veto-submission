@@ -61,6 +61,38 @@ that no domain is in both.
 
 ---
 
+## Every judging criterion, at a glance
+
+| Criterion (weight) | What Veto delivers | Proof |
+|---|---|---|
+| **Detection accuracy (30 %)** | **98.3 % precision, 94.5 % recall** on **33,766** held-out links; **96.9 %** of scam SMS caught at **2.4 %** false alarms; **0 of 2,231** official UAE pages wrongly flagged | [`data/judge-report.json`](data/judge-report.json), [`data/sms-cv-report.json`](data/sms-cv-report.json) |
+| **Early detection and coverage (25 %)** | new fake sites seen in public certificate logs a median **17 s** after they appear; **about 70,000** new domains screened a day; SMS, WhatsApp, Telegram, calls, links, e-mail, websites, QR codes, search and Maps; any language | [`data/ct-watch-report-run4.json`](data/ct-watch-report-run4.json) |
+| **Explainability and actionability (20 %)** | every warning names the rule the scam breaks, in the institution's own words, gives the real number and offers Report, Warn family and the police number; Kiki shows how serious it is at a glance | [Every feature](#every-feature), [Kiki](#kiki-a-warning-anyone-can-read) |
+| **UAE relevance and innovation (15 %)** | the published rules of **77 UAE institutions**, **34 UAE brands** watched for look-alikes, Arabic and English; it reads messages by itself, with no copying or pasting | [What sets Veto apart](#what-sets-veto-apart) |
+| **Feasibility and presentation (10 %)** | live today: Android app, browser extension, web app and link check, one shared engine, **fully offline**, **153** automated tests, no paid service needed | [live site](https://milki0069.github.io/veto-submission/) |
+
+Full detail per criterion: [How Veto meets each judging criterion](#how-veto-meets-each-judging-criterion).
+
+## Beyond the rubric: advanced methods, not keyword lists
+
+Simple scam checkers match keywords or look a link up in a blocklist. Veto combines methods that each answer a harder
+question, and every one of them is measured:
+
+| Method | What it does | Why it matters |
+|---|---|---|
+| **Rulebook contradiction reasoning** | turns what 77 UAE institutions have publicly said they will *never* ask for into machine-readable rules, and checks each message, call and link against the rules of the institution it claims to be | catches brand-new scams with no known link, and the warning cites the institution's own words |
+| **Full-URL machine-learning model** | logistic regression over **2^20 hashed features** of the whole address (host, path, query, scheme, popularity bucket), trained on **472,582** dated URLs | held out **by time and by domain**, so the score reflects scams it has never seen |
+| **On-device SMS model with nested cross-validation** | hashed text features of **881** labelled texts, the threshold chosen only inside the inner folds; **1,000,000** generated texts tested as extra training data and rejected because real texts did better | an honest score, no tuning on the test data |
+| **Live Certificate Transparency streaming** | reads **50** public certificate logs as they grow, parses each certificate directly from its binary form, **736,333** certificates in 10 minutes | fake sites are flagged before the first scam SMS is sent |
+| **Look-alike hunting at scale** | look-alike letters, punycode, swapped neighbouring letters, brand names glued to other words; stress-tested on **917,396** look-alike domains of **92,732** brands against **100,000** real sites | measured on a scale far beyond the UAE list it protects |
+| **Link X-ray in a sealed browser** | opens the page in a throw-away headless browser, types **fake** details and watches where they go (a Telegram bot, a webhook, a hidden spreadsheet), blocking every send | proves what a page steals instead of guessing |
+| **Phone-context contradictions** | compares what a message claims with what the phone knows: the saved contact, the number's country, an active call, a bank app opening | catches "Hi Mum, new number" and coached calls that contain no link at all |
+| **Live scam-script tracking on calls** | follows the stages of a scam script (authority, problem, pressure, the ask) and warns before the ask arrives | protects during the call, not after the money is gone |
+| **Privacy-first AI layer** | personal data is removed before any AI sees the text; the AI translates other languages and can add a warning but never remove one | the AI makes Veto stronger without making it less safe |
+| **Pre-registered tests and a claims ledger** | each test was written down before it ran, and every number in this README is traced to a file; **66,533** links re-judged after each engine change with identical verdicts | the numbers can be checked, not just trusted |
+
+---
+
 ## What sets Veto apart
 
 1. **No copy, no paste. It watches.** On Android, Veto reads each new SMS and WhatsApp notification as it arrives and
@@ -91,9 +123,20 @@ Telegram) on the phone; trusted family chats are skipped and nothing is uploaded
 phishing feeds, the day's newly registered domains and new look-alike certificates; a scam reported through Veto goes to
 the police with an evidence pack.
 
-To watch for you, Veto needs SMS, notification and call access. Android guards those powers closely for apps that do not
-come from Google Play, and Veto is a hackathon build that has not been through a Play Store review yet. The phone in the
-demo video had it installed directly over a cable, the way test builds are installed. On another phone:
+**Inside the app, without installing it.** Two real screenshots from the full app on our phone. You switch on each guard
+once and the permissions do the work from then on: notification access reads new messages, the caller-ID role checks
+unknown numbers before they ring, the overlay lets Kiki warn you on top of WhatsApp or the dialer. You choose exactly
+which apps Veto reads, and online checks stay off until you switch them on.
+
+| The guards, 5 / 5 on | Settings and the apps Veto reads |
+|---|---|
+| <img src="docs/img/app/guards.webp" width="300" alt="Veto app: Guarding, 5 of 5 guards on"> | <img src="docs/img/app/settings.webp" width="300" alt="Veto app: settings and the apps Veto reads"> |
+
+**Why it is not on Google Play yet.** Reading SMS, notifications and calls are powers Google grants only after it
+reviews an app on Google Play, and Android blocks or limits them for apps installed from anywhere else. Veto is a
+hackathon build that has not been through that review yet, so a phone may refuse it. Once it is on Google Play it
+installs like any other app: switch on the guards and Veto watches by itself. The phone in the demo video had it
+installed directly over a cable, the way test builds are installed. To try it on another phone today:
 
 1. Download [`veto.apk`](https://github.com/MILKI0069/veto-submission/releases/latest/download/veto.apk) and allow
    installs from your browser if Android asks.
