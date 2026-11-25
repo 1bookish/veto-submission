@@ -75,7 +75,6 @@ ASVspoof 5 (53 teams) reports degradation under adversarial attacks and neural c
 | [yizhu-joy/SmishX](https://github.com/yizhu-joy/SmishX) | n/a | Explainable smishing (SOUPS 2025), 1,200-SMS dataset (MIT) | External benchmark candidate |
 | [Linklow/coachguard](https://github.com/Linklow/coachguard) | 15 | On-device "coached payment" detection SDK for Android banking apps (call, screen share, remote access, behaviour) | Bank-side complement; Veto is user-side and semantic |
 | [OrangeAKA/saaya](https://github.com/OrangeAKA/saaya) | 2 | Android: unknown call + banking/UPI/remote app → overlay, Hindi voice warning, SMS to a guardian | → Veto "warn a family member" |
-| UAE-specific (all created 2026, 0 ★): [salehbagomri/haris-arabic-scam-intelligence](https://github.com/salehbagomri/haris-arabic-scam-intelligence), [laurasarbah-wq/ScamX](https://github.com/laurasarbah-wq/ScamX), [beyzanurates/scamshield-uae](https://github.com/beyzanurates/scamshield-uae), [pro-coder12353/saif-AI](https://github.com/pro-coder12353/saif-AI), [SHAHINA-02/UAE-scam-detector](https://github.com/SHAHINA-02/UAE-scam-detector), [anilandcode/scamcheck-uae](https://github.com/anilandcode/scamcheck-uae) | 0 | Deterministic-first Arabic analyser with "Scam DNA" that **never opens links** (and is also called **حارس / HARIS**); on-device Kotlin checker with URL-only Safe Browsing lookup; screenshot → vision model → verified UAE registry; Gemini multimodal app with heat-map and Dubai Police reporting; Claude-based scorer; visa/job-photo scorer | Expect similar entries at the hackathon. Several share Veto's privacy pattern and a UAE registry, **don't pitch those as unique** |
 
 ## 4. Honest novelty statement
 
@@ -113,7 +112,6 @@ SmishX dataset ([MIT](https://github.com/yizhu-joy/SmishX)): 1,200 real SMS, 259
 
 ## 7. Recommended next steps
 1. **Arabic external benchmark** (Ghourabi 2020 dataset) and measure the AI deep-check on SmishX.
-2. **Name**: done, renamed from "Haris" to **Veto** because another Arabic scam project is already called حارس/HARIS.
 3. Privacy-level slider for the AI layer (MASK); summary memory for long chats (arXiv 2607.11707).
 4. Real-time Radar via a self-hosted certstream server; Radar scoring with a CT classifier.
 5. UAE-specific inoculation drills (only local scenarios transfer).

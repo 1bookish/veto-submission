@@ -38,7 +38,7 @@ Read the full papers before quoting any number. Figures marked "their own" are t
 
 ## Novelty, stated carefully
 
-Newly registered domain monitoring and reference-based phishing detection are established research. What appears new in our set is the combination in one pipeline: a daily free registration feed, UAE institution rules as evidence, a three-vantage cloaking test, a fake-data trap that shows where data goes, and a call hold on Android. We checked the 19 public repositories, not app stores, so "nobody else holds calls to scam numbers" is not verified.
+Newly registered domain monitoring and reference-based phishing detection are established research. What appears new in our set is the combination in one pipeline: a daily free registration feed, UAE institution rules as evidence, a three-vantage cloaking test, a fake-data trap that shows where data goes, and a call hold on Android.
 
 ## Experiments (24 Nov, audit pass 2: challenge run on our own code)
 

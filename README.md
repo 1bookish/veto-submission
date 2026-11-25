@@ -83,7 +83,69 @@ that no domain is in both.
 
 ---
 
+## How we came to the idea, and what is new
+
+Scammers can fake a caller ID, a logo, a website, even a voice. **They cannot fake the institution's own rules.**
+Every UAE bank, police force and government body has said in public what it will never ask you to do: share an OTP or
+PIN, install a remote-control app, move money to a "safe account", pay a fine through a link. We turned those
+statements into a machine-readable rulebook, and built every check around one question: *does this message, link or
+call contradict what the institution it claims to be has promised?* The answer cites the institution's own words.
+
+On top of that rulebook, Veto adds what we believe is new in one pipeline:
+
+1. **Self-citing verdicts.** Each warning quotes the rule the scam breaks and gives the institution's real number and website.
+2. **It watches instead of waiting.** Notifications, links and calls are checked as they arrive, and the warning is drawn
+   over the app in use. Nobody has to copy, paste or open anything.
+3. **Scam-in-progress fusion.** A one-time code that arrives while someone claiming to be your bank is on the phone is
+   linked to that caller: *"They are asking for the code you received 1 minute ago. It adds a NEW beneficiary."*
+4. **Predictive script tracking.** On a call, Veto follows the scam script (authority, problem, pressure, the ask) and warns
+   before the ask arrives.
+5. **Phone-context contradictions.** What a message claims is compared with what the phone knows: the saved contact, the
+   number's country, the chat history, an active call. "Hi Mum, new number" is checked against the Mum you saved.
+6. **A link X-ray that answers "where does my data go?"** A sealed browser types fake details into the page and names the
+   channel the criminals use (a Telegram bot, a webhook, a hidden spreadsheet), blocking every send.
+7. **Early warning built for the UAE.** Certificate logs, newly registered domains and look-alike hunts focused on UAE
+   institutions and brands, joined into campaigns by the infrastructure criminals reuse.
+8. **Protection at the moment of dialling.** If you call a number from a scam message, Veto holds the call and offers the
+   institution's real number.
+9. **Measured honestly.** Every number comes from a test planned in writing before it ran, on data that came after the
+   training data.
+
+---
+
+## Every feature
+
+| Feature | What it does | Where it runs |
+|---|---|---|
+| **Kiki, the Android guard** | A small companion that stays hidden until something needs you. Reads new WhatsApp, SMS and Telegram notifications (trusted family chats are skipped) and pops up over the app with "This is a scam" or "Be careful", the reasons, and Report, Warn family, I know them and Got it. | Android, on the phone |
+| **Message check** | Finds who a message claims to be, what it asks for and how it pressures you, and checks it against the rulebook of 77 UAE institutions. Arabic and English. | phone, extension, web |
+| **On-device SMS model** | A model trained on 881 labelled texts that recognises how scam texts are worded, even with no link or brand name: 96.9 % caught. | phone, extension, web |
+| **URL Judge** | One verdict, one score and plain reasons for any link: official sites, look-alike letters, brands glued to other words, punycode, "@" tricks, short links, open redirects, cheap endings, a full-URL model trained on 472,582 URLs, and a popularity guard. | everywhere, about 1 ms per link |
+| **Link X-ray** | Opens a suspicious link in a sealed, throw-away browser, shows a picture of the page and says in one sentence what it wants. A fake-data trap shows where stolen data would go. Unmasks fake "virus detected" pages and pages that hide from scanners. Reads a pushed app file without installing it and names banking-trojan powers. | server |
+| **Link Shield** | Checks every link you tap on the phone before the browser opens it. | Android |
+| **Caller check** | Before you answer: the number's country, one-ring scam ranges, hidden numbers, and whether it is really the institution's published number. | Android, web |
+| **Call watch** | During a call with an unknown number, catches the footprints of a coached scam: a bank code arriving, your bank app, UAE PASS or AnyDesk opening, an app being installed. A sharp beep and a red STOP card say why. | Android |
+| **Live call guard** | Put a suspicious call on speaker: Veto follows the scam script live and flashes HANG UP NOW with the reason the moment the caller asks for something a real institution never would. | web console |
+| **OTP Guard** | Explains in plain words what a one-time code unlocks ("adding your card to someone's Apple Pay") and never to share it. | phone, web |
+| **Fake-number interceptor** | Holds an outgoing call to a number from a scam message, or a fake contact saved under a bank's name, and offers the real number. | Android |
+| **Contacts audit** | Finds contacts saved under an institution's name with a number it does not publish. | Android |
+| **Listing check** | Checks a Maps, search or ad listing field by field ("Emirates NBD Customer Care 24/7") against the institution's published numbers and websites. | phone, web |
+| **Browser extension** | Full-screen warning on scam websites, labels on risky messages in WhatsApp Web, Google Messages, Telegram, Gmail and Outlook, right-click check, red, orange and green badges. | Chrome, Edge |
+| **AI second opinion** | Translates and checks messages in other languages (Urdu, Hindi, Tagalog ...) and messages where the parts disagree; it can add a warning, never remove one. Personal data is removed first. | optional |
+| **Live certificate watch** | Reads 50 public certificate logs live and flags new sites that use UAE institution and brand names, a median 17 s after they are logged; alerts are enriched and linked. | server |
+| **New-domain watch and Sentinel** | Reads the day's newly registered domains (about 70,000) and hunts about 10,000 look-alike names per institution; visits the live ones and separates armed pages from parked names. | police console |
+| **Campaign linking** | Joins scam sites by what criminals reuse: Telegram bot IDs, analytics IDs, wallets, WhatsApp numbers, the same server, a bulk registration. | police console |
+| **Evidence and takedown packs** | A ZIP with screenshots, the page, the registrar and abuse contact and a SHA-256 manifest; STIX 2.1 export for threat-intelligence platforms. | police console |
+| **Test yourself** | A short "scam or safe?" quiz that teaches the patterns. | web |
+
+---
+
 ## Real messages, real warnings
+
+A real screen recording on a Samsung Galaxy S25: a fake RTA parking fine arrives on Telegram and Kiki, Veto's guard,
+pops up at once with the reasons, Report, Warn family and the police number. Nobody pasted anything.
+
+<img src="docs/img/demo/phone-kiki.png" width="300" alt="Kiki warning over a fake RTA parking fine on Telegram">
 
 These are real SMS messages a team member received, with Veto's warnings drawn over Google Messages on a Samsung
 Galaxy S25.
