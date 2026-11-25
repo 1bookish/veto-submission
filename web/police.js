@@ -337,7 +337,7 @@ function huntView(d) {
         catch { S.phoneRun={errors:[T('error')]}; }
         finally { S.phoneBusy=false;render(); }
       }}, h('select',{'aria-label':T('scope'),onchange:e=>{S.phoneInst=e.target.value;S.phoneRun=null;render();}},
-        d.institutions.filter(i=>['fab','enbd','adcb','tamm'].includes(i.id)).map(i=>h('option',{value:i.id,selected:i.id===(S.phoneInst || 'fab')},L(i.name)))),
+        d.institutions.map(i=>h('option',{value:i.id,selected:i.id===(S.phoneInst || 'fab')},L(i.name)))),
         h('button',{class:'btn primary',type:'submit',disabled:S.phoneBusy},S.phoneBusy ? T('running') : L({en:'Check live listings',ar:'فحص الإدراجات مباشرة'})))),
     S.phoneRun ? h('section',{class:'panel'},h('b',{},S.phoneRun.query), h('p',{},S.phoneRun.at),
       Object.entries(S.phoneRun.counts || {}).map(([k,v])=>h('span',{class:'tag'},k+' '+(v ?? '—'))),

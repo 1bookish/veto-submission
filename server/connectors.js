@@ -10,9 +10,9 @@
 
 import { analyzeUrl, splitDomain, officialFor } from '../engine/url.js';
 import { findInstitutions } from '../engine/extract.js';
-import { matchForm } from '../engine/normalize.js';
+import { foldDigits, matchForm } from '../engine/normalize.js';
 import { NEUTRAL_DOMAINS } from '../data/institutions.js';
-import { historicalPhoneAlert } from '../engine/ledger.js';
+import { checkListing } from '../engine/ledger.js';
 import { sameNumber, exactShort } from '../engine/context.js';
 import { listingSuspect } from './sentinel.js';
 
@@ -53,11 +53,14 @@ export async function helplineHunt(inst) {
   const rows = [];
   const add = (channel,title,phone,url) => {
     if (!phone) return;
-    const match = inst.phones.some(p => p.v && (sameNumber(p.n, phone) || exactShort(p.n, phone)));
-    rows.push({channel,title,phone,url,match,advisory:historicalPhoneAlert(phone)});
+    const match = (inst.phones || []).some(p => p.v && (sameNumber(p.n, phone) || exactShort(p.n, phone)));
+    const advisory = checkListing({ name: title, phone }).signals.find(signal => signal.source) || null;
+    rows.push({channel,title,phone,url,match,advisory});
   };
   for (const r of web.value || []) {
-    const phones = new Set([r.phone, ...((r.title+' '+r.description).match(PHONE_RX) || [])]);
+    const snippet = foldDigits(r.title + ' ' + r.description);
+    const labelled = snippet.matchAll(/(?:phone|call|tel|helpline|رقم|اتصل)\s*[:：]?\s*(\d{8})(?![\d-])/gi);
+    const phones = new Set([r.phone, ...(snippet.match(PHONE_RX) || []), ...Array.from(labelled, m => m[1])]);
     for (const phone of phones) add(r.ad ? 'Ads' : 'Search',r.title,phone,r.url);
   }
   for (const r of maps.value || []) add('Maps',r.name,r.phone,r.website);

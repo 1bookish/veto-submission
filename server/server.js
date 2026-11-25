@@ -263,7 +263,7 @@ const server = http.createServer(async (req, res) => {
       }
       if (url.pathname === '/api/sentinel/helplines' && req.method === 'POST') {
         const body = await readJson(req, 1000);
-        const inst = INSTITUTIONS.find(i => i.id === body.inst && i.phones?.length);
+        const inst = INSTITUTIONS.find(i => i.id === body.inst && !i.generic && i.domains.length);
         if (!inst) return send(res,400,{error:'Unknown institution'});
         return send(res,200,await helplineHunt(inst));
       }

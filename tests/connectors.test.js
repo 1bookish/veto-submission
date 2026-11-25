@@ -68,3 +68,13 @@ test('helpline hunt attaches regulator evidence across channels and leaves unrel
   assert.deepEqual(rows.filter(r => r.advisory?.source.en.includes('12 January 2026')).map(r => r.channel), ['Ads','Search','Maps']);
   assert.equal(rows.find(r => r.title === 'Other lead').advisory, null);
 });
+
+test('ministry hunt scopes the caller warning to the result title and exact phone', async () => {
+  setKeys({ SEARCHAPI_KEY: 'test' });
+  globalThis.fetch = async url => reply(url.searchParams.get('engine') === 'google_maps'
+    ? { local_results: [{ title: 'Unrelated business', phone: '70614213' }] }
+    : { organic_results: [{ title: 'Ministry of Interior', snippet: 'Phone: ٧٠٦١٤٢١٣' }] });
+  const { rows } = await helplineHunt(INSTITUTIONS.find(i => i.id === 'moi'));
+  assert.equal(rows[0].advisory.id, 'moi_reported_caller');
+  assert.equal(rows[1].advisory, null);
+});
