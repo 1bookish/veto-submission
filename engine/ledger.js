@@ -67,7 +67,7 @@ export function checkListing(listing = {}) {
 
   if (listing.phone) {
     if (inst && owner && owner.id === inst.id) positives.push({ id: 'phone_official', en: `${listing.phone} is ${inst.name.en}'s published number.`, ar: `${listing.phone} هو الرقم المعلن لـ${inst.name.ar}.` });
-    else if (inst && inst.phones?.length) {
+    else if (inst && inst.phones?.length && !signals.some(s => s.source)) {
       const mobile = isUaeMobile(listing.phone);
       const c = countryOf(listing.phone);
       const foreign = c && c.code !== 'AE' && c.code !== '??';

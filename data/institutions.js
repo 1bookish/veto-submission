@@ -176,7 +176,7 @@ export const INSTITUTIONS = [
     aliases: ['dubai police', 'dubaipolice', 'شرطة دبي', 'شرطه دبي'],
     domains: ['dubaipolice.gov.ae', 'ecrime.ae', 'ecrimehub.gov.ae'], tokens: ['dubaipolice', 'ecrime'], phones: [P('901', '901', true), P('999', '999', true)]
   }),
-  I('moi', 'police', 'Ministry of Interior', 'وزارة الداخلية', { aliases: ['ministry of interior', 'وزارة الداخلية'], strict: ['MOI', 'MoI'], domains: ['moi.gov.ae'], tokens: ['moi'] }),
+  I('moi', 'police', 'Ministry of Interior', 'وزارة الداخلية', { aliases: ['ministry of interior', 'وزارة الداخلية'], strict: ['MOI', 'MoI'], domains: ['moi.gov.ae'], tokens: ['moi'], phones: [P('8005000', '800 5000', true)] }), // https://cdservices.moi.gov.ae/index/faq
   I('csc', 'gov', 'UAE Cyber Security Council', 'مجلس الأمن السيبراني', { aliases: ['cyber security council', 'cybersecurity council', 'مجلس الأمن السيبراني'], domains: ['csc.gov.ae'], tokens: [] }),
   I('generic_police', 'police', 'the police', 'الشرطة', {
     generic: true,

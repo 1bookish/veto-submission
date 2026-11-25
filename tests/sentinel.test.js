@@ -178,6 +178,7 @@ test('official matches retain country codes and accept Arabic digits', () => {
 
 test('MOI caller advisory requires both the claimed ministry and exact displayed digits', () => {
   const check = (phone, name = 'Ministry of Interior') => checkListing({ name, phone });
+  assert.equal(check('+971 800 5000').verdict, 'official');
   const hit = check('٧٠٦١٤٢١٣');
   assert.equal(hit.verdict, 'suspicious');
   assert.equal(hit.signals[0].source.url, 'https://x.com/moiuae/status/2028040738475483569');
