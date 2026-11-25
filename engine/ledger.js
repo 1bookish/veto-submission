@@ -55,6 +55,16 @@ export function checkListing(listing = {}) {
   if (!inst && site?.official) inst = INSTITUTIONS.find(i => i.id === site.official.id) || null;
   if (!inst && (site?.lookalike?.inst || site?.brand?.inst)) inst = site.lookalike?.inst || site.brand?.inst;
 
+  // The ministry published the displayed digits only, without a country code.
+  if (inst?.id === 'moi' && foldDigits(String(listing.phone || '')).replace(/[\s()-]/g, '') === '70614213') {
+    signals.push({
+      ...sig('moi_reported_caller', 0.8,
+        'The UAE Ministry of Interior warned about impersonation calls displaying these digits. Current ownership is unverified.',
+        'حذرت وزارة الداخلية الإماراتية من مكالمات انتحال الصفة التي يظهر فيها هذا الرقم. لم يتم التحقق من ملكيته الحالية.'),
+      source: { en: 'UAE Ministry of Interior · 1 March 2026', ar: 'وزارة الداخلية الإماراتية · ١ مارس ٢٠٢٦', url: 'https://x.com/moiuae/status/2028040738475483569' }
+    });
+  }
+
   if (listing.phone) {
     if (inst && owner && owner.id === inst.id) positives.push({ id: 'phone_official', en: `${listing.phone} is ${inst.name.en}'s published number.`, ar: `${listing.phone} هو الرقم المعلن لـ${inst.name.ar}.` });
     else if (inst && inst.phones?.length) {

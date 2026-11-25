@@ -175,3 +175,13 @@ test('official matches retain country codes and accept Arabic digits', () => {
   assert.equal(numberOwner('+971 600 54 0000').id, 'enbd');
   assert.equal(checkListing({ name: 'NBK', phone: '٠٤ ٣١٦ ١٧٠٠' }).verdict, 'official');
 });
+
+test('MOI caller advisory requires both the claimed ministry and exact displayed digits', () => {
+  const check = (phone, name = 'Ministry of Interior') => checkListing({ name, phone });
+  const hit = check('٧٠٦١٤٢١٣');
+  assert.equal(hit.verdict, 'suspicious');
+  assert.equal(hit.signals[0].source.url, 'https://x.com/moiuae/status/2028040738475483569');
+  for (const result of [check('+97170614213'), check('70614213', 'Unrelated help desk')]) {
+    assert.ok(!result.signals.some(signal => signal.id === 'moi_reported_caller'));
+  }
+});
