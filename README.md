@@ -12,7 +12,8 @@
 
 | | |
 |---|---|
-| **Live site: download the app** | **https://milki0069.github.io/veto-submission/** · download the Android app, see the permissions and install in one minute |
+| **Live site** | **https://milki0069.github.io/veto-submission/** · download the Android app, open the web app, get the extension |
+| **Web app (no install)** | https://milki0069.github.io/veto-submission/app/ · the same Veto screens in any browser |
 | **Test it in the browser** | https://milki0069.github.io/veto-submission/check/ · paste a message, a link or a whole list of links; same engine |
 | **Demo video (1 minute)** | link in the submission form; the source and the real screenshots it uses are in [`tools/video-render.js`](tools/video-render.js) and [`docs/img/demo/`](docs/img/demo/) |
 | **Android app** | [download veto.apk](https://github.com/MILKI0069/veto-submission/releases/latest/download/veto.apk) (also [`release/veto.apk`](release/veto.apk); source in [`android/`](android/)) |
@@ -80,6 +81,67 @@ that no domain is in both.
    sent.
 6. **Any language.** Arabic and English are read by the rules. Urdu, Hindi, Tagalog, Malayalam, Russian and other
    languages common in the UAE are translated and checked by the AI layer, which can add a warning but never remove one.
+
+---
+
+## The app reads by itself: what to know before installing
+
+The Android app is the full product. It reads only the **sender and text of new notifications** (WhatsApp, SMS,
+Telegram) on the phone; trusted family chats are skipped and nothing is uploaded. It stays current by refreshing public
+phishing feeds, the day's newly registered domains and new look-alike certificates; a scam reported through Veto goes to
+the police with an evidence pack.
+
+To watch for you, Veto needs SMS, notification and call access. Android guards those powers closely for apps that do not
+come from Google Play, and Veto is a hackathon build that has not been through a Play Store review yet. The phone in the
+demo video had it installed directly over a cable, the way test builds are installed. On another phone:
+
+1. Download [`veto.apk`](https://github.com/MILKI0069/veto-submission/releases/latest/download/veto.apk) and allow
+   installs from your browser if Android asks.
+2. If Play Protect blocks it: Play Store, your profile, Play Protect, the settings gear, switch off "Scan apps with Play
+   Protect", install Veto, then switch it back on.
+3. To turn on message reading: Settings, Apps, Veto, the ⋮ menu, "Allow restricted settings", then switch on each guard.
+
+If it will not install, the **[web app](https://milki0069.github.io/veto-submission/app/)** has the same checks in any
+browser (message check, live call guard on speaker, listing check, QR codes, the scam quiz), without the automatic
+watching, because a browser cannot read notifications or calls. The **browser extension** and the
+**[link check](https://milki0069.github.io/veto-submission/check/)** work on any computer.
+
+---
+
+## Kiki: a warning anyone can read
+
+Kiki is Veto's guard. Its face and colour show how serious a situation is before a single word is read, which makes
+Veto easy to use for elderly people and children. Kiki stays hidden and only appears when something needs you.
+
+| <img src="docs/img/kiki/idle.png" width="80"> | <img src="docs/img/kiki/listening.png" width="80"> | <img src="docs/img/kiki/investigating.png" width="80"> | <img src="docs/img/kiki/thinking.png" width="80"> | <img src="docs/img/kiki/advising.png" width="80"> | <img src="docs/img/kiki/caution.png" width="80"> | <img src="docs/img/kiki/stop.png" width="80"> | <img src="docs/img/kiki/verified.png" width="80"> |
+|---|---|---|---|---|---|---|---|
+| On guard | Watching (on a call) | Checking a link | Thinking | Advice (the real number) | Caution | STOP! (a scam) | Verified (the real institution) |
+
+| Kiki on a call | Kiki on the X-ray |
+|---|---|
+| <img src="docs/img/demo/call-t9.png" width="300" alt="Live call guard: HANG UP NOW"> | <img src="docs/img/demo/xray-view.png" width="300" alt="Kiki explains what a page wants"> |
+| On speaker, Veto listens and says HANG UP NOW with the rule the caller broke. | The X-ray typed fake details into a scam page and caught it sending them to a hidden Google spreadsheet; Kiki says what the page really wants. |
+
+---
+
+## How we built and tested it
+
+Every test was planned in writing before it ran ([`docs/RESEARCH_LOG.md`](docs/RESEARCH_LOG.md)), used data from after
+the training data, and every number is traced to a file ([`docs/CLAIMS_LEDGER.md`](docs/CLAIMS_LEDGER.md)).
+
+| Data | Volume | What it showed |
+|---|---|---|
+| Dated public URLs used to train the link model | **472,582** | OpenPhish history, Phishing.Database, PhiUSIIL and real websites |
+| Held-out links, later in time, unseen domains | **33,766** | 98.3 % precision, 94.5 % recall, 0.59 % false alarms |
+| Phishing from a second feed, domains never in training | **292,437** | 89.0 % caught |
+| Labelled SMS, nested 5-fold cross-validation | **881** | 96.9 % of scams caught, 2.4 % false alarms |
+| Generated SMS tested as extra training data | **1,000,000** | measured, and not needed: real texts alone did better |
+| Look-alike domains in a brand stress test | **917,396** (92,732 brands) | with **100,000** real sites as controls |
+| Live certificates read in one 10-minute run | **736,333** from 50 logs | 1,190 a second, median 17 s to alert |
+| Newly registered domains read per day | **about 70,000** | look-alikes of UAE institutions flagged |
+| Official UAE government and bank pages | **2,231** | 0 wrongly flagged |
+| Links re-judged after every engine change | **66,533** | identical verdicts after moving the engine into the browser |
+| Automated tests | **153** | plus browser tests of the extension (9 of 9) and the phone engine (4 of 4) |
 
 ---
 
