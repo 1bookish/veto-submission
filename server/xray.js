@@ -221,7 +221,7 @@ export async function xray(rawUrl, { demoHosts = false, ai = null } = {}) {
 
     const browserStatus = resp?.status() ?? null;
     let redirectObservation = null;
-    if (browserStatus === 403) {
+    if (browserStatus === 403 || !resp) {
       const probe = await fetchBytes(u.href, { demoHosts, headersOnly: true, timeout: 5000 }).catch(() => null);
       redirectObservation = { status: probe?.status ?? null, destination: probe?.destination ?? null };
     }
