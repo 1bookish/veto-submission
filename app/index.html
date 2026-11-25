@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eaf3ff">
+<meta name="description" content="Veto.ai checks scam messages, calls, links and one-time codes on your device against what real UAE institutions say they never ask for.">
+<title>Veto.ai · Scam Guard</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="stylesheet" href="./app.css">
+</head>
+<body>
+<div class="bg-glow" aria-hidden="true"><i></i><i></i><i></i></div>
+<header class="top">
+  <div class="brand">
+    <img class="mark" src="./icon-192.png" alt="" width="46" height="46">
+    <div class="brand-text"><img class="wordmark" src="./brand/veto-wordmark-dark.png" alt="Veto.ai" height="21"><small id="tagline"></small></div>
+  </div>
+  <div class="top-actions">
+    <button id="privacyBtn" class="pill ok" type="button"><span class="dot"></span><span id="onDevice"></span></button>
+    <button id="langBtn" class="pill" type="button" aria-label="Language">ع</button>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" id="tabCheck" aria-selected="true" data-view="check"></button>
+  <button role="tab" id="tabCall" aria-selected="false" data-view="call"></button>
+  <button role="tab" id="tabListing" aria-selected="false" data-view="listing"></button>
+</nav>
+
+<main>
+  <section id="viewCheck" class="view">
+    <div class="card input-card">
+      <textarea id="msg" rows="5" dir="auto" spellcheck="false"></textarea>
+      <div class="chips" id="chips" role="radiogroup"></div>
+      <label class="from"><span id="fromLabel"></span><input id="sender" dir="auto" autocomplete="off"></label>
+      <details class="ctx-panel" id="ctxPanel">
+        <summary id="ctxSummary"></summary>
+        <div class="ctx-grid">
+          <label><span id="ctxContactsLabel"></span><select id="ctxContacts"><option value=""></option><option value="yes"></option><option value="no"></option></select></label>
+          <label><span id="ctxSavedNameLabel"></span><input type="text" id="ctxSavedName" dir="auto"></label>
+          <label><span id="ctxHistoryLabel"></span><input type="text" id="ctxHistory" inputmode="numeric"></label>
+          <label class="chk"><input type="checkbox" id="ctxFirst"> <span id="ctxFirstLabel"></span></label>
+          <label class="chk"><input type="checkbox" id="ctxNewAcc"> <span id="ctxNewAccLabel"></span></label>
+          <label class="chk"><input type="checkbox" id="ctxVerified"> <span id="ctxVerifiedLabel"></span></label>
+          <label class="wide"><span id="ctxSavedListLabel"></span><textarea id="ctxSavedList" rows="2" dir="auto"></textarea></label>
+          <label><span id="ctxCallLabel"></span><input type="text" id="ctxCall" dir="ltr" placeholder="+44 20 7946 0000"></label>
+          <label class="chk"><input type="checkbox" id="ctxBank"> <span id="ctxBankLabel"></span></label>
+        </div>
+      </details>
+      <div class="row actions">
+        <button id="pasteBtn" class="ghost" type="button"></button>
+        <button id="qrBtn" class="ghost" type="button"></button>
+        <input id="qrFile" type="file" accept="image/*" hidden>
+        <select id="exampleSel" class="ghost"></select>
+        <span class="grow"></span>
+        <button id="clearBtn" class="ghost small" type="button"></button>
+        <button id="checkBtn" class="primary" type="button"></button>
+      </div>
+    </div>
+    <div class="quiz-row"><button id="quizBtn" class="ghost small" type="button"></button></div>
+    <div id="result" aria-live="polite"></div>
+  </section>
+
+  <section id="viewListing" class="view" hidden>
+    <div class="card listing-card">
+      <h2 class="section-title" id="lstTitle"></h2>
+      <p id="lstHelp" class="muted"></p>
+      <label class="field"><span id="lstNameL"></span><input id="lstName" dir="auto" autocomplete="off"></label>
+      <label class="field"><span id="lstPhoneL"></span><input id="lstPhone" dir="ltr" inputmode="tel" autocomplete="off" placeholder="+971 …"></label>
+      <label class="field"><span id="lstSiteL"></span><input id="lstSite" dir="ltr" inputmode="url" autocomplete="off" placeholder="https://…"></label>
+      <div class="row actions">
+        <select id="lstExample" class="ghost"></select>
+        <span class="grow"></span>
+        <button id="lstBtn" class="primary" type="button"></button>
+      </div>
+      <p id="lstPrivacy" class="tiny muted"></p>
+    </div>
+    <div id="lstResult" aria-live="polite"></div>
+  </section>
+
+  <section id="viewCall" class="view" hidden>
+    <div class="card">
+      <p id="callHelp" class="muted"></p>
+      <div class="row actions wrap">
+        <button id="listenBtn" class="primary" type="button"></button>
+        <button id="demoBtn" class="ghost" type="button"></button>
+        <button id="codeBtn" class="ghost" type="button"></button>
+        <label class="toggle"><input type="checkbox" id="demoAudio"> <span id="demoAudioLabel"></span></label>
+      </div>
+      <p id="callPrivacy" class="tiny muted"></p>
+    </div>
+    <div id="callAlert" class="call-alert" hidden role="alert"></div>
+    <div class="card">
+      <div class="meter-row"><span id="callRiskLabel"></span><div class="meter"><i id="callMeter"></i></div><b id="callRiskPct">0%</b></div>
+      <div id="stages"></div>
+      <div id="transcript" class="transcript"></div>
+    </div>
+  </section>
+</main>
+
+<dialog id="modal" aria-modal="true">
+  <div id="modalBody"></div>
+  <form method="dialog" class="modal-foot"><button id="modalClose" class="ghost" value="close"></button></form>
+</dialog>
+
+<footer id="footer"></footer>
+<div id="pet"></div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
