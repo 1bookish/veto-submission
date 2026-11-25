@@ -26,6 +26,7 @@ import { checkListing } from '../engine/ledger.js';
 import { INSTITUTIONS } from '../data/institutions.js';
 import RADAR from '../data/radar.js';
 import { nrdCandidates } from './nrd.js';
+import { storeState } from './store.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIR = process.env.VETO_VAR || path.join(ROOT, 'var');
@@ -129,6 +130,7 @@ export function loadState() {
 }
 export function saveState() {
   try { fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(FILE, JSON.stringify(state)); } catch (e) { console.error('[veto] sentinel state:', e.message); }
+  storeState('sentinel', state);
 }
 const now = () => new Date().toISOString();
 function upsert(host, patch) {

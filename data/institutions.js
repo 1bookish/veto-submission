@@ -97,15 +97,19 @@ export const INSTITUTIONS = [
   // ---------------- Banks ----------------
   I('enbd', 'bank', 'Emirates NBD', 'بنك الإمارات دبي الوطني', {
     aliases: ['emirates nbd', 'emiratesnbd', 'enbd', 'emirates national bank of dubai', 'الإمارات دبي الوطني', 'بنك الإمارات دبي'],
-    domains: ['emiratesnbd.com'], tokens: ['emiratesnbd', 'enbd'], phones: [P('600540000', '600 54 0000', true)]
+    domains: ['emiratesnbd.com'], tokens: ['emiratesnbd', 'enbd'], phones: [P('600540000', '600 54 0000', true), P('800100', '800 100', true)] // Priority Banking: https://www.emiratesnbd.com/en/priority-banking
   }),
   I('fab', 'bank', 'First Abu Dhabi Bank (FAB)', 'بنك أبوظبي الأول', {
     aliases: ['first abu dhabi bank', 'bankfab', 'fab bank', 'بنك أبوظبي الأول', 'بنك ابوظبي الاول'], strict: ['FAB'],
-    domains: ['bankfab.com'], tokens: ['bankfab', 'fab'], phones: [P('600525500', '600 52 5500', true)]
+    domains: ['bankfab.com'], tokens: ['bankfab', 'fab'], phones: [P('600525500', '600 52 5500', true), P('97126811511', '+971 2 681 1511', true)] // FAB publishes both: https://www.bankfab.com/en-ae/personal/fab-first
+  }),
+  I('nbk', 'bank', 'National Bank of Kuwait', 'بنك الكويت الوطني', {
+    aliases: ['national bank of kuwait', 'nbk', 'بنك الكويت الوطني'],
+    domains: ['nbk.com'], tokens: ['nbk'], phones: [P('97143161700', '+971 4 316 1700', true)] // https://nbk.com/uae/services-and-support/banking-awareness/faqs.html
   }),
   I('adcb', 'bank', 'ADCB', 'بنك أبوظبي التجاري', {
     aliases: ['adcb', 'abu dhabi commercial bank', 'بنك أبوظبي التجاري', 'بنك ابوظبي التجاري'],
-    domains: ['adcb.com'], tokens: ['adcb'], phones: [P('600502030', '600 50 2030')]
+    domains: ['adcb.com'], tokens: ['adcb'], phones: [P('600502030', '600 50 2030', true), P('600502004', '600 50 2004', true)] // Contact centre and Excellency: https://www.adcb.com/en/get-in-touch/faqs/cards/adcb-debit-cards
   }),
   I('mashreq', 'bank', 'Mashreq', 'بنك المشرق', {
     aliases: ['mashreq', 'mashreqbank', 'mashreq neo', 'بنك المشرق'],
@@ -190,7 +194,7 @@ export const INSTITUTIONS = [
   I('tdra', 'gov', 'TDRA', 'هيئة تنظيم الاتصالات والحكومة الرقمية', { aliases: ['tdra', 'telecommunications and digital government regulatory authority', 'هيئة تنظيم الاتصالات'], domains: ['tdra.gov.ae'], tokens: ['tdra'] }),
   I('digitaldubai', 'gov', 'Digital Dubai', 'دبي الرقمية', { aliases: ['digital dubai', 'دبي الرقمية'], domains: ['digitaldubai.ae'], tokens: ['digitaldubai'] }),
   I('uaegov', 'gov', 'UAE Government portal (u.ae)', 'البوابة الرسمية لحكومة الإمارات', { aliases: ['uae government', 'حكومة الإمارات'], domains: ['u.ae'] }),
-  I('tamm', 'gov', 'TAMM (Abu Dhabi Government)', 'تم', { aliases: ['tamm'], domains: ['tamm.abudhabi'], tokens: ['tamm'], phones: [P('800555', '800 555')] }),
+  I('tamm', 'gov', 'TAMM (Abu Dhabi Government)', 'تم', { aliases: ['tamm'], domains: ['tamm.abudhabi'], tokens: ['tamm'], phones: [P('800555', '800 555', true)] }), // https://www.added.gov.ae/en/contact-us
   I('rta', 'gov', 'RTA Dubai', 'هيئة الطرق والمواصلات', { aliases: ['roads and transport authority', 'هيئة الطرق والمواصلات'], strict: ['RTA'], domains: ['rta.ae'], tokens: ['rta'], phones: [P('8009090', '800 9090')] }),
   I('salik', 'gov', 'Salik', 'سالك', { aliases: ['salik', 'سالك'], domains: ['salik.ae'], tokens: ['salik'], phones: [P('80072545', '800 SALIK (72545)')] }),
   I('itc', 'gov', 'Abu Dhabi ITC / Darb', 'مركز النقل المتكامل / درب', { aliases: ['integrated transport centre', 'darb toll', 'مركز النقل المتكامل'], strict: ['ITC'], domains: ['itc.gov.ae'], tokens: ['darb'] }),

@@ -834,7 +834,7 @@ async function init() {
     const shared = [...(withQuery ? [q.get('title'), q.get('text'), q.get('url')] : []), hq.get('text')].filter(Boolean).join('\n');
     if (!shared) return;
     setView('check');
-    $('msg').value = shared; runCheck(); history.replaceState(null, '', '/');
+    $('msg').value = shared; runCheck(); history.replaceState(null, '', '/resident');
   };
   readShared();
   window.addEventListener('hashchange', () => { if (/^#text=/.test(location.hash)) readShared(false); }); // Safari tab already open

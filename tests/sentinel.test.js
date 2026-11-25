@@ -156,3 +156,22 @@ test('weak shared traces never merge sites, and a campaign states how strong its
   assert.equal(c.length, 1);
   assert.equal(c[0].confidence, 'high');
 });
+
+test('historical DFSA contact matches exact UAE formats and preserves genuine NBK contact', () => {
+  for (const phone of ['+971 54 759 6133', '00971547596133', '0547596133', '٠٥٤ ٧٥٩ ٦١٣٣']) {
+    const result = checkListing({ name: 'Sidra Capital', phone });
+    assert.equal(result.verdict, 'suspicious');
+    assert.match(result.signals[0].source.en, /12 January 2026/);
+  }
+  assert.equal(checkListing({ phone: '+966 54 759 6133' }).signals.length, 0);
+  const result = checkListing({ name: 'NBK', phone: '+971 4 316 1700' });
+  assert.equal(result.verdict, 'official');
+  assert.equal(result.signals.length, 0);
+  assert.ok(result.positives.some(p => p.source?.url.includes('nbk.com')));
+});
+
+test('official matches retain country codes and accept Arabic digits', () => {
+  assert.equal(numberOwner('+966 600 54 0000'), null);
+  assert.equal(numberOwner('+971 600 54 0000').id, 'enbd');
+  assert.equal(checkListing({ name: 'NBK', phone: '٠٤ ٣١٦ ١٧٠٠' }).verdict, 'official');
+});

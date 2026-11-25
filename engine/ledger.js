@@ -9,13 +9,29 @@
 
 import { INSTITUTIONS } from '../data/institutions.js';
 import { findInstitutions } from './extract.js';
-import { matchForm } from './normalize.js';
+import { foldDigits, matchForm } from './normalize.js';
 import { analyzeUrl } from './url.js';
 import { sameNumber, exactShort, countryOf } from './context.js';
 
 const sig = (id, w, en, ar) => ({ id, w, en, ar });
 const isUaeMobile = n => /^(?:\+?971|00971|0)?5\d{8}$/.test(String(n || '').replace(/[\s()-]/g, ''));
 const shown = inst => (inst.phones || []).map(p => p.d).join(', ');
+
+function uaeLocalPhone(number) {
+  return foldDigits(String(number || '')).replace(/[\s()-]/g, '').replace(/^(?:00971|\+971|971)/, '0');
+}
+
+export function historicalPhoneAlert(number) {
+  if (uaeLocalPhone(number) === '0547596133') {
+    return {
+      ...sig('dfsa_historical_contact', 0.8,
+        'DFSA reported that Sidra Capital impersonators used this number in a loan scam. Current ownership is unverified.',
+        'أفادت سلطة دبي للخدمات المالية بأن منتحلي صفة سدرة المالية استخدموا هذا الرقم في عملية احتيال بالقروض. لم تُتحقق الملكية الحالية.'),
+      source: { en: 'DFSA alert · 12 January 2026', ar: 'تنبيه سلطة دبي للخدمات المالية · ١٢ يناير ٢٠٢٦', url: 'https://www.dfsa.ae/alerts/dfsa-licensed-firm-impersonated-scam-1' }
+    };
+  }
+  return null;
+}
 
 /** Which institution publishes this number (or null). */
 export function numberOwner(number) {
@@ -30,6 +46,8 @@ export function checkListing(listing = {}) {
   const name = String(listing.name || '').trim();
   const text = `${name} ${listing.text || ''}`.trim();
   const signals = [], positives = [];
+  const historical = historicalPhoneAlert(listing.phone);
+  if (historical) signals.push(historical);
   // who does the listing CLAIM to be? its name first, else what its website or number belongs to
   let inst = text ? (findInstitutions(matchForm(text), text).find(c => !c.inst.generic) || {}).inst || null : null;
   const site = listing.website ? analyzeUrl(listing.website) : null;
@@ -50,6 +68,10 @@ export function checkListing(listing = {}) {
     } else if (inst && owner && owner.id !== inst.id) {
       signals.push(sig('listing_phone_other', 0.6, `The listing says “${inst.name.en}” but the number belongs to ${owner.name.en}.`, `الإدراج يقول «${inst.name.ar}» لكن الرقم يخص ${owner.name.ar}.`));
     }
+  }
+  if (uaeLocalPhone(listing.phone) === '043161700' && (!inst || inst.id === 'nbk')) {
+    positives.push({ id: 'nbk_published_contact', en: 'NBK publishes this UAE number and warns that callers can spoof it. Dial it independently to reach the bank.', ar: 'ينشر بنك الكويت الوطني هذا الرقم في الإمارات ويحذر من انتحال هوية المتصل. اتصل بالرقم بنفسك للتواصل مع البنك.',
+      source: { en: 'NBK UAE · Banking awareness', ar: 'بنك الكويت الوطني · التوعية المصرفية', url: 'https://nbk.com/uae/services-and-support/banking-awareness/faqs.html' } });
   }
   if (site) {
     if (site.official && (!inst || site.official.id === inst.id)) positives.push({ id: 'site_official', en: `${site.host} is an official ${site.official.name.en} website.`, ar: `${site.host} موقع رسمي لـ${site.official.name.ar}.` });

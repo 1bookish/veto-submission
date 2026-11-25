@@ -17,6 +17,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { hamming64 } from './forensics.js';
 import { LOGOS } from '../data/logos.js';
+import { storeCase } from './store.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIR = process.env.VETO_VAR || path.join(ROOT, 'var');
@@ -75,15 +76,18 @@ export function recordCase(x, { source = 'xray', extra = {} } = {}) {
     ...extra
   };
   rec.hasShot = prev?.hasShot || false;
+  let shotB64 = null;
   if (x.screenshot && (x.verdict === 'dangerous' || x.verdict === 'suspicious')) {
     try {
       fs.mkdirSync(SHOTS, { recursive: true });
       fs.writeFileSync(path.join(SHOTS, id + '.jpg'), Buffer.from(x.screenshot.split(',')[1], 'base64'));
       rec.hasShot = true;
+      shotB64 = x.screenshot.split(',')[1];
     } catch { /* picture is optional */ }
   }
   load().set(id, rec);
   try { fs.mkdirSync(DIR, { recursive: true }); fs.appendFileSync(FILE, JSON.stringify(rec) + '\n'); } catch (e) { console.error('[veto] case file:', e.message); }
+  storeCase(rec, shotB64);
   return rec;
 }
 

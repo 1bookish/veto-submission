@@ -30,7 +30,7 @@ before(async () => {
   });
 });
 
-after(() => { if (child) child.kill(); });
+after(() => { if (child) child.kill('SIGKILL'); });
 
 const get = p => fetch(base + p);
 const post = (p, body, raw) => fetch(base + p, {
@@ -101,10 +101,9 @@ test('an unknown API path returns a JSON 404, never the app shell', async () => 
   assert.ok(!/at .*\.js:\d+/.test(text), 'the 404 body must not contain a stack trace');
 });
 
-test('an unknown app route returns the app shell (single-page routing), as designed', async () => {
+test('an unknown dashboard route returns 404', async () => {
   const r = await get('/share-' + Date.now());
-  assert.equal(r.status, 200);
-  assert.match(r.headers.get('content-type') || '', /text\/html/);
+  assert.equal(r.status, 404);
 });
 
 test('a missing file with an extension returns 404', async () => {
