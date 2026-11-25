@@ -1,0 +1,38 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"SMS local model, held-out split\" (24 Nov, late)",
+  "split": "stratified, seed 20261125; dev = first half of each label, test = second half",
+  "model": {
+    "type": "multinomial Naive Bayes, Laplace alpha 1",
+    "features": "word unigrams, word pairs, cues: link, four or more digits, Arabic script",
+    "vocabulary": 7686,
+    "trained_on": "dev half only"
+  },
+  "dev": {
+    "positives": 129,
+    "negatives": 311,
+    "threshold": 11.360277017517767,
+    "recall": 1,
+    "false_alarm": 0,
+    "target_false_alarm": 0.02,
+    "threshold_met": true
+  },
+  "test": {
+    "positives": 130,
+    "negatives": 311,
+    "tp": 85,
+    "fn": 45,
+    "fp": 0,
+    "tn": 311,
+    "recall": 0.6538,
+    "recall_95ci": [
+      0.5687,
+      0.7301
+    ],
+    "false_alarm": 0,
+    "false_alarm_95ci": [
+      0,
+      0.0122
+    ]
+  },
+  "note": "counts only; no message text is written; one run; the test half was not used for any choice"
+}

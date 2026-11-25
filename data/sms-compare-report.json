@@ -1,0 +1,80 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"SMS model comparison on a fresh split\" (25 Nov, written before the run)",
+  "split": "stratified, seed 20261210; dev = first half of each label, test = second half",
+  "parameters": {
+    "alpha": 1,
+    "target_false_alarm": 0.02,
+    "logistic_regression": {
+      "lambda": 0.01,
+      "epochs": 300,
+      "lr": 0.5,
+      "minCount": 2
+    }
+  },
+  "dev": {
+    "positives": 129,
+    "negatives": 311
+  },
+  "test": {
+    "positives": 130,
+    "negatives": 311
+  },
+  "results": [
+    {
+      "model": "Naive Bayes (in the app)",
+      "dev": {
+        "threshold": 9.045795072237466,
+        "recall": 1,
+        "false_alarm": 0,
+        "threshold_met": true
+      },
+      "test": {
+        "positives": 130,
+        "negatives": 311,
+        "tp": 91,
+        "fn": 39,
+        "fp": 0,
+        "tn": 311,
+        "recall": 0.7,
+        "recall_95ci": [
+          0.6164,
+          0.7721
+        ],
+        "false_alarm": 0,
+        "false_alarm_95ci": [
+          0,
+          0.0122
+        ]
+      }
+    },
+    {
+      "model": "Logistic regression (same features)",
+      "dev": {
+        "threshold": -0.2350769495777162,
+        "recall": 1,
+        "false_alarm": 0.0129,
+        "threshold_met": true
+      },
+      "test": {
+        "positives": 130,
+        "negatives": 311,
+        "tp": 119,
+        "fn": 11,
+        "fp": 10,
+        "tn": 301,
+        "recall": 0.9154,
+        "recall_95ci": [
+          0.8548,
+          0.9521
+        ],
+        "false_alarm": 0.0322,
+        "false_alarm_95ci": [
+          0.0176,
+          0.0582
+        ]
+      }
+    }
+  ],
+  "decision_rule": "the app keeps the Naive Bayes model; a switch needs a team decision from these numbers and a phone test",
+  "note": "counts and intervals only; no message text is written; one run per model; the test half was not used for any choice"
+}

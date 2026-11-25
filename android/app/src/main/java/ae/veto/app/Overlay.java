@@ -46,9 +46,13 @@ final class Overlay {
     String smsReport;                      // short text for SMS 2828
     String familyText;                     // text for "warn a family member"
     boolean call;                          // about a phone call
+    int cooldownS;                         // seconds to wait before a decision (approval cards); 0 = none
+    ArrayList<String> choiceLabels;        // extra buttons for approval cards
+    ArrayList<Runnable> choiceActions;
   }
 
   private final Context c;
+  private final CardQueue<Alert> queue = new CardQueue<>(new CardQueue.Rank<Alert>() { public int of(Alert a) { return rank(a.level); } });
   private final WindowManager wm;
   private final Handler h = new Handler(Looper.getMainLooper());
   private LinearLayout pet;
@@ -207,6 +211,12 @@ final class Overlay {
 
   // ------------------------------------------------------------------ card
   void card(final Alert a) {
+    if (!allowed()) { Veto.notifyFallback(c, a.title, a.reasons.isEmpty() ? "" : a.reasons.get(0)); return; }
+    Alert show = queue.offer(a, card != null ? last : null);
+    if (show != null) showCard(show);
+  }
+
+  private void showCard(final Alert a) {
     last = a;
     if (!allowed()) { Veto.notifyFallback(c, a.title, a.reasons.isEmpty() ? "" : a.reasons.get(0)); return; }
     hideCard();
@@ -233,6 +243,11 @@ final class Overlay {
     }
     LinearLayout.LayoutParams tl = new LinearLayout.LayoutParams(0, Ui.WRAP, 1f);
     tl.setMarginStart(dp(10));
+    if (queue.waiting() > 0) {
+      TextView more = Ui.text(c, "+" + queue.waiting() + " " + Text.t(c, "more waiting", "أخرى تنتظر"), 12, Color.WHITE, false);
+      more.setPadding(0, dp(2), 0, 0);
+      titles.addView(more);
+    }
     head.addView(titles, tl);
     box.addView(head, Ui.lp(Ui.MATCH, Ui.WRAP));
 
@@ -241,6 +256,11 @@ final class Overlay {
     int bulletIcon = "stop".equals(a.level) ? R.drawable.ic_octagon_alert : "caution".equals(a.level) ? R.drawable.ic_triangle_alert : R.drawable.ic_info;
     for (String r : a.reasons) body.addView(Ui.bullet(c, bulletIcon, col, r, 15, Ui.INK), Ui.lp(c, Ui.MATCH, Ui.WRAP, 0, 0, 0, 6));
     if (a.detail != null && !a.detail.isEmpty()) body.addView(Ui.text(c, a.detail, 13, Ui.MUTED, false), Ui.lp(c, Ui.MATCH, Ui.WRAP, 0, 2, 0, 6));
+    if (a.cooldownS > 0) {
+      TextView cool = Ui.text(c, "", 14, Ui.INK, true);
+      body.addView(cool, Ui.lp(c, Ui.MATCH, Ui.WRAP, 0, 4, 0, 6));
+      tickCooldown(cool, a.cooldownS, a);
+    }
     final LinearLayout actions = Ui.vertical(c);
     body.addView(actions, Ui.lp(c, Ui.MATCH, Ui.WRAP, 0, 6, 0, 0));
     mainButtons(actions, a, col);
@@ -266,11 +286,47 @@ final class Overlay {
     if (pet != null) pet.setVisibility(View.VISIBLE); // tap Kiki to bring the card back
   }
 
-  private void dismiss() { hideCard(); hidePet(); last = null; }
+  void dismissCard() { dismiss(); }
+
+  private void dismiss() {
+    hideCard();
+    hidePet();
+    last = null;
+    final Alert next = queue.next();
+    if (next != null) h.postDelayed(new Runnable() { public void run() { card(next); } }, 700);
+  }
+
+  /** The approval countdown. It says how long to wait; it blocks no button and no app. */
+  private void tickCooldown(final TextView tv, final int secs, final Alert a) {
+    final int[] left = { secs };
+    final Runnable[] step = new Runnable[1];
+    step[0] = new Runnable() { public void run() {
+      if (last != a) return;   // another card is on screen now
+      if (left[0] > 0) {
+        tv.setText(Text.t(c, "Wait " + left[0] + " s before you decide. Veto blocks nothing.", "انتظر " + left[0] + " ث قبل أن تقرر. فيتو لا يمنع أي شيء."));
+        left[0]--;
+        h.postDelayed(step[0], 1000);
+      } else tv.setText(Text.t(c, "You can decide now.", "يمكنك القرار الآن."));
+    } };
+    step[0].run();
+  }
+
+  private static int rank(String level) {
+    if ("stop".equals(level)) return 3;
+    if ("caution".equals(level)) return 2;
+    if ("advising".equals(level)) return 1;
+    return 0;
+  }
 
   private void mainButtons(final LinearLayout actions, final Alert a, final int col) {
     actions.removeAllViews();
     List<Button> bs = new ArrayList<>();
+    if (a.choiceLabels != null && a.choiceActions != null) for (int i = 0; i < a.choiceLabels.size(); i++) {
+      final Runnable act = a.choiceActions.get(i);
+      Button choice = i == 0 ? Ui.pill(c, a.choiceLabels.get(i), R.drawable.ic_check, col) : Ui.pill(c, a.choiceLabels.get(i), R.drawable.ic_check, Ui.Pill.WHITE);
+      choice.setOnClickListener(new View.OnClickListener() { public void onClick(View v) { act.run(); } });
+      bs.add(choice);
+    }
     Button rep = Ui.pill(c, Text.t(c, "Report", "أبلغ الشرطة"), R.drawable.ic_siren, col);
     rep.setOnClickListener(new View.OnClickListener() { public void onClick(View v) { reportButtons(actions, a, col); } });
     bs.add(rep);

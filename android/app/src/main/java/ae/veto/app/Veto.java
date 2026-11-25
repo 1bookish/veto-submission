@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -59,6 +60,15 @@ final class Veto {
   private final HashSet<String> payWarned = new HashSet<>();
   private final HashMap<String, Long> dedupe = new HashMap<>();
   private boolean started;
+  // the phone's own timeline for this call and the 15 minutes after it (memory only): call report and approval watch
+  private final ArrayList<JSONObject> trail = new ArrayList<>();
+  static final long TRAIL_MS = 30 * 60 * 1000L;
+  static final long POST_CALL_MS = 10 * 60 * 1000L;
+  private long callStart;
+  private int callCodes;
+  private boolean callBankOpened;
+  private JSONObject lastCaller;
+  private String callOnline;
 
   private Veto(Context app) {
     this.app = app;
@@ -78,6 +88,7 @@ final class Veto {
   boolean needsWatching() {
     if (inCall && callUnknown) return true;
     long now = System.currentTimeMillis();
+    if (lastUnknownEnd > 0 && now - lastUnknownEnd < POST_CALL_MS) return true;
     if (lastStopAt > 0 && now - lastStopAt < PAY_WINDOW) return true;
     for (Object[] h : hot.values()) if ((Long) h[0] > now) return true;
     return false;
@@ -93,7 +104,7 @@ final class Veto {
   void onMessage(final String appName, final String pkg, final String title, final String text) {
     if (store.paused() || text == null || text.trim().isEmpty() || title == null) return;
     long now = System.currentTimeMillis();
-    String dk = pkg + "|" + title + "|" + text;
+    String dk = title + "|" + text;   // the same message from a notification and from SMS counts once
     Long t0 = dedupe.get(dk);
     if (t0 != null && now - t0 < 6 * 3600 * 1000L) return; // apps re-post old unread notifications: warn once per message
     if (dedupe.size() > 300) dedupe.clear();
@@ -133,7 +144,12 @@ final class Veto {
         // Trusted chat with nothing sensitive: not analysed, Kiki stays hidden.
         if (tr != null && "sleep".equals(tr.optString("mode"))) { Log.i("Veto", "trusted chat, asleep"); return; }
         engine.message(input, true, new Engine.Cb() {
-          public void done(JSONObject r) { react(r, appName, pkg, title, number, text, isNumber, inContacts); }
+          public void done(JSONObject r) {
+            react(r, appName, pkg, title, number, text, isNumber, inContacts);
+            String verdict = r == null ? "" : r.optString("verdict");
+            if (store.cloudSecond() && !store.groqKey().isEmpty() && ("unknown".equals(verdict) || "ok".equals(verdict))) cloudSecondOpinion(text, appName, title, number);
+            if ("unknown".equals(verdict) || "ok".equals(verdict)) localSecondOpinion(text, appName, title, number);
+          }
         });
       }
     });
@@ -176,6 +192,8 @@ final class Veto {
       overlay.pet("caution", why != null ? Text.L(app, why) : Text.L(app, r.optJSONObject("headline")), 14000);
       markHot(pkg, why != null ? Text.L(app, why) : "");
     } else if ("otp".equals(v) && inCall) {
+      callCodes++;
+      trailAdd("code", pkg, null);
       overlay.pet("caution", Text.t(app, "A code arrived during your call. Never read it out to anyone, not even “the bank”.",
           "وصل رمز أثناء مكالمتك. لا تقرأه لأي أحد، ولا حتى «البنك»."), 15000);
       Alarm.vibrate(app);
@@ -258,6 +276,7 @@ final class Veto {
     if (store.paused()) return;
     ringing = true; answered = false;
     ringStart = System.currentTimeMillis();
+    lastCaller = null; callOnline = null;
     callNumber = number;
     warnedThisCall.clear();
     final String saved = Contacts.nameFor(app, number);
@@ -269,6 +288,7 @@ final class Veto {
     engine.caller(number, o, new Engine.Cb() {
       public void done(JSONObject c) {
         if (c == null) return;
+        lastCaller = c;
         String verdict = c.optString("verdict");
         JSONArray sig = c.optJSONArray("signals"), pos = c.optJSONArray("positives");
         String first = sig != null && sig.length() > 0 ? Text.L(app, sig.optJSONObject(0)) : "";
@@ -298,6 +318,7 @@ final class Veto {
       final double[] risk = new double[1];
       final List<String> s = Net.phoneSignals(app, j, risk);
       if (s.isEmpty()) return;
+      callOnline = s.get(0);
       main.post(new Runnable() { public void run() {
         if (!ringing && !inCall) return;
         if (risk[0] >= 0.7) {
@@ -318,13 +339,14 @@ final class Veto {
       boolean incoming = ringing;
       ringing = false; inCall = true; answered = incoming;
       if (!incoming) { callUnknown = false; callNumber = null; } // an outgoing call you made
-      if (callUnknown) { overlay.quiet(); Watchers.watchForeground(this); }
+      if (callUnknown) { overlay.quiet(); callStart = now; callCodes = 0; callBankOpened = false; trailAdd("call_start", null, null); Watchers.watchForeground(this); }
     } else if (state == TelephonyManager.CALL_STATE_IDLE) {
       if (ringing && !answered && callUnknown && callNumber != null && now - ringStart < 12000) oneRing(callNumber);
-      if (callUnknown) { lastUnknownNumber = callNumber; lastUnknownEnd = now; }
+      if (callUnknown) { lastUnknownNumber = callNumber; lastUnknownEnd = now; trailAdd("call_end", null, null); }
       boolean wasUnknown = callUnknown;
+      String endedNumber = callNumber;
       ringing = false; inCall = false; answered = false; callUnknown = false; callNumber = null;
-      if (wasUnknown && "listening".equals(overlay.mood())) overlay.pet("listening", null, 1500);
+      if (wasUnknown) callReport(endedNumber, now);
     }
   }
 
@@ -349,12 +371,13 @@ final class Veto {
   // ================================================================ device events during an unknown call
   void onForeground(String pkg) {
     if (pkg.equals(app.getPackageName())) return;
+    if ((inCall && callUnknown) || (lastUnknownEnd > 0 && System.currentTimeMillis() - lastUnknownEnd < POST_CALL_MS)) approvalWatch(pkg);
     long now = System.currentTimeMillis();
     if (inCall && callUnknown && !warnedThisCall.containsKey(pkg)) {
       String label = Watchers.label(app, pkg);
       boolean remote = Watchers.isRemoteApp(pkg, label);
       boolean bank = !remote && Watchers.isBankApp(app, pkg, label);
-      if (bank || remote) { warnedThisCall.put(pkg, true); deviceAlert(label, bank, remote); return; }
+      if (bank || remote) { warnedThisCall.put(pkg, true); callBankOpened = true; deviceAlert(label, bank, remote); return; }
     }
     if (lastStopAt > 0 && now - lastStopAt < PAY_WINDOW && !payWarned.contains(pkg)) {
       String label = Watchers.label(app, pkg);
@@ -365,6 +388,150 @@ final class Veto {
       lastNudge = now;
       overlay.pet("caution", Text.t(app, "Careful in this chat: ", "انتبه في هذه المحادثة: ") + h[1], 9000);
     }
+  }
+
+  // ================================================================ the phone's timeline, approvals, call report
+  private void trailAdd(String type, String pkg, String label) {
+    long now = System.currentTimeMillis();
+    JSONObject e = new JSONObject();
+    put(e, "t", now);
+    put(e, "type", type);
+    if (pkg != null) put(e, "pkg", pkg);
+    if (label != null) put(e, "label", label);
+    put(e, "unknown", callUnknown);
+    trail.add(e);
+    while (!trail.isEmpty() && (now - trail.get(0).optLong("t") > TRAIL_MS || trail.size() > 60)) trail.remove(0);
+  }
+
+  private JSONArray trailJson() {
+    JSONArray a = new JSONArray();
+    for (JSONObject e : trail) a.put(e);
+    return a;
+  }
+
+  /** An approval app (UAE PASS, an authenticator, a digital ID) during an unknown call or just after it. The engine decides. */
+  private void approvalWatch(String pkg) {
+    trailAdd("app_front", pkg, Watchers.label(app, pkg));
+    JSONObject p = new JSONObject();
+    put(p, "events", trailJson());
+    engine.callwatch(p, new Engine.Cb() {
+      public void done(JSONObject r) {
+        if (r != null && r.optBoolean("show")) showApproval(r.optJSONObject("card"));
+      }
+    });
+  }
+
+  private void showApproval(JSONObject card) {
+    if (card == null) return;
+    Overlay.Alert a = alertFrom(card);
+    overlay.card(a);
+    overlay.pet(a.level, null, 0);
+    overlay.quiet();
+    if ("stop".equals(a.level)) Alarm.alert(app, inCall, true); else Alarm.vibrate(app);
+  }
+
+  private String loc(JSONObject o) { return o == null ? "" : Text.L(app, o); }
+
+  /** Turns an engine card (bilingual text, choices, optional family text) into what the overlay shows. */
+  private Overlay.Alert alertFrom(JSONObject card) {
+    Overlay.Alert a = new Overlay.Alert();
+    a.level = card.optString("level", "caution");
+    a.title = loc(card.optJSONObject("title"));
+    a.source = loc(card.optJSONObject("source"));
+    JSONArray rs = card.optJSONArray("reasons");
+    if (rs != null) for (int i = 0; i < rs.length(); i++) {
+      if (rs.optJSONObject(i) != null) a.reasons.add(loc(rs.optJSONObject(i)));
+    }
+    JSONObject fam = card.optJSONObject("family");
+    if (fam != null) a.familyText = loc(fam);
+    a.cooldownS = card.optInt("cooldownS", 0);
+    JSONArray ch = card.optJSONArray("choices");
+    if (ch != null && ch.length() > 0) {
+      a.choiceLabels = new ArrayList<>();
+      a.choiceActions = new ArrayList<>();
+      for (int i = 0; i < ch.length(); i++) {
+        JSONObject choice = ch.optJSONObject(i);
+        if (choice == null) continue;
+        a.choiceLabels.add(loc(choice.optJSONObject("label")));
+        final JSONObject next = choice.optJSONObject("next");
+        a.choiceActions.add(new Runnable() { public void run() {
+          if (next == null) { overlay.dismissCard(); return; }
+          Overlay.Alert n = alertFrom(next);
+          overlay.card(n);
+          overlay.pet(n.level, null, 0);
+          if ("stop".equals(n.level)) Alarm.alert(app, inCall, true);
+        } });
+      }
+    }
+    return a;
+  }
+
+  /** When an unknown call ends: a short report that closes by itself after about 15 seconds. */
+  private void callReport(final String number, long now) {
+    overlay.hideCard();
+    overlay.hidePet();
+    JSONObject p = new JSONObject();
+    put(p, "durationS", Math.max(0, (now - callStart) / 1000));
+    put(p, "bankOpened", callBankOpened);
+    put(p, "codes", callCodes);
+    put(p, "events", trailJson());
+    put(p, "number", number == null ? "" : Text.mask(number));
+    if (lastCaller != null) put(p, "caller", lastCaller);
+    if (callOnline != null) put(p, "online", callOnline);
+    engine.callReport(p, new Engine.Cb() {
+      public void done(JSONObject r) {
+        StringBuilder text = new StringBuilder();
+        JSONArray lines = r == null ? null : r.optJSONArray("lines");
+        if (lines != null) for (int i = 0; i < lines.length(); i++) {
+          String s = loc(lines.optJSONObject(i));
+          if (!s.isEmpty()) text.append(text.length() == 0 ? "" : "\n").append(s);
+        }
+        if (text.length() == 0) text.append(Text.t(app, "Call ended.", "انتهت المكالمة."));
+        overlay.pet("listening", text.toString(), 15000);
+      }
+    });
+  }
+
+  /** Cloud second opinion (Groq, the user's own key). Only when the user switched it on, and only for messages the rules did not flag. */
+  // On-device second opinion, no network: a Naive Bayes model trained on the dev half of the SMS set (docs/RESEARCH_LOG.md).
+  // It can only raise a caution card, never a red alert: red stays with the rules.
+  private void localSecondOpinion(final String text, final String appName, final String title, final String number) {
+    engine.call("K.smsLocal(" + JSONObject.quote(text) + ")", new Engine.Cb() {
+      public void done(JSONObject r) {
+        if (r == null || !r.optBoolean("flag")) return;
+        Overlay.Alert a = new Overlay.Alert();
+        a.level = "caution";
+        a.title = Text.t(app, "Possible scam (on-device check)", "احتمال احتيال (فحص على الجهاز)");
+        a.source = appName + " · " + (number != null ? Text.mask(number) : title);
+        a.reasons.add(Text.t(app, "Veto's on-device text model rates this message as a scam. Its rules did not. Check the sender before you act.",
+            "يصنّف نموذج فيتو على الجهاز هذه الرسالة كاحتيال، ولم تُشر إليها قواعد فيتو. تحقّق من المرسل قبل أن تتصرف."));
+        a.sender = number != null ? number : title;
+        overlay.card(a);
+        overlay.pet("caution", null, 0);
+        Alarm.vibrate(app);
+      }
+    });
+  }
+
+  private void cloudSecondOpinion(final String text, final String appName, final String title, final String number) {
+    final String key = store.groqKey();
+    bg.execute(new Runnable() { public void run() {
+      String v;
+      try { v = Net.groqVerdict(key, text); } catch (Exception e) { Log.w("Veto", "cloud second opinion failed: " + e.getMessage()); return; }
+      if (!"PHISHING".equals(v)) return;
+      main.post(new Runnable() { public void run() {
+        Overlay.Alert a = new Overlay.Alert();
+        a.level = "caution";
+        a.title = Text.t(app, "Possible scam (second opinion)", "احتمال احتيال (رأي ثانٍ)");
+        a.source = appName + " · " + (number != null ? Text.mask(number) : title);
+        a.reasons.add(Text.t(app, "A cloud AI model read this message and flagged it. Veto's rules did not. Check the sender before you act.",
+            "قرأ نموذج ذكاء اصطناعي في السحابة هذه الرسالة وأشار إليها، ولم تُشر إليها قواعد فيتو. تحقّق من المرسل قبل أن تتصرف."));
+        a.sender = number != null ? number : title;
+        overlay.card(a);
+        overlay.pet("caution", null, 0);
+        Alarm.vibrate(app);
+      } });
+    } });
   }
 
   void deviceAlert(final String appLabel, boolean bank, final boolean remote) {

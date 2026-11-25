@@ -79,8 +79,11 @@ if (!REFILTER) {
         if (!host || !host.includes(token)) continue;
         const day = new Date(t).toISOString().slice(0, 10);
         const prev = pool.get(host);
-        if (!prev) { pool.set(host, { host, firstSeen: day, issuer }); n++; }
-        else if (day < prev.firstSeen) prev.firstSeen = day;
+        if (!prev) { pool.set(host, { host, firstSeen: day, issuer, notBefore: c.not_before, loggedAt: c.entry_timestamp }); n++; }
+        else {
+          if (day < prev.firstSeen) prev.firstSeen = day;
+          if (!prev.notBefore || c.not_before < prev.notBefore) { prev.notBefore = c.not_before; prev.loggedAt = c.entry_timestamp; }
+        }
       }
     }
     console.log(`${certs.length} certificates, ${n} new names`);
@@ -96,8 +99,9 @@ for (const rec of pool.values()) {
   if (!j) { platformOrOfficial++; continue; }
   const reg = splitDomain(rec.host).registrable;
   const cur = byReg.get(reg) || { registrable: reg, brand: j.imitation.name.en, brandAr: j.imitation.name.ar, inst: j.imitation.id,
-    firstSeen: rec.firstSeen, hosts: [], issuer: rec.issuer, risk: +j.a.risk.toFixed(2), extraSignal: false };
+    firstSeen: rec.firstSeen, notBefore: rec.notBefore, loggedAt: rec.loggedAt, hosts: [], issuer: rec.issuer, risk: +j.a.risk.toFixed(2), extraSignal: false };
   if (rec.firstSeen < cur.firstSeen) cur.firstSeen = rec.firstSeen;
+  if (rec.notBefore && (!cur.notBefore || rec.notBefore < cur.notBefore)) { cur.notBefore = rec.notBefore; cur.loggedAt = rec.loggedAt; }
   if (cur.hosts.length < 3 && !cur.hosts.includes(rec.host)) cur.hosts.push(rec.host);
   cur.extraSignal = cur.extraSignal || j.extra;
   byReg.set(reg, cur);

@@ -88,7 +88,7 @@ export function callerCheck(number, o = {}) {
   if (!digits) add('hidden', 0.35, 'Hidden number. It cannot be checked or called back. Banks and the police have no reason to hide their number.', 'رقم مخفي، لا يمكن فحصه أو معاودة الاتصال به. البنوك والشرطة لا تخفي أرقامها.');
   const ring = intl && ONE_RING.find(([p]) => intl.startsWith(p));
   if (ring) add('one_ring', 0.75, `+${ring[0]} (${ring[1]}) is a range used in “one-ring” scams. Don't call back. It can cost up to US$50 a minute.`, `+${ring[0]} (${ring[1]}) نطاق يُستخدم في احتيال «الرنّة الواحدة». لا تعاود الاتصال، قد يكلّف حتى 50 دولاراً للدقيقة.`);
-  else if (country && country.code !== 'AE' && !o.inContacts) add('foreign', 0.25, `Unknown number from ${country.name.en}.`, `رقم مجهول من ${country.name.ar}.`);
+  else if (country && country.code !== 'AE' && !o.inContacts) add('foreign', 0.25, `Unknown number from ${country.name.en}. Background check: not in your contacts or reports.`, `رقم مجهول من ${country.name.ar}. فحص في الخلفية: ليس في جهات اتصالك ولا في بلاغاتك.`);
   const official = INSTITUTIONS.find(i => (i.phones || []).some(p => sameNumber(p.n, number) || exactShort(p.n, number)));
   if (official) positives.push({ id: 'official_number', en: `This is ${official.name.en}'s published number, but caller ID can be faked. If they ask for a code, PIN or a transfer, hang up and call back yourself.`, ar: `هذا الرقم المعلن لـ${official.name.ar}، لكن يمكن تزوير هوية المتصل. إذا طلبوا رمزاً أو رقماً سرياً أو تحويلاً، أغلق واتصل بنفسك.`, inst: official.id });
   if ((o.reported || []).some(r => sameNumber(r, number))) add('reported_by_you', 0.9, 'You reported this number to Veto before.', 'سبق أن أبلغت فيتو عن هذا الرقم.');

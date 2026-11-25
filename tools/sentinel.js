@@ -1,8 +1,8 @@
-// npm run sentinel [-- --only enbd,adcb] [--kinds lookalike,ct,search,maps] [--xray 3]
+// npm run sentinel [-- --only enbd,adcb] [--kinds lookalike,ct,search,maps] [--xray 3] [--plan]
 // Runs a Veto Sentinel hunt from the command line (the same engine as the police console at /sentinel.html)
 // and prints the most alarming suspects and the campaigns in the case file. State: var/sentinel.json.
 import { sweep, overview, PRIORITY } from '../server/sentinel.js';
-import { connectors, connectorsConfigured } from '../server/connectors.js';
+import { connectors, connectorsConfigured, huntPlan } from '../server/connectors.js';
 import { xray } from '../server/xray.js';
 import { recordCase, campaigns } from '../server/cases.js';
 
@@ -11,6 +11,7 @@ const arg = k => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : null
 const insts = arg('--only') ? arg('--only').split(',') : PRIORITY;
 const kinds = arg('--kinds') ? arg('--kinds').split(',') : ['lookalike', 'ct', 'search', 'maps'];
 const xrayTop = Number(arg('--xray') || 0);
+if (args.includes('--plan')) { console.log(JSON.stringify(huntPlan(insts), null, 2)); process.exit(0); }
 const on = connectorsConfigured();
 console.log(`Veto Sentinel: ${insts.length} institutions · ${kinds.join(', ')} · search ${on.search ? 'on' : 'off'} · maps ${on.maps ? 'on' : 'off'} · x-ray top ${xrayTop}`);
 

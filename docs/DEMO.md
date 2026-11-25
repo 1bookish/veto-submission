@@ -37,7 +37,7 @@ voice deepfakes; iPhone call interception is impossible on iOS).
 
 # 3-minute demo script
 
-**Setup (before you go on stage):** `npm start` on the laptop; open http://localhost:8787 full-screen. Android phone with Veto installed (USB install, see README.md), every row "On", and WhatsApp + Messages switched on under *Apps Veto reads*. A teammate's phone is the "scammer": its number must NOT be saved in the demo phone. Save a second teammate as "Mum". Same Wi-Fi for both; in Veto → Settings: online checks ON,
+**Setup (before you go on stage):** `npm start` on the laptop; open http://localhost:8787 full-screen. Android phone with Veto installed (USB install, see HANDOFF.md), every row "On", and WhatsApp + Messages switched on under *Apps Veto reads*. A teammate's phone is the "scammer": its number must NOT be saved in the demo phone. Save a second teammate as "Mum". Same Wi-Fi for both; in Veto → Settings: online checks ON,
 server `http://<laptop-ip>:8787`. Volume up. Rehearse once. Keep this file open
 server `http://<laptop-ip>:8787` (emulator: `http://10.0.2.2:8787`). Volume up. Rehearse once. Keep this file open
 on a second screen.

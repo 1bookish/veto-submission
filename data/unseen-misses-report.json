@@ -1,0 +1,143 @@
+{
+  "unseen": 292437,
+  "caught_strict": 260147,
+  "recall_strict": 0.8896,
+  "misses": 32290,
+  "by_feature": {
+    "free_hosting_or_builder": {
+      "n": 82354,
+      "caught": 82353,
+      "missed": 1,
+      "recall": 1,
+      "share_of_misses": 0
+    },
+    "not_popular": {
+      "n": 291733,
+      "caught": 259807,
+      "missed": 31926,
+      "recall": 0.8906,
+      "share_of_misses": 0.9887
+    },
+    "other_tld": {
+      "n": 251055,
+      "caught": 219331,
+      "missed": 31724,
+      "recall": 0.8736,
+      "share_of_misses": 0.9825
+    },
+    "brand_token": {
+      "n": 60260,
+      "caught": 58471,
+      "missed": 1789,
+      "recall": 0.9703,
+      "share_of_misses": 0.0554
+    },
+    "lure_words": {
+      "n": 63021,
+      "caught": 61155,
+      "missed": 1866,
+      "recall": 0.9704,
+      "share_of_misses": 0.0578
+    },
+    "ordinary_domain": {
+      "n": 202327,
+      "caught": 174975,
+      "missed": 27352,
+      "recall": 0.8648,
+      "share_of_misses": 0.8471
+    },
+    "cheap_tld": {
+      "n": 41382,
+      "caught": 40816,
+      "missed": 566,
+      "recall": 0.9863,
+      "share_of_misses": 0.0175
+    },
+    "no_brand_token": {
+      "n": 232177,
+      "caught": 201676,
+      "missed": 30501,
+      "recall": 0.8686,
+      "share_of_misses": 0.9446
+    },
+    "no_lure_words": {
+      "n": 229416,
+      "caught": 198992,
+      "missed": 30424,
+      "recall": 0.8674,
+      "share_of_misses": 0.9422
+    },
+    "ip_host": {
+      "n": 2773,
+      "caught": 2773,
+      "missed": 0,
+      "recall": 1,
+      "share_of_misses": 0
+    },
+    "popular_top100k": {
+      "n": 704,
+      "caught": 340,
+      "missed": 364,
+      "recall": 0.483,
+      "share_of_misses": 0.0113
+    },
+    "public_bucket": {
+      "n": 4983,
+      "caught": 46,
+      "missed": 4937,
+      "recall": 0.0092,
+      "share_of_misses": 0.1529
+    }
+  },
+  "top_miss_families": [
+    {
+      "family": "ordinary_domain + not_popular + other_tld + no_brand_token + no_lure_words",
+      "misses": 23584
+    },
+    {
+      "family": "public_bucket + not_popular + other_tld + no_brand_token + no_lure_words",
+      "misses": 4398
+    },
+    {
+      "family": "ordinary_domain + not_popular + other_tld + no_brand_token + lure_words",
+      "misses": 1527
+    },
+    {
+      "family": "ordinary_domain + not_popular + other_tld + brand_token + no_lure_words",
+      "misses": 1201
+    },
+    {
+      "family": "ordinary_domain + not_popular + cheap_tld + no_brand_token + no_lure_words",
+      "misses": 552
+    },
+    {
+      "family": "public_bucket + not_popular + other_tld + brand_token + no_lure_words",
+      "misses": 372
+    },
+    {
+      "family": "ordinary_domain + popular_top100k + other_tld + no_brand_token + no_lure_words",
+      "misses": 240
+    },
+    {
+      "family": "public_bucket + not_popular + other_tld + no_brand_token + lure_words",
+      "misses": 151
+    },
+    {
+      "family": "ordinary_domain + not_popular + other_tld + brand_token + lure_words",
+      "misses": 114
+    },
+    {
+      "family": "ordinary_domain + popular_top100k + other_tld + brand_token + no_lure_words",
+      "misses": 63
+    },
+    {
+      "family": "ordinary_domain + popular_top100k + other_tld + no_brand_token + lure_words",
+      "misses": 43
+    },
+    {
+      "family": "public_bucket + not_popular + other_tld + brand_token + lure_words",
+      "misses": 16
+    }
+  ],
+  "note": "diagnostic only; no rule or threshold changed; URLs are not written"
+}

@@ -1,0 +1,55 @@
+:root {
+  --bg: #f3f6fb; --surface: #ffffff; --line: #e2e9f3; --line-2: #d3ddeb;
+  --ink: #0d1b2e; --ink-2: #2f3e57; --muted: #4a5a72;
+  --blue: #1a6cf0; --link: #1849a9;
+  --red: #c62a1f; --red-bg: #fef3f2; --red-line: #fecdca; --red-ink: #912018;
+  --amber: #b54708; --amber-bg: #fffaeb; --amber-line: #fedf89; --amber-ink: #7a2e0e;
+  --green: #067a4f; --green-bg: #ecfdf3; --green-line: #abefc6; --green-ink: #05603a;
+  --blue-bg: #eff6ff; --blue-line: #c7dcff; --blue-ink: #1849a9;
+  --grey-bg: #f3f6fb; --grey-line: #d3ddeb; --grey-ink: #2f3e57;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1422; --surface: #111d30; --line: #22324a; --line-2: #2c3f5c;
+    --ink: #e8eef8; --ink-2: #c3cede; --muted: #93a3ba;
+    --blue: #5b9bff; --link: #8cb8ff;
+    --red: #e5544a; --red-bg: #3a1714; --red-line: #6b2620; --red-ink: #ffb4ab;
+    --amber: #e0892f; --amber-bg: #35230d; --amber-line: #6a4515; --amber-ink: #fcd29a;
+    --green: #2fb57f; --green-bg: #0f2c20; --green-line: #1d5a40; --green-ink: #9ee6c3;
+    --blue-bg: #13233f; --blue-line: #23406e; --blue-ink: #a9c8ff;
+    --grey-bg: #17253b; --grey-line: #2c3f5c; --grey-ink: #c3cede;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, "Noto Sans Arabic", Tahoma, sans-serif; }
+[dir="rtl"] body, body[dir="rtl"] { font-family: "Segoe UI", "Noto Sans Arabic", Tahoma, system-ui, sans-serif; }
+header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--surface); border-bottom: 1px solid var(--line); }
+header img { width: 26px; height: 26px; border-radius: 7px; }
+header .name { font-weight: 700; font-size: 15px; flex: 1; letter-spacing: .01em; }
+main { padding: 12px 16px 16px; display: grid; gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; display: grid; gap: 8px; min-width: 0; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+.pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 3px 12px; font-weight: 700; font-size: 13px; border: 1px solid; width: fit-content; }
+.v-red { background: var(--red-bg); color: var(--red-ink); border-color: var(--red-line); }
+.v-amber { background: var(--amber-bg); color: var(--amber-ink); border-color: var(--amber-line); }
+.v-green { background: var(--green-bg); color: var(--green-ink); border-color: var(--green-line); }
+.v-blue { background: var(--blue-bg); color: var(--blue-ink); border-color: var(--blue-line); }
+.v-grey { background: var(--grey-bg); color: var(--grey-ink); border-color: var(--grey-line); }
+.host { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; color: var(--ink-2); word-break: break-all; }
+ul.reasons { margin: 0; padding-inline-start: 18px; display: grid; gap: 4px; }
+ul.reasons li { color: var(--ink-2); }
+.src { color: var(--muted); font-size: 11.5px; }
+textarea, input[type=text], input[type=password], input[type=url] { width: 100%; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line-2); border-radius: 12px; padding: 9px 11px; }
+textarea { min-height: 92px; resize: vertical; }
+textarea:focus, input:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+button { font: inherit; border-radius: 12px; padding: 8px 14px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); cursor: pointer; }
+button.primary { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 600; }
+button.link { border: 0; background: none; color: var(--link); padding: 4px 6px; }
+button:disabled { opacity: .55; cursor: default; }
+.muted { color: var(--muted); font-size: 12.5px; }
+.ai { border-top: 1px dashed var(--line-2); padding-top: 8px; display: grid; gap: 4px; }
+.next { margin: 0; padding-inline-start: 18px; color: var(--ink-2); display: grid; gap: 3px; font-size: 13px; }
+a { color: var(--link); }

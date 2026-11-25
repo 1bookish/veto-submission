@@ -1,0 +1,33 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"Scale check\" (24 Nov, late)",
+  "urls": 1000000,
+  "inputs": {
+    "phishing_db_urls": 500000,
+    "popular_domains_urls": 500000
+  },
+  "errors": 0,
+  "verdicts": {
+    "phishing": 471581,
+    "legitimate": 507887,
+    "suspicious": 20528,
+    "invalid": 4
+  },
+  "verdicts_by_input": {
+    "phishing_db": {
+      "phishing": 456913,
+      "legitimate": 27486,
+      "suspicious": 15597,
+      "invalid": 4
+    },
+    "popular_domains": {
+      "legitimate": 480401,
+      "suspicious": 4931,
+      "phishing": 14668
+    }
+  },
+  "seconds": 626.8,
+  "ms_per_url": 0.627,
+  "peak_rss_mb": 496,
+  "network": "none (judgeOffline only)",
+  "note": "counts, timing and memory only; no URL is written"
+}

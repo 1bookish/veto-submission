@@ -13,6 +13,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.InputType;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowInsets;
@@ -179,6 +181,25 @@ public class MainActivity extends Activity {
     }));
     box.addView(Ui.bullet(this, R.drawable.ic_lock, Ui.OK, t("Off until you switch it on. Sends ONLY the link or the phone number, never your messages, names or contacts.",
         "معطّل حتى تفعّله. يُرسل الرابط أو رقم الهاتف فقط، وليس رسائلك أو أسماءك أو جهات اتصالك."), 12.5f, Ui.MUTED), Ui.lp(this, Ui.MATCH, Ui.WRAP, 0, 4, 0, 2));
+    box.addView(toggle(t("Stronger highlight in open chats", "تمييز أقوى داخل المحادثات المفتوحة"), k.store.highlightStrong(), new CompoundButton.OnCheckedChangeListener() {
+      public void onCheckedChanged(CompoundButton b, boolean v) { k.store.highlightStrong(v); }
+    }));
+    box.addView(toggle(t("Check SMS directly (needs SMS permission)", "فحص الرسائل النصية مباشرة (يحتاج إذن الرسائل)"), k.store.smsDirect(), new CompoundButton.OnCheckedChangeListener() {
+      public void onCheckedChanged(CompoundButton b, boolean v) {
+        k.store.smsDirect(v);
+        if (v && !granted(Manifest.permission.RECEIVE_SMS)) requestPermissions(new String[] { Manifest.permission.RECEIVE_SMS }, REQ_PERMS);
+      }
+    }));
+    box.addView(toggle(t("Cloud second opinion (Groq, your own key)", "رأي ثانٍ من السحابة (Groq، بمفتاحك)"), k.store.cloudSecond(), new CompoundButton.OnCheckedChangeListener() {
+      public void onCheckedChanged(CompoundButton b, boolean v) { k.store.cloudSecond(v); }
+    }));
+    EditText groqField = field(t("Groq API key (stays on this phone)", "مفتاح Groq (يبقى على هذا الهاتف)"), k.store.groqKey(), true);
+    groqField.addTextChangedListener(new TextWatcher() {
+      public void beforeTextChanged(CharSequence s, int a, int b2, int c) { }
+      public void onTextChanged(CharSequence s, int a, int b2, int c) { }
+      public void afterTextChanged(Editable s) { k.store.groqKey(s.toString()); }
+    });
+    box.addView(groqField, Ui.lp(this, Ui.MATCH, Ui.WRAP, 0, 6, 0, 6));
     server = field(t("Veto server, e.g. http://192.168.1.20:8787", "خادم فيتو، مثل http://192.168.1.20:8787"), k.store.server(), false);
     box.addView(server, Ui.lp(this, Ui.MATCH, Ui.WRAP, 0, 10, 0, 0));
     ipqs = field(t("IPQualityScore key (optional, your own)", "مفتاح IPQualityScore (اختياري، مفتاحك)"), k.store.ipqsKey(), true);

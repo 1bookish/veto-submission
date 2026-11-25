@@ -38,6 +38,18 @@ final class Store {
   /** Optional IPQualityScore key (the user's own) for caller reputation straight from the phone. */
   String ipqsKey() { return p.getString("ipqs", ""); }
   void ipqsKey(String v) { p.edit().putString("ipqs", v == null ? "" : v.trim()).apply(); }
+  /** Stronger highlight inside open chats (outline and pill in full colour). Off = subtle, the default. */
+  boolean highlightStrong() { return p.getBoolean("hl_strong", false); }
+  void highlightStrong(boolean v) { p.edit().putBoolean("hl_strong", v).apply(); }
+  /** Cloud second opinion (Groq) for messages the rules did not flag. Off by default; the text leaves the phone when on. */
+  boolean cloudSecond() { return p.getBoolean("cloud2", false); }
+  void cloudSecond(boolean v) { p.edit().putBoolean("cloud2", v).apply(); }
+  /** The user's own Groq key, kept in this app's private storage on this phone. Sent only to Groq. */
+  String groqKey() { return p.getString("groq", ""); }
+  void groqKey(String v) { p.edit().putString("groq", v == null ? "" : v.trim()).apply(); }
+  /** Check incoming SMS directly (SMS_RECEIVED), so a hidden notification does not hide a scam text. */
+  boolean smsDirect() { return p.getBoolean("sms_direct", false); }
+  void smsDirect(boolean v) { p.edit().putBoolean("sms_direct", v).apply(); }
   /**
    * Which chat apps Veto may read. Only apps the user switched on are read; every other app is ignored.
    * Default: SMS, WhatsApp and Telegram (where most UAE scams arrive); the rest stay off until switched on.

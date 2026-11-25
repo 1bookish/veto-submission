@@ -2,6 +2,7 @@ package ae.veto.app;
 
 import android.content.Context;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -22,6 +23,36 @@ import java.util.List;
  */
 final class Net {
   private Net() {}
+
+  /** The instructions the cloud second opinion gets: the same text the research test used (tools/eval-llm-smishx.js). */
+  static final String GROQ_SYSTEM = "You check text messages for fraud. Answer PHISHING if the message is a scam or phishing attempt, for example a fake bank, delivery, government or account alert that asks the reader to click a link, pay a fee, or give codes or personal details. Answer LEGITIMATE otherwise. Reply with one word: PHISHING or LEGITIMATE.";
+  static final String GROQ_MODEL = "qwen/qwen3.8-27b";
+
+  /**
+   * Cloud second opinion with the user's own Groq key, only when the user switched it on. The message text goes to
+   * Groq and nowhere else. Returns PHISHING, LEGITIMATE, or "" when the answer cannot be read.
+   */
+  static String groqVerdict(String key, String text) throws Exception {
+    JSONObject body = new JSONObject();
+    body.put("model", GROQ_MODEL);
+    body.put("temperature", 0);
+    body.put("max_tokens", 5);
+    JSONArray msgs = new JSONArray();
+    msgs.put(new JSONObject().put("role", "system").put("content", GROQ_SYSTEM));
+    msgs.put(new JSONObject().put("role", "user").put("content", text));
+    body.put("messages", msgs);
+    HttpURLConnection c = (HttpURLConnection) new URL("https://api.groq.com/openai/v1/chat/completions").openConnection();
+    c.setConnectTimeout(6000);
+    c.setReadTimeout(15000);
+    c.setRequestMethod("POST");
+    c.setDoOutput(true);
+    c.setRequestProperty("Content-Type", "application/json");
+    c.setRequestProperty("Authorization", "Bearer " + key);
+    try (OutputStream o = c.getOutputStream()) { o.write(body.toString().getBytes(StandardCharsets.UTF_8)); }
+    JSONObject j = new JSONObject(read(c));
+    String answer = j.getJSONArray("choices").getJSONObject(0).getJSONObject("message").optString("content", "").trim().toUpperCase();
+    return answer.contains("PHISHING") ? "PHISHING" : answer.contains("LEGITIMATE") ? "LEGITIMATE" : "";
+  }
 
   static String base(String server) {
     String s = server == null ? "" : server.trim();

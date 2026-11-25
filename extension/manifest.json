@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Veto.ai: scam check",
+  "short_name": "Veto.ai",
+  "version": "0.5.0",
+  "description": "Checks every website you open and the messages you read on WhatsApp Web, Google Messages, Telegram, Gmail and Outlook, on your own computer.",
+  "minimum_chrome_version": "116",
+  "background": { "service_worker": "background.js", "type": "module" },
+  "permissions": ["tabs", "storage", "contextMenus", "notifications", "webNavigation"],
+  "host_permissions": ["http://localhost/*", "http://127.0.0.1/*", "https://api.groq.com/*"],
+  "content_scripts": [
+    { "matches": ["http://*/*", "https://*/*"], "js": ["content.js"], "run_at": "document_start" }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Veto.ai",
+    "default_icon": { "16": "icons/icon-192.png", "32": "icons/icon-192.png", "48": "icons/icon-192.png", "128": "icons/icon-192.png" }
+  },
+  "icons": { "16": "icons/icon-192.png", "48": "icons/icon-192.png", "128": "icons/icon-192.png" },
+  "options_page": "options.html"
+}

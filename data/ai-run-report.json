@@ -1,0 +1,36 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"AI run on a labelled SMS sample\" (25 Nov, written before the run)",
+  "sample": {
+    "messages": 100,
+    "phishing": 50,
+    "legitimate": 50,
+    "seed": 20261202,
+    "source": "dataset.csv"
+  },
+  "warned_when_verdict_is": [
+    "caution",
+    "high",
+    "scam",
+    "otp"
+  ],
+  "rules_only": {
+    "tp": 29,
+    "fn": 21,
+    "fp": 4,
+    "tn": 46,
+    "positives": 50,
+    "negatives": 50,
+    "recall": 0.58,
+    "recall_95ci": [
+      0.4423,
+      0.7062
+    ],
+    "false_alarm": 0.08,
+    "false_alarm_95ci": [
+      0.0315,
+      0.1884
+    ]
+  },
+  "with_ai": "not run (needs --ai and ANTHROPIC_API_KEY set in the environment)",
+  "note": "counts and intervals only; no message text is written"
+}

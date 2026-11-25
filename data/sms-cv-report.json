@@ -1,0 +1,63 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"SMS: nested cross-validation, with and without generated texts\" (25 Nov, late)",
+  "outer_folds": 5,
+  "seed": 20261230,
+  "target_false_alarm": 0.03,
+  "A": {
+    "tp": 251,
+    "fn": 8,
+    "fp": 15,
+    "tn": 607,
+    "scam_texts": 259,
+    "normal_texts": 622,
+    "synth_per_training": 0,
+    "recall": 0.9691,
+    "recall_95ci": [
+      0.9402,
+      0.9843
+    ],
+    "false_alarm": 0.0241,
+    "false_alarm_95ci": [
+      0.0147,
+      0.0394
+    ],
+    "thresholds": [
+      -0.16330596034596345,
+      -1.0027136978592472,
+      -0.8739823525115291,
+      -0.6560025771850109,
+      -0.3940864263473518
+    ],
+    "median_threshold": -0.6560025771850109
+  },
+  "B": {
+    "tp": 250,
+    "fn": 9,
+    "fp": 20,
+    "tn": 602,
+    "scam_texts": 259,
+    "normal_texts": 622,
+    "synth_per_training": 1000000,
+    "recall": 0.9653,
+    "recall_95ci": [
+      0.9353,
+      0.9816
+    ],
+    "false_alarm": 0.0322,
+    "false_alarm_95ci": [
+      0.0209,
+      0.0491
+    ],
+    "thresholds": [
+      -2.7769957198073163,
+      -3.0876235618619967,
+      -2.2045809873024425,
+      -2.2033633361737497,
+      -0.8713510958009696
+    ],
+    "median_threshold": -2.2045809873024425
+  },
+  "adopted": "A",
+  "why": "rule: keep A unless B qualifies and is at least 5 points higher",
+  "note": "every text scored once by a model that never saw it; no message text written"
+}

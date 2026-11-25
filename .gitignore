@@ -7,3 +7,4 @@ android/build/
 android/debug.keystore
 assets/_reference/
 var/
+build/

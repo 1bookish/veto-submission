@@ -131,4 +131,6 @@ final class Engine {
   void outgoing(String number, JSONObject opts, Cb cb) { call("K.outgoing(" + JSONObject.quote(number == null ? "" : number) + "," + opts + ")", cb); }
   void contacts(org.json.JSONArray list, Cb cb) { call("({list: K.contacts(" + list + ")})", cb); }
   void caller(String number, JSONObject opts, Cb cb) { call("K.caller(" + JSONObject.quote(number == null ? "" : number) + "," + opts + ")", cb); }
+  void callwatch(JSONObject payload, Cb cb) { call("K.callwatch(" + payload + ")", cb); }
+  void callReport(JSONObject payload, Cb cb) { call("K.callReport(" + payload + ")", cb); }
 }

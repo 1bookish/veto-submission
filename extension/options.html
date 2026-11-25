@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Veto.ai settings</title>
+<link rel="stylesheet" href="ui.css">
+<style>
+  main { max-width: 640px; margin: 0 auto; padding-block: 20px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  label.check { display: flex; gap: 10px; align-items: flex-start; }
+  label.check input { margin-top: 3px; }
+  h1 { font-size: 20px; margin: 4px 0 0; }
+  h2 { font-size: 15px; margin: 0; }
+  .field { display: grid; gap: 4px; }
+  #trusted li { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+  #trusted { padding: 0; margin: 0; list-style: none; display: grid; gap: 6px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="row"><img src="icons/icon-192.png" alt="" width="32" height="32" style="border-radius:8px"><h1>Veto.ai settings</h1></div>
+  <section class="card">
+    <h2>Checks on this computer</h2>
+    <label class="check"><input type="checkbox" id="warnPages"> <span>Warn me on scam and suspicious websites (a full-screen warning for scam sites, a bar for suspicious ones).</span></label>
+    <label class="check"><input type="checkbox" id="scanMessages"> <span>Check the messages I read on WhatsApp Web, Google Messages, Telegram, Gmail and Outlook, and label the risky ones.</span></label>
+    <div class="field"><label class="label" for="lang">Language</label>
+      <select id="lang"><option value="en">English</option><option value="ar">العربية</option></select></div>
+  </section>
+  <section class="card">
+    <h2>Your Veto server (optional)</h2>
+    <p class="muted">Run <code>npm start</code> in the Veto folder. Then links that are not clearly safe are also checked online (where they really lead, what the page asks for, how old the domain is), and the AI check can use the server's Claude key. Only the address goes to your own server.</p>
+    <div class="field"><label class="label" for="server">Server address</label><input type="url" id="server" placeholder="http://localhost:8787"></div>
+    <label class="check"><input type="checkbox" id="online"> <span>Online link checks through this server</span></label>
+    <div class="muted" id="serverState"></div>
+  </section>
+  <section class="card">
+    <h2>AI second opinion (optional)</h2>
+    <p class="muted">Used for messages the rules cannot read (other languages: the AI translates them) and when the rules and the text model disagree. The AI can add a warning, never remove one. Personal data (card numbers, codes, phone numbers, e-mails) is removed before the text is sent. The Veto server's AI is used first when it has one; otherwise your Groq key.</p>
+    <label class="check"><input type="checkbox" id="aiAuto"> <span>Ask the AI automatically in those cases</span></label>
+    <div class="field"><label class="label" for="groqKey">Groq API key (stored only in this browser)</label><input type="password" id="groqKey" autocomplete="off" placeholder="gsk_…"></div>
+    <div class="field"><label class="label" for="groqModel">Groq model</label><input type="text" id="groqModel"></div>
+  </section>
+  <section class="card">
+    <h2>Sites you trust</h2>
+    <ul id="trusted"></ul>
+    <div class="muted" id="noTrusted">None.</div>
+  </section>
+  <div class="row"><button class="primary" id="save" type="button">Save</button><span class="muted" id="saved"></span></div>
+</main>
+<script src="options.js" type="module"></script>
+</body>
+</html>

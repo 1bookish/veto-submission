@@ -1,0 +1,23 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"Zero-shot LLM second opinion on SmishX\" (24 Nov, late)",
+  "model": "qwen/qwen3.8-27b",
+  "provider": "Groq (not Claude)",
+  "temperature": 0,
+  "max_tokens": 5,
+  "positives": 259,
+  "negatives": 622,
+  "recall": 0.9382,
+  "recall_95ci": [
+    0.902,
+    0.9616
+  ],
+  "false_alarm_rate": 0.0756,
+  "false_alarm_95ci": [
+    0.0573,
+    0.099
+  ],
+  "unparsed": 10,
+  "request_errors": 9,
+  "minutes": 34.4,
+  "note": "zero-shot, one run, no tuning on this data; counts only, no message text stored"
+}

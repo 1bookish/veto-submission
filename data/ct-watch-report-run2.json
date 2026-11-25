@@ -1,0 +1,395 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"Live CT watch\" and its amendments (24 and 25 Nov)",
+  "final": true,
+  "started": "2026-11-24T20:04:44.292Z",
+  "now": "2026-11-24T20:14:53.925Z",
+  "minutes": 10.16,
+  "poll_s": 5,
+  "batch": 256,
+  "par": 4,
+  "max_backlog": 5000,
+  "sample_rate": 0.02,
+  "logs_read": [
+    {
+      "operator": "Cloudflare",
+      "log": "Cloudflare Nimbus2026",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "operator": "Cloudflare",
+      "log": "Cloudflare Nimbus2027",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "operator": "DigiCert",
+      "log": "DigiCert Wyvern2026h2",
+      "sequenced": 13800,
+      "fetched": 13800,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 1164,
+      "alerts": 0
+    },
+    {
+      "operator": "DigiCert",
+      "log": "DigiCert Wyvern2027h1",
+      "sequenced": 128347,
+      "fetched": 60565,
+      "skipped": 67782,
+      "coverage": 0.4719,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 6365,
+      "alerts": 43
+    },
+    {
+      "operator": "DigiCert",
+      "log": "DigiCert Wyvern2027h2",
+      "sequenced": 1,
+      "fetched": 1,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "operator": "DigiCert",
+      "log": "DigiCert Sphinx2026h2",
+      "sequenced": 10262,
+      "fetched": 10262,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 1164,
+      "alerts": 0
+    },
+    {
+      "operator": "DigiCert",
+      "log": "DigiCert Sphinx2027h1",
+      "sequenced": 115273,
+      "fetched": 58951,
+      "skipped": 56322,
+      "coverage": 0.5114,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 6798,
+      "alerts": 28
+    },
+    {
+      "operator": "DigiCert",
+      "log": "DigiCert Sphinx2027h2",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "operator": "Sectigo",
+      "log": "Sectigo Elephant2026h2",
+      "sequenced": 13241,
+      "fetched": 13241,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 1310,
+      "alerts": 1
+    },
+    {
+      "operator": "Sectigo",
+      "log": "Sectigo Elephant2027h1",
+      "sequenced": 121022,
+      "fetched": 19553,
+      "skipped": 101469,
+      "coverage": 0.1616,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 1235,
+      "alerts": 20
+    },
+    {
+      "operator": "Sectigo",
+      "log": "Sectigo Elephant2027h2",
+      "sequenced": 1,
+      "fetched": 1,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "operator": "Sectigo",
+      "log": "Sectigo Tiger2026h2",
+      "sequenced": 14761,
+      "fetched": 14761,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 1422,
+      "alerts": 1
+    },
+    {
+      "operator": "Sectigo",
+      "log": "Sectigo Tiger2027h1",
+      "sequenced": 149832,
+      "fetched": 22694,
+      "skipped": 127138,
+      "coverage": 0.1515,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 1966,
+      "alerts": 9
+    },
+    {
+      "operator": "Sectigo",
+      "log": "Sectigo Tiger2027h2",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "operator": "TrustAsia",
+      "log": "TrustAsia log2026a",
+      "sequenced": 12157,
+      "fetched": 12157,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 1,
+      "parse_errors": 0,
+      "names_brand_gated": 1268,
+      "alerts": 1
+    },
+    {
+      "operator": "TrustAsia",
+      "log": "TrustAsia log2026b",
+      "sequenced": 12013,
+      "fetched": 12013,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 1130,
+      "alerts": 0
+    },
+    {
+      "operator": "TrustAsia",
+      "log": "TrustAsia HETU2027",
+      "sequenced": 79835,
+      "fetched": 20000,
+      "skipped": 59835,
+      "coverage": 0.2505,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 2139,
+      "alerts": 20
+    }
+  ],
+  "logs_not_read": [
+    {
+      "operator": "Google",
+      "log": "Google Argon2026h2",
+      "state": "readonly"
+    },
+    {
+      "operator": "Google",
+      "log": "Google Argon2027h1",
+      "state": "readonly"
+    },
+    {
+      "operator": "Google",
+      "log": "Google Xenon2026h2",
+      "state": "readonly"
+    },
+    {
+      "operator": "Google",
+      "log": "Google Xenon2027h1",
+      "state": "readonly"
+    },
+    {
+      "operator": "Sectigo",
+      "log": "Sectigo Mammoth2026h2",
+      "state": "readonly"
+    },
+    {
+      "operator": "Sectigo",
+      "log": "Sectigo Sabre2026h2",
+      "state": "readonly"
+    },
+    {
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Oak2026h2",
+      "state": "retired"
+    },
+    {
+      "operator": "Geomys",
+      "log": "Bogus placeholder log to unbreak misbehaving CT libraries",
+      "state": "ended"
+    },
+    {
+      "operator": "IPng Networks",
+      "log": "Bogus RFC6962 log to avoid breaking misbehaving CT libraries",
+      "state": "ended"
+    }
+  ],
+  "coverage": {
+    "sequenced": 670545,
+    "fetched": 257999,
+    "share": 0.3848,
+    "skipped": 412546,
+    "entries_per_s": 423.2
+  },
+  "entries": {
+    "certs": 257999,
+    "by_type": {
+      "precert": 129257,
+      "x509": 128742
+    },
+    "parse_errors": 0,
+    "names_seen": 352763
+  },
+  "brand_gate": {
+    "names_judged": 25961,
+    "verdicts": {
+      "phishing": 17070,
+      "legitimate": 8291,
+      "suspicious": 600
+    },
+    "flagged_popular_tranco": 17547,
+    "alerts": 123
+  },
+  "generic_sample": {
+    "names_judged": 7544,
+    "flagged": 1894,
+    "share": 0.2511,
+    "share_95ci": [
+      0.2414,
+      0.261
+    ],
+    "verdicts": {
+      "legitimate": 5650,
+      "phishing": 1528,
+      "suspicious": 366
+    }
+  },
+  "latency": {
+    "log_to_watch_all": {
+      "n": 257999,
+      "median_s": 33.84,
+      "p90_s": 198.96,
+      "p99_s": 312.38,
+      "max_s": 354.76
+    },
+    "log_to_watch_alerts": {
+      "n": 123,
+      "median_s": 27.93,
+      "p90_s": 183.27,
+      "p99_s": 201.15,
+      "max_s": 279.92
+    },
+    "not_before_offset_precert": {
+      "n": 129240,
+      "median_s": 3603.59,
+      "p90_s": 72606.41,
+      "p99_s": 72841.84,
+      "max_s": 172565.52
+    },
+    "issuance_to_watch_precert": {
+      "n": 129240,
+      "median_s": 3671.73,
+      "p90_s": 72689.79,
+      "p99_s": 72883.27,
+      "max_s": 172619.52
+    },
+    "issuance_to_watch_alerts": {
+      "n": 64,
+      "median_s": 3633.89,
+      "p90_s": 72452.15,
+      "p99_s": 72624.95,
+      "max_s": 72624.95
+    }
+  },
+  "judge_ms_per_name": 0.5831,
+  "judge_errors": 0,
+  "issuers_top": [
+    {
+      "issuer": "Let's Encrypt",
+      "certs": 95071
+    },
+    {
+      "issuer": "Google Trust Services",
+      "certs": 60438
+    },
+    {
+      "issuer": "Amazon",
+      "certs": 31486
+    },
+    {
+      "issuer": "DigiCert Inc",
+      "certs": 23146
+    },
+    {
+      "issuer": "ZeroSSL GmbH",
+      "certs": 14676
+    },
+    {
+      "issuer": "GoDaddy.com",
+      "certs": 14236
+    },
+    {
+      "issuer": "SSL Corporation",
+      "certs": 8092
+    },
+    {
+      "issuer": "Microsoft Corporation",
+      "certs": 4747
+    },
+    {
+      "issuer": "Sectigo Limited",
+      "certs": 1895
+    },
+    {
+      "issuer": "IdenTrust",
+      "certs": 1603
+    },
+    {
+      "issuer": "DigiCert\\, Inc.",
+      "certs": 1522
+    },
+    {
+      "issuer": "GlobalSign nv-sa",
+      "certs": 285
+    }
+  ],
+  "note": "counts and times only; no name is written; alerts are judgements of the offline judge, not confirmed scams"
+}

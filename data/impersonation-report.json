@@ -1,0 +1,431 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"Impersonation test\" (24 Nov, late)",
+  "seed": 20261124,
+  "references": {
+    "listed": 77,
+    "two_label_used": 60,
+    "three_label_excluded": 17,
+    "not_official_in_judge_excluded": 0,
+    "names_5_letters_or_more": 38
+  },
+  "held_out_words_checked_against_rules": [
+    "saudi",
+    "qatar",
+    "kuwait",
+    "hub",
+    "members",
+    "home"
+  ],
+  "categories": {
+    "D1": {
+      "name": "digit added at the end",
+      "role": "development",
+      "n": 180,
+      "strict": 114,
+      "strict_ci": [
+        0.5608,
+        0.7003
+      ],
+      "cautious": 114,
+      "cautious_ci": [
+        0.5608,
+        0.7003
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 114,
+        "strict_ci": [
+          0.9674,
+          1
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 114,
+        "brand_in_domain": 0,
+        "other": 0
+      },
+      "names_with_fewer_than_3_variants": 0
+    },
+    "D2": {
+      "name": "digit in place of a letter",
+      "role": "development",
+      "n": 165,
+      "strict": 141,
+      "strict_ci": [
+        0.7927,
+        0.9003
+      ],
+      "cautious": 141,
+      "cautious_ci": [
+        0.7927,
+        0.9003
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 114,
+        "strict_ci": [
+          0.9674,
+          1
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 141,
+        "brand_in_domain": 0,
+        "other": 0
+      },
+      "names_with_fewer_than_3_variants": 5
+    },
+    "D3": {
+      "name": "one letter dropped",
+      "role": "development",
+      "n": 114,
+      "strict": 114,
+      "strict_ci": [
+        0.9674,
+        1
+      ],
+      "cautious": 114,
+      "cautious_ci": [
+        0.9674,
+        1
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 114,
+        "strict_ci": [
+          0.9674,
+          1
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 114,
+        "brand_in_domain": 0,
+        "other": 0
+      },
+      "names_with_fewer_than_3_variants": 22
+    },
+    "D4": {
+      "name": "one letter doubled",
+      "role": "development",
+      "n": 180,
+      "strict": 114,
+      "strict_ci": [
+        0.5608,
+        0.7003
+      ],
+      "cautious": 114,
+      "cautious_ci": [
+        0.5608,
+        0.7003
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 114,
+        "strict_ci": [
+          0.9674,
+          1
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 114,
+        "brand_in_domain": 0,
+        "other": 0
+      },
+      "names_with_fewer_than_3_variants": 0
+    },
+    "D5": {
+      "name": "two neighbouring letters swapped",
+      "role": "development",
+      "n": 177,
+      "strict": 114,
+      "strict_ci": [
+        0.5712,
+        0.7109
+      ],
+      "cautious": 114,
+      "cautious_ci": [
+        0.5712,
+        0.7109
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 114,
+        "strict_ci": [
+          0.9674,
+          1
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 114,
+        "brand_in_domain": 0,
+        "other": 0
+      },
+      "names_with_fewer_than_3_variants": 1
+    },
+    "H1": {
+      "name": "country word with a hyphen",
+      "role": "held-out",
+      "n": 180,
+      "strict": 114,
+      "strict_ci": [
+        0.5608,
+        0.7003
+      ],
+      "cautious": 114,
+      "cautious_ci": [
+        0.5608,
+        0.7003
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 111,
+        "strict_ci": [
+          0.9255,
+          0.991
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 0,
+        "brand_in_domain": 114,
+        "other": 0
+      },
+      "names_with_fewer_than_3_variants": 0
+    },
+    "H3": {
+      "name": "exact name on a cheap TLD",
+      "role": "held-out",
+      "n": 180,
+      "strict": 151,
+      "strict_ci": [
+        0.7782,
+        0.8854
+      ],
+      "cautious": 155,
+      "cautious_ci": [
+        0.803,
+        0.9041
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 110,
+        "strict_ci": [
+          0.9132,
+          0.9863
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 0,
+        "brand_in_domain": 145,
+        "other": 6
+      },
+      "names_with_fewer_than_3_variants": 0
+    },
+    "H4": {
+      "name": "exact name on another TLD",
+      "role": "held-out",
+      "n": 180,
+      "strict": 102,
+      "strict_ci": [
+        0.4936,
+        0.6369
+      ],
+      "cautious": 102,
+      "cautious_ci": [
+        0.4936,
+        0.6369
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 102,
+        "strict_ci": [
+          0.825,
+          0.9388
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 0,
+        "brand_in_domain": 102,
+        "other": 0
+      },
+      "names_with_fewer_than_3_variants": 0
+    },
+    "H5": {
+      "name": "a word with a hyphen",
+      "role": "held-out",
+      "n": 180,
+      "strict": 119,
+      "strict_ci": [
+        0.5892,
+        0.7262
+      ],
+      "cautious": 126,
+      "cautious_ci": [
+        0.6294,
+        0.7622
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 111,
+        "strict_ci": [
+          0.9255,
+          0.991
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 0,
+        "brand_in_domain": 119,
+        "other": 0
+      },
+      "names_with_fewer_than_3_variants": 0
+    },
+    "H6": {
+      "name": "two reference names joined",
+      "role": "held-out",
+      "n": 180,
+      "strict": 164,
+      "strict_ci": [
+        0.8605,
+        0.9445
+      ],
+      "cautious": 168,
+      "cautious_ci": [
+        0.8871,
+        0.9615
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 113,
+        "strict_ci": [
+          0.952,
+          0.9984
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 6,
+        "brand_in_domain": 158,
+        "other": 0
+      },
+      "names_with_fewer_than_3_variants": 0
+    },
+    "H7": {
+      "name": "\"-com\" inserted before the TLD",
+      "role": "held-out",
+      "n": 180,
+      "strict": 114,
+      "strict_ci": [
+        0.5608,
+        0.7003
+      ],
+      "cautious": 117,
+      "cautious_ci": [
+        0.5778,
+        0.7159
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 111,
+        "strict_ci": [
+          0.9255,
+          0.991
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 0,
+        "brand_in_domain": 114,
+        "other": 0
+      },
+      "names_with_fewer_than_3_variants": 0
+    },
+    "H8": {
+      "name": "underscore in place of the hyphen",
+      "role": "held-out",
+      "n": 180,
+      "strict": 108,
+      "strict_ci": [
+        0.5271,
+        0.6688
+      ],
+      "cautious": 108,
+      "cautious_ci": [
+        0.5271,
+        0.6688
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 108,
+        "strict_ci": [
+          0.8899,
+          0.9757
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 0,
+        "brand_in_domain": 108,
+        "other": 0
+      },
+      "names_with_fewer_than_3_variants": 0
+    },
+    "H9": {
+      "name": "\"www\" glued to the name",
+      "role": "held-out",
+      "n": 180,
+      "strict": 63,
+      "strict_ci": [
+        0.2841,
+        0.4222
+      ],
+      "cautious": 78,
+      "cautious_ci": [
+        0.3631,
+        0.5064
+      ],
+      "names_5_letters_or_more": {
+        "n": 114,
+        "strict": 63,
+        "strict_ci": [
+          0.4611,
+          0.6407
+        ]
+      },
+      "strict_detections_by_reason": {
+        "lookalike_domain": 0,
+        "brand_in_domain": 54,
+        "other": 9
+      },
+      "names_with_fewer_than_3_variants": 0
+    }
+  },
+  "controls": {
+    "L1_popular_containing_reference_name": {
+      "n": 199,
+      "strict_flags": 0,
+      "strict_rate": 0,
+      "strict_ci": [
+        0,
+        0.0189
+      ],
+      "cautious_flags": 0,
+      "cautious_rate": 0,
+      "cautious_ci": [
+        0,
+        0.0189
+      ]
+    },
+    "L2_tranco_200001_210000_sample": {
+      "n": 10000,
+      "strict_flags": 273,
+      "strict_rate": 0.0273,
+      "strict_ci": [
+        0.0243,
+        0.0307
+      ],
+      "cautious_flags": 401,
+      "cautious_rate": 0.0401,
+      "cautious_ci": [
+        0.0364,
+        0.0441
+      ]
+    }
+  },
+  "note": "counts and Wilson intervals only; no generated URL is written; controls are not labelled"
+}

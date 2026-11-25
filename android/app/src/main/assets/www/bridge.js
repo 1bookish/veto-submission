@@ -3,6 +3,8 @@
 // for 30 minutes, exactly like the web app. Nothing is stored or sent.
 import { analyze, fuse, scriptStages, callerCheck, triage, maskNumber, countryOf, REPORTING, ENGINE_VERSION, KB_VERSION } from './engine/index.js';
 import { outgoingCheck, contactsAudit, checkListing } from './engine/ledger.js';
+import { decideForeground, callReport as buildCallReport } from './engine/callwatch.js';
+import { smsLocal } from './engine/smsmodel.js';
 
 const recent = [];
 const WINDOW = 30 * 60 * 1000;
@@ -54,6 +56,10 @@ window.K = {
   /** Contacts saved under an institution's name with a number it does not publish. */
   contacts: list => contactsAudit(list || []),
   listing: l => checkListing(l || {}),
+  /** Approval apps after an unknown call (UAE PASS, authenticator, digital ID), and the call report. */
+  callwatch: p => decideForeground(p || {}),
+  callReport: p => buildCallReport(p || {}),
+  smsLocal: p => smsLocal(p && p.text),
   mask: n => ({ masked: maskNumber(n), country: countryOf(n) }),
   reporting: () => REPORTING
 };

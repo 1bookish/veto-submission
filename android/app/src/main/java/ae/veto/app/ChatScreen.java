@@ -191,6 +191,7 @@ public class ChatScreen extends AccessibilityService {
     layer.getLocationOnScreen(layerAt);
     layer.removeAllViews();
     Overlay.Alert worst = alerts.get(0);
+    boolean strong = Store.get(this).highlightStrong();
     for (int i = 0; i < hits.size(); i++) {
       Rect r = hits.get(i).r;
       Overlay.Alert a = alerts.get(i);
@@ -199,8 +200,8 @@ public class ChatScreen extends AccessibilityService {
       View box = new View(this);
       GradientDrawable g = new GradientDrawable();
       g.setCornerRadius(dp(12));
-      g.setColor(Ui.alpha(col, 0.10f));
-      g.setStroke(dp(3), col);
+      g.setColor(Ui.alpha(col, strong ? 0.10f : 0.03f));
+      g.setStroke(dp(strong ? 3 : 1), strong ? col : Ui.alpha(col, 0.55f));
       box.setBackground(g);
       int pad = dp(6);
       FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(r.width() + 2 * pad, r.height() + 2 * pad);
@@ -209,6 +210,7 @@ public class ChatScreen extends AccessibilityService {
       layer.addView(box, lp);
       TextView tag = Ui.badge(this, "stop".equals(a.level) ? Text.t(this, "Scam", "احتيال") : Text.t(this, "Caution", "انتبه"), col);
       tag.setTextSize(11);
+      if (!strong) { tag.setBackground(null); tag.setTextColor(col); tag.setPadding(0, 0, 0, 0); }
       FrameLayout.LayoutParams tl = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
       tl.leftMargin = Math.max(0, r.left - pad - layerAt[0]);
       tl.topMargin = Math.max(0, r.top - pad - layerAt[1] - dp(20));
@@ -241,8 +243,12 @@ public class ChatScreen extends AccessibilityService {
       p.y = dp(110);
       try { wm.addView(pill, p); } catch (RuntimeException e) { pill = null; return; }
     }
-    pill.setBackground(Ui.round(this, Ui.color(a.level), 999));
+    boolean strong = Store.get(this).highlightStrong();
+    int lvl = Ui.color(a.level);
+    pill.setBackground(strong ? Ui.round(this, lvl, 999) : Ui.round(this, Ui.SURFACE, 999, lvl));
+    ((android.widget.ImageView) pill.getChildAt(0)).setColorFilter(strong ? Color.WHITE : lvl);
     ((TextView) pill.getChildAt(1)).setText(label);
+    ((TextView) pill.getChildAt(1)).setTextColor(strong ? Color.WHITE : lvl);
     pill.setVisibility(View.VISIBLE);
   }
 

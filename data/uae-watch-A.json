@@ -1,0 +1,485 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"UAE brand watchlist and two look-alike fixes\" (25 Nov)",
+  "seed": 20261225,
+  "uae_only": true,
+  "watchlist_switch": "off (rules before the change)",
+  "brands_requested": 100000,
+  "brands_used": 46,
+  "variants_per_brand": 10,
+  "variants_built": 452,
+  "uae_brands": 46,
+  "uae_brands_in_rulebook": 11,
+  "synthetic_variants": {
+    "label": "SYNTHETIC: generated from public brand domains; not real phishing",
+    "by_category": {
+      "D1": {
+        "n": 46,
+        "strict": 8,
+        "strict_ci": [
+          0.0909,
+          0.3072
+        ],
+        "cautious": 8,
+        "cautious_ci": [
+          0.0909,
+          0.3072
+        ]
+      },
+      "D2": {
+        "n": 45,
+        "strict": 9,
+        "strict_ci": [
+          0.109,
+          0.3382
+        ],
+        "cautious": 9,
+        "cautious_ci": [
+          0.109,
+          0.3382
+        ]
+      },
+      "D3": {
+        "n": 39,
+        "strict": 7,
+        "strict_ci": [
+          0.0898,
+          0.3267
+        ],
+        "cautious": 7,
+        "cautious_ci": [
+          0.0898,
+          0.3267
+        ]
+      },
+      "D4": {
+        "n": 46,
+        "strict": 8,
+        "strict_ci": [
+          0.0909,
+          0.3072
+        ],
+        "cautious": 8,
+        "cautious_ci": [
+          0.0909,
+          0.3072
+        ]
+      },
+      "D5": {
+        "n": 46,
+        "strict": 7,
+        "strict_ci": [
+          0.0757,
+          0.2822
+        ],
+        "cautious": 7,
+        "cautious_ci": [
+          0.0757,
+          0.2822
+        ]
+      },
+      "H1": {
+        "n": 46,
+        "strict": 8,
+        "strict_ci": [
+          0.0909,
+          0.3072
+        ],
+        "cautious": 8,
+        "cautious_ci": [
+          0.0909,
+          0.3072
+        ]
+      },
+      "H3": {
+        "n": 46,
+        "strict": 23,
+        "strict_ci": [
+          0.3612,
+          0.6388
+        ],
+        "cautious": 28,
+        "cautious_ci": [
+          0.4646,
+          0.7361
+        ]
+      },
+      "H5": {
+        "n": 46,
+        "strict": 8,
+        "strict_ci": [
+          0.0909,
+          0.3072
+        ],
+        "cautious": 8,
+        "cautious_ci": [
+          0.0909,
+          0.3072
+        ]
+      },
+      "H7": {
+        "n": 46,
+        "strict": 10,
+        "strict_ci": [
+          0.1226,
+          0.3557
+        ],
+        "cautious": 10,
+        "cautious_ci": [
+          0.1226,
+          0.3557
+        ]
+      },
+      "H9": {
+        "n": 46,
+        "strict": 3,
+        "strict_ci": [
+          0.0224,
+          0.175
+        ],
+        "cautious": 7,
+        "cautious_ci": [
+          0.0757,
+          0.2822
+        ]
+      }
+    },
+    "by_brand_rank_band": {
+      "top1k": {
+        "n": 0,
+        "strict": 0,
+        "strict_ci": [
+          null,
+          null
+        ],
+        "cautious": 0,
+        "cautious_ci": [
+          null,
+          null
+        ]
+      },
+      "1k_10k": {
+        "n": 30,
+        "strict": 26,
+        "strict_ci": [
+          0.7032,
+          0.9469
+        ],
+        "cautious": 27,
+        "cautious_ci": [
+          0.7438,
+          0.9654
+        ]
+      },
+      "10k_100k": {
+        "n": 422,
+        "strict": 65,
+        "strict_ci": [
+          0.1227,
+          0.1916
+        ],
+        "cautious": 73,
+        "cautious_ci": [
+          0.1399,
+          0.212
+        ]
+      },
+      "100k_1m": {
+        "n": 0,
+        "strict": 0,
+        "strict_ci": [
+          null,
+          null
+        ],
+        "cautious": 0,
+        "cautious_ci": [
+          null,
+          null
+        ]
+      }
+    },
+    "names_5_letters_or_more": {
+      "n": 390,
+      "strict": 85,
+      "strict_ci": [
+        0.1798,
+        0.2616
+      ],
+      "cautious": 93,
+      "cautious_ci": [
+        0.1988,
+        0.2832
+      ]
+    },
+    "names_4_letters": {
+      "n": 62,
+      "strict": 6,
+      "strict_ci": [
+        0.0451,
+        0.1955
+      ],
+      "cautious": 7,
+      "cautious_ci": [
+        0.0558,
+        0.2152
+      ]
+    },
+    "uae_brands_variants": {
+      "n": 452,
+      "strict": 91,
+      "strict_ci": [
+        0.1669,
+        0.2407
+      ],
+      "cautious": 100,
+      "cautious_ci": [
+        0.1854,
+        0.2618
+      ]
+    },
+    "uae_by_category": {
+      "D1": {
+        "n": 46,
+        "strict": 8,
+        "strict_ci": [
+          0.0909,
+          0.3072
+        ],
+        "cautious": 8,
+        "cautious_ci": [
+          0.0909,
+          0.3072
+        ]
+      },
+      "D2": {
+        "n": 45,
+        "strict": 9,
+        "strict_ci": [
+          0.109,
+          0.3382
+        ],
+        "cautious": 9,
+        "cautious_ci": [
+          0.109,
+          0.3382
+        ]
+      },
+      "D3": {
+        "n": 39,
+        "strict": 7,
+        "strict_ci": [
+          0.0898,
+          0.3267
+        ],
+        "cautious": 7,
+        "cautious_ci": [
+          0.0898,
+          0.3267
+        ]
+      },
+      "D4": {
+        "n": 46,
+        "strict": 8,
+        "strict_ci": [
+          0.0909,
+          0.3072
+        ],
+        "cautious": 8,
+        "cautious_ci": [
+          0.0909,
+          0.3072
+        ]
+      },
+      "D5": {
+        "n": 46,
+        "strict": 7,
+        "strict_ci": [
+          0.0757,
+          0.2822
+        ],
+        "cautious": 7,
+        "cautious_ci": [
+          0.0757,
+          0.2822
+        ]
+      },
+      "H1": {
+        "n": 46,
+        "strict": 8,
+        "strict_ci": [
+          0.0909,
+          0.3072
+        ],
+        "cautious": 8,
+        "cautious_ci": [
+          0.0909,
+          0.3072
+        ]
+      },
+      "H3": {
+        "n": 46,
+        "strict": 23,
+        "strict_ci": [
+          0.3612,
+          0.6388
+        ],
+        "cautious": 28,
+        "cautious_ci": [
+          0.4646,
+          0.7361
+        ]
+      },
+      "H5": {
+        "n": 46,
+        "strict": 8,
+        "strict_ci": [
+          0.0909,
+          0.3072
+        ],
+        "cautious": 8,
+        "cautious_ci": [
+          0.0909,
+          0.3072
+        ]
+      },
+      "H7": {
+        "n": 46,
+        "strict": 10,
+        "strict_ci": [
+          0.1226,
+          0.3557
+        ],
+        "cautious": 10,
+        "cautious_ci": [
+          0.1226,
+          0.3557
+        ]
+      },
+      "H9": {
+        "n": 46,
+        "strict": 3,
+        "strict_ci": [
+          0.0224,
+          0.175
+        ],
+        "cautious": 7,
+        "cautious_ci": [
+          0.0757,
+          0.2822
+        ]
+      }
+    },
+    "outside_rulebook": {
+      "n": 343,
+      "strict": 23,
+      "strict_ci": [
+        0.0451,
+        0.0986
+      ],
+      "cautious": 30,
+      "cautious_ci": [
+        0.062,
+        0.1221
+      ]
+    }
+  },
+  "false_alarms": {
+    "label": "the brands' own domains (real sites; a flag is a false alarm)",
+    "by_brand_rank_band": {
+      "top1k": {
+        "n": 0,
+        "strict": 0,
+        "strict_ci": [
+          null,
+          null
+        ],
+        "cautious": 0,
+        "cautious_ci": [
+          null,
+          null
+        ]
+      },
+      "1k_10k": {
+        "n": 3,
+        "strict": 0,
+        "strict_ci": [
+          0,
+          0.5615
+        ],
+        "cautious": 0,
+        "cautious_ci": [
+          0,
+          0.5615
+        ]
+      },
+      "10k_100k": {
+        "n": 43,
+        "strict": 0,
+        "strict_ci": [
+          0,
+          0.082
+        ],
+        "cautious": 0,
+        "cautious_ci": [
+          0,
+          0.082
+        ]
+      },
+      "100k_1m": {
+        "n": 0,
+        "strict": 0,
+        "strict_ci": [
+          null,
+          null
+        ],
+        "cautious": 0,
+        "cautious_ci": [
+          null,
+          null
+        ]
+      }
+    },
+    "uae_brands_own_domains": {
+      "n": 46,
+      "strict": 0,
+      "strict_ci": [
+        0,
+        0.0771
+      ],
+      "cautious": 0,
+      "cautious_ci": [
+        0,
+        0.0771
+      ]
+    },
+    "outside_rulebook_own_domains": {
+      "n": 35,
+      "strict": 0,
+      "strict_ci": [
+        0,
+        0.0989
+      ],
+      "cautious": 0,
+      "cautious_ci": [
+        0,
+        0.0989
+      ]
+    }
+  },
+  "assumed_legitimate_controls": {
+    "label": "Tranco ranks 500,001 to 600,000 (assumed legitimate by rank; an estimate)",
+    "n": 100000,
+    "flagged_strict": 2670,
+    "strict_ci": [
+      0.0257,
+      0.0277
+    ],
+    "flagged_cautious": 3626,
+    "cautious_ci": [
+      0.0351,
+      0.0374
+    ]
+  },
+  "minutes": 2.8,
+  "errors": 0,
+  "note": "counts and intervals only; no URL is written; the variants are synthetic"
+}

@@ -1,0 +1,402 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"Attack-style robustness test\" (24 Nov, night)",
+  "seed": 20261124,
+  "base_sample": {
+    "phishing": 2000,
+    "legitimate": 2000
+  },
+  "transforms": [
+    {
+      "transform": "identity",
+      "phishing_n": 2000,
+      "recall_strict": 0.9415,
+      "recall_strict_95ci": [
+        0.9303,
+        0.951
+      ],
+      "recall_cautious": 0.9585,
+      "recall_cautious_95ci": [
+        0.9488,
+        0.9664
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.008,
+      "false_alarm_strict_95ci": [
+        0.0049,
+        0.013
+      ],
+      "false_alarm_cautious": 0.011
+    },
+    {
+      "transform": "uppercase host",
+      "phishing_n": 2000,
+      "recall_strict": 0.9415,
+      "recall_strict_95ci": [
+        0.9303,
+        0.951
+      ],
+      "recall_cautious": 0.9585,
+      "recall_cautious_95ci": [
+        0.9488,
+        0.9664
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.008,
+      "false_alarm_strict_95ci": [
+        0.0049,
+        0.013
+      ],
+      "false_alarm_cautious": 0.011
+    },
+    {
+      "transform": "percent-encoded host",
+      "phishing_n": 2000,
+      "recall_strict": 0.9415,
+      "recall_strict_95ci": [
+        0.9303,
+        0.951
+      ],
+      "recall_cautious": 0.9585,
+      "recall_cautious_95ci": [
+        0.9488,
+        0.9664
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.008,
+      "false_alarm_strict_95ci": [
+        0.0049,
+        0.013
+      ],
+      "false_alarm_cautious": 0.011
+    },
+    {
+      "transform": "credentials before the host",
+      "phishing_n": 2000,
+      "recall_strict": 0.993,
+      "recall_strict_95ci": [
+        0.9883,
+        0.9958
+      ],
+      "recall_cautious": 0.999,
+      "recall_cautious_95ci": [
+        0.9964,
+        0.9997
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.803,
+      "false_alarm_strict_95ci": [
+        0.785,
+        0.8198
+      ],
+      "false_alarm_cautious": 0.805
+    },
+    {
+      "transform": "subdomain stuffing",
+      "phishing_n": 2000,
+      "recall_strict": 0.9935,
+      "recall_strict_95ci": [
+        0.9889,
+        0.9962
+      ],
+      "recall_cautious": 0.998,
+      "recall_cautious_95ci": [
+        0.9949,
+        0.9992
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.766,
+      "false_alarm_strict_95ci": [
+        0.7469,
+        0.784
+      ],
+      "false_alarm_cautious": 0.803
+    },
+    {
+      "transform": "open-redirect wrapper",
+      "phishing_n": 2000,
+      "recall_strict": 0.9425,
+      "recall_strict_95ci": [
+        0.9314,
+        0.9519
+      ],
+      "recall_cautious": 0.9585,
+      "recall_cautious_95ci": [
+        0.9488,
+        0.9664
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.008,
+      "false_alarm_strict_95ci": [
+        0.0049,
+        0.013
+      ],
+      "false_alarm_cautious": 0.011
+    },
+    {
+      "transform": "IP-address host",
+      "phishing_n": 2000,
+      "recall_strict": 0.9425,
+      "recall_strict_95ci": [
+        0.9314,
+        0.9519
+      ],
+      "recall_cautious": 0.9715,
+      "recall_cautious_95ci": [
+        0.9633,
+        0.9779
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.8295,
+      "false_alarm_strict_95ci": [
+        0.8124,
+        0.8453
+      ],
+      "false_alarm_cautious": 0.904
+    },
+    {
+      "transform": "Cyrillic homoglyph",
+      "phishing_n": 2000,
+      "recall_strict": 0.995,
+      "recall_strict_95ci": [
+        0.9908,
+        0.9973
+      ],
+      "recall_cautious": 0.9995,
+      "recall_cautious_95ci": [
+        0.9972,
+        0.9999
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.938,
+      "false_alarm_strict_95ci": [
+        0.9266,
+        0.9478
+      ],
+      "false_alarm_cautious": 0.9415
+    },
+    {
+      "transform": "cheap TLD swap",
+      "phishing_n": 2000,
+      "recall_strict": 0.998,
+      "recall_strict_95ci": [
+        0.9949,
+        0.9992
+      ],
+      "recall_cautious": 0.9985,
+      "recall_cautious_95ci": [
+        0.9956,
+        0.9995
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.76,
+      "false_alarm_strict_95ci": [
+        0.7408,
+        0.7782
+      ],
+      "false_alarm_cautious": 0.8245
+    },
+    {
+      "transform": "hyphen words inserted",
+      "phishing_n": 2000,
+      "recall_strict": 1,
+      "recall_strict_95ci": [
+        0.9981,
+        1
+      ],
+      "recall_cautious": 1,
+      "recall_cautious_95ci": [
+        0.9981,
+        1
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.9645,
+      "false_alarm_strict_95ci": [
+        0.9555,
+        0.9718
+      ],
+      "false_alarm_cautious": 0.965
+    },
+    {
+      "transform": "base64 redirect parameter",
+      "phishing_n": 2000,
+      "recall_strict": 1,
+      "recall_strict_95ci": [
+        0.9981,
+        1
+      ],
+      "recall_cautious": 1,
+      "recall_cautious_95ci": [
+        0.9981,
+        1
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 1,
+      "false_alarm_strict_95ci": [
+        0.9981,
+        1
+      ],
+      "false_alarm_cautious": 1
+    },
+    {
+      "transform": "long path padding",
+      "phishing_n": 2000,
+      "recall_strict": 0.9905,
+      "recall_strict_95ci": [
+        0.9852,
+        0.9939
+      ],
+      "recall_cautious": 0.9935,
+      "recall_cautious_95ci": [
+        0.9889,
+        0.9962
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.605,
+      "false_alarm_strict_95ci": [
+        0.5834,
+        0.6262
+      ],
+      "false_alarm_cautious": 0.7065
+    },
+    {
+      "transform": "short-link wrapper",
+      "phishing_n": 2000,
+      "recall_strict": 0.57,
+      "recall_strict_95ci": [
+        0.5482,
+        0.5915
+      ],
+      "recall_cautious": 1,
+      "recall_cautious_95ci": [
+        0.9981,
+        1
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.5745,
+      "false_alarm_strict_95ci": [
+        0.5527,
+        0.596
+      ],
+      "false_alarm_cautious": 1
+    },
+    {
+      "transform": "plain http",
+      "phishing_n": 2000,
+      "recall_strict": 0.992,
+      "recall_strict_95ci": [
+        0.987,
+        0.9951
+      ],
+      "recall_cautious": 0.995,
+      "recall_cautious_95ci": [
+        0.9908,
+        0.9973
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.5625,
+      "false_alarm_strict_95ci": [
+        0.5407,
+        0.5841
+      ],
+      "false_alarm_cautious": 0.627
+    },
+    {
+      "transform": "defanged form",
+      "phishing_n": 2000,
+      "recall_strict": 0.9415,
+      "recall_strict_95ci": [
+        0.9303,
+        0.951
+      ],
+      "recall_cautious": 0.9585,
+      "recall_cautious_95ci": [
+        0.9488,
+        0.9664
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.008,
+      "false_alarm_strict_95ci": [
+        0.0049,
+        0.013
+      ],
+      "false_alarm_cautious": 0.011
+    },
+    {
+      "transform": "tracking parameters",
+      "phishing_n": 2000,
+      "recall_strict": 0.9405,
+      "recall_strict_95ci": [
+        0.9293,
+        0.95
+      ],
+      "recall_cautious": 0.9595,
+      "recall_cautious_95ci": [
+        0.9499,
+        0.9673
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.008,
+      "false_alarm_strict_95ci": [
+        0.0049,
+        0.013
+      ],
+      "false_alarm_cautious": 0.0115
+    },
+    {
+      "transform": "unicode full stop",
+      "phishing_n": 2000,
+      "recall_strict": 0.9415,
+      "recall_strict_95ci": [
+        0.9303,
+        0.951
+      ],
+      "recall_cautious": 0.9585,
+      "recall_cautious_95ci": [
+        0.9488,
+        0.9664
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.008,
+      "false_alarm_strict_95ci": [
+        0.0049,
+        0.013
+      ],
+      "false_alarm_cautious": 0.011
+    },
+    {
+      "transform": "encoded path",
+      "phishing_n": 2000,
+      "recall_strict": 0.937,
+      "recall_strict_95ci": [
+        0.9255,
+        0.9468
+      ],
+      "recall_cautious": 0.9555,
+      "recall_cautious_95ci": [
+        0.9456,
+        0.9637
+      ],
+      "legitimate_n": 2000,
+      "false_alarm_strict": 0.0065,
+      "false_alarm_strict_95ci": [
+        0.0038,
+        0.0111
+      ],
+      "false_alarm_cautious": 0.0095
+    }
+  ],
+  "synthetic": {
+    "label": "SYNTHETIC (generated here; not real phishing; not an accuracy claim)",
+    "n": 975,
+    "recall_strict": 1,
+    "recall_cautious": 1,
+    "patterns": 25,
+    "brands": 40
+  },
+  "third_party": {
+    "label": "third-party labelled (labels from the named sources; n is tiny)",
+    "n": 6,
+    "caught_strict": 5,
+    "caught_cautious": 5
+  }
+}

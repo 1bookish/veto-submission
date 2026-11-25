@@ -1,0 +1,350 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"Brand scale test\" (24 Nov, late)",
+  "brands_requested": 100000,
+  "brands_used": 92732,
+  "variants_per_brand": 10,
+  "variants_built": 917396,
+  "uae_brands": 46,
+  "uae_brands_in_rulebook": 11,
+  "synthetic_variants": {
+    "label": "SYNTHETIC: generated from public brand domains; not real phishing",
+    "by_category": {
+      "D1": {
+        "n": 92732,
+        "strict": 3498,
+        "strict_ci": [
+          0.0365,
+          0.039
+        ],
+        "cautious": 6527,
+        "cautious_ci": [
+          0.0688,
+          0.072
+        ]
+      },
+      "D2": {
+        "n": 89548,
+        "strict": 2896,
+        "strict_ci": [
+          0.0312,
+          0.0335
+        ],
+        "cautious": 5092,
+        "cautious_ci": [
+          0.0554,
+          0.0584
+        ]
+      },
+      "D3": {
+        "n": 86001,
+        "strict": 1654,
+        "strict_ci": [
+          0.0183,
+          0.0202
+        ],
+        "cautious": 2393,
+        "cautious_ci": [
+          0.0267,
+          0.0289
+        ]
+      },
+      "D4": {
+        "n": 92732,
+        "strict": 1921,
+        "strict_ci": [
+          0.0198,
+          0.0217
+        ],
+        "cautious": 3029,
+        "cautious_ci": [
+          0.0315,
+          0.0338
+        ]
+      },
+      "D5": {
+        "n": 92727,
+        "strict": 1778,
+        "strict_ci": [
+          0.0183,
+          0.0201
+        ],
+        "cautious": 2618,
+        "cautious_ci": [
+          0.0272,
+          0.0293
+        ]
+      },
+      "H1": {
+        "n": 92731,
+        "strict": 2755,
+        "strict_ci": [
+          0.0286,
+          0.0308
+        ],
+        "cautious": 4706,
+        "cautious_ci": [
+          0.0494,
+          0.0522
+        ]
+      },
+      "H3": {
+        "n": 92732,
+        "strict": 54629,
+        "strict_ci": [
+          0.5859,
+          0.5923
+        ],
+        "cautious": 66704,
+        "cautious_ci": [
+          0.7164,
+          0.7222
+        ]
+      },
+      "H5": {
+        "n": 92731,
+        "strict": 3959,
+        "strict_ci": [
+          0.0414,
+          0.044
+        ],
+        "cautious": 7151,
+        "cautious_ci": [
+          0.0754,
+          0.0789
+        ]
+      },
+      "H7": {
+        "n": 92731,
+        "strict": 875,
+        "strict_ci": [
+          0.0088,
+          0.0101
+        ],
+        "cautious": 1801,
+        "cautious_ci": [
+          0.0186,
+          0.0203
+        ]
+      },
+      "H9": {
+        "n": 92731,
+        "strict": 4890,
+        "strict_ci": [
+          0.0513,
+          0.0542
+        ],
+        "cautious": 9539,
+        "cautious_ci": [
+          0.1009,
+          0.1048
+        ]
+      }
+    },
+    "by_brand_rank_band": {
+      "top1k": {
+        "n": 9001,
+        "strict": 1113,
+        "strict_ci": [
+          0.117,
+          0.1306
+        ],
+        "cautious": 1509,
+        "cautious_ci": [
+          0.1601,
+          0.1755
+        ]
+      },
+      "1k_10k": {
+        "n": 80647,
+        "strict": 7303,
+        "strict_ci": [
+          0.0886,
+          0.0926
+        ],
+        "cautious": 9796,
+        "cautious_ci": [
+          0.1192,
+          0.1237
+        ]
+      },
+      "10k_100k": {
+        "n": 827748,
+        "strict": 70439,
+        "strict_ci": [
+          0.0845,
+          0.0857
+        ],
+        "cautious": 98255,
+        "cautious_ci": [
+          0.118,
+          0.1194
+        ]
+      },
+      "100k_1m": {
+        "n": 0,
+        "strict": 0,
+        "strict_ci": [
+          null,
+          null
+        ],
+        "cautious": 0,
+        "cautious_ci": [
+          null,
+          null
+        ]
+      }
+    },
+    "names_5_letters_or_more": {
+      "n": 858030,
+      "strict": 73013,
+      "strict_ci": [
+        0.0845,
+        0.0857
+      ],
+      "cautious": 101769,
+      "cautious_ci": [
+        0.1179,
+        0.1193
+      ]
+    },
+    "names_4_letters": {
+      "n": 59366,
+      "strict": 5842,
+      "strict_ci": [
+        0.096,
+        0.1008
+      ],
+      "cautious": 7791,
+      "cautious_ci": [
+        0.1285,
+        0.134
+      ]
+    },
+    "uae_brands_variants": {
+      "n": 452,
+      "strict": 96,
+      "strict_ci": [
+        0.1772,
+        0.2524
+      ],
+      "cautious": 106,
+      "cautious_ci": [
+        0.1978,
+        0.2757
+      ]
+    },
+    "outside_rulebook": {
+      "n": 914431,
+      "strict": 76239,
+      "strict_ci": [
+        0.0828,
+        0.0839
+      ],
+      "cautious": 106864,
+      "cautious_ci": [
+        0.1162,
+        0.1175
+      ]
+    }
+  },
+  "false_alarms": {
+    "label": "the brands' own domains (real sites; a flag is a false alarm)",
+    "by_brand_rank_band": {
+      "top1k": {
+        "n": 913,
+        "strict": 0,
+        "strict_ci": [
+          0,
+          0.0042
+        ],
+        "cautious": 1,
+        "cautious_ci": [
+          0.0002,
+          0.0062
+        ]
+      },
+      "1k_10k": {
+        "n": 8156,
+        "strict": 1,
+        "strict_ci": [
+          0,
+          0.0007
+        ],
+        "cautious": 2,
+        "cautious_ci": [
+          0.0001,
+          0.0009
+        ]
+      },
+      "10k_100k": {
+        "n": 83663,
+        "strict": 38,
+        "strict_ci": [
+          0.0003,
+          0.0006
+        ],
+        "cautious": 70,
+        "cautious_ci": [
+          0.0007,
+          0.0011
+        ]
+      },
+      "100k_1m": {
+        "n": 0,
+        "strict": 0,
+        "strict_ci": [
+          null,
+          null
+        ],
+        "cautious": 0,
+        "cautious_ci": [
+          null,
+          null
+        ]
+      }
+    },
+    "uae_brands_own_domains": {
+      "n": 46,
+      "strict": 0,
+      "strict_ci": [
+        0,
+        0.0771
+      ],
+      "cautious": 0,
+      "cautious_ci": [
+        0,
+        0.0771
+      ]
+    },
+    "outside_rulebook_own_domains": {
+      "n": 92434,
+      "strict": 39,
+      "strict_ci": [
+        0.0003,
+        0.0006
+      ],
+      "cautious": 73,
+      "cautious_ci": [
+        0.0006,
+        0.001
+      ]
+    }
+  },
+  "assumed_legitimate_controls": {
+    "label": "Tranco ranks 500,001 to 600,000 (assumed legitimate by rank; an estimate)",
+    "n": 100000,
+    "flagged_strict": 2670,
+    "strict_ci": [
+      0.0257,
+      0.0277
+    ],
+    "flagged_cautious": 3626,
+    "cautious_ci": [
+      0.0351,
+      0.0374
+    ]
+  },
+  "minutes": 5.7,
+  "errors": 0,
+  "note": "counts and intervals only; no URL is written; the variants are synthetic"
+}

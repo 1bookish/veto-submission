@@ -17,10 +17,31 @@ const BRAVE = () => process.env.BRAVE_API_KEY || '';
 const PLACES = () => process.env.GOOGLE_PLACES_KEY || '';
 const SERP = () => process.env.SERPAPI_KEY || process.env.SERPAPI_API_KEY || '';
 export const connectorsConfigured = () => ({ search: !!(BRAVE() || SERP()), maps: !!(PLACES() || SERP()), ads: !!SERP() });
+// A budget for paid SerpApi calls in one run. SerpApi's free plan gives 100 searches (check the current limit on their site).
+// A full hunt over the 23 priority institutions needs 115, so a run stops at the budget unless SERPAPI_BUDGET is set.
+let serpUsed = 0;
+export const serpBudget = () => Number(process.env.SERPAPI_BUDGET) || 100;
+export const serpSpent = () => serpUsed;
+function spend() {
+  if (serpUsed >= serpBudget()) throw new Error(`SerpApi budget reached: ${serpBudget()} searches in this run (set SERPAPI_BUDGET to allow more)`);
+  serpUsed++;
+}
+/** The searches a hunt would spend, counted with no network call. Run it before any paid hunt. */
+export function huntPlan(insts) {
+  const searchOn = !!BRAVE() || !!SERP();
+  const mapsOn = !!PLACES() || !!SERP();
+  const perInst = QUERIES({ name: { en: 'x', ar: 'x' } }).length;
+  const serpSearch = !BRAVE() && !!SERP();
+  const serpMapsOn = !PLACES() && !!SERP();
+  const serpCalls = insts.length * ((serpSearch ? perInst : 0) + (serpMapsOn ? 1 : 0));
+  return { institutions: insts.length, search: searchOn ? (BRAVE() ? 'Brave' : 'SerpApi') : 'off',
+    maps: mapsOn ? (PLACES() ? 'Google Places' : 'SerpApi') : 'off', serpApiSearches: serpCalls, budget: serpBudget(), fitsBudget: serpCalls <= serpBudget(), perHourAtGuaranteedRate: 50, hoursAtThatRate: Math.ceil(serpCalls / 50) };
+}
 
 /** Google results through SerpApi: organic results AND the paid ads scammers buy for "<bank> customer care". */
 export async function serpGoogle(q) {
   if (!SERP()) return null;
+  spend();
   const r = await fetch(`https://serpapi.com/search.json?engine=google&q=${encodeURIComponent(q)}&gl=ae&hl=en&num=20&api_key=${encodeURIComponent(SERP())}`, { signal: AbortSignal.timeout(20000) });
   if (!r.ok) throw new Error(`SerpApi HTTP ${r.status}`);
   const j = await r.json();
@@ -31,6 +52,7 @@ export async function serpGoogle(q) {
 /** Google Maps listings through SerpApi (name, phone, website, address). */
 export async function serpMaps(q) {
   if (!SERP()) return null;
+  spend();
   const r = await fetch(`https://serpapi.com/search.json?engine=google_maps&type=search&q=${encodeURIComponent(q)}&ll=${encodeURIComponent('@24.4539,54.3773,9z')}&hl=en&api_key=${encodeURIComponent(SERP())}`, { signal: AbortSignal.timeout(20000) });
   if (!r.ok) throw new Error(`SerpApi Maps HTTP ${r.status}`);
   const j = await r.json();

@@ -1,0 +1,1126 @@
+{
+  "protocol": "project/docs/RESEARCH_LOG.md, \"Live CT watch\" and its amendments (24 and 25 Nov, including amendment 4: tiled logs and alert enrichment)",
+  "final": true,
+  "started": "2026-11-24T22:42:40.497Z",
+  "now": "2026-11-24T22:52:59.347Z",
+  "minutes": 10.31,
+  "poll_s": 5,
+  "batch": 256,
+  "par": 4,
+  "max_backlog": 5000,
+  "sample_rate": 0.02,
+  "logs_read": [
+    {
+      "kind": "tiled",
+      "operator": "Google",
+      "log": "Google ParcelYard2026h2",
+      "sequenced": 10200,
+      "fetched": 10036,
+      "skipped": 0,
+      "coverage": 0.9839,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 6201,
+      "alerts": 1
+    },
+    {
+      "kind": "tiled",
+      "operator": "Google",
+      "log": "Google ParcelYard2027h1",
+      "sequenced": 125126,
+      "fetched": 125112,
+      "skipped": 0,
+      "coverage": 0.9999,
+      "errors": 1,
+      "parse_errors": 0,
+      "names_brand_gated": 2110,
+      "alerts": 55
+    },
+    {
+      "kind": "tiled",
+      "operator": "Google",
+      "log": "Google ParcelYard2027h2",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Google",
+      "log": "Google PlumbersArms2026h2",
+      "sequenced": 10187,
+      "fetched": 9948,
+      "skipped": 0,
+      "coverage": 0.9765,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 6093,
+      "alerts": 1
+    },
+    {
+      "kind": "tiled",
+      "operator": "Google",
+      "log": "Google PlumbersArms2027h1",
+      "sequenced": 124564,
+      "fetched": 124391,
+      "skipped": 0,
+      "coverage": 0.9986,
+      "errors": 4,
+      "parse_errors": 0,
+      "names_brand_gated": 2056,
+      "alerts": 52
+    },
+    {
+      "kind": "tiled",
+      "operator": "Google",
+      "log": "Google PlumbersArms2027h2",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Cloudflare",
+      "log": "Cloudflare Nimbus2026",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Cloudflare",
+      "log": "Cloudflare Nimbus2027",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "DigiCert",
+      "log": "DigiCert Wyvern2026h2",
+      "sequenced": 247,
+      "fetched": 13,
+      "skipped": 0,
+      "coverage": 0.0526,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 4,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "DigiCert",
+      "log": "DigiCert Wyvern2027h1",
+      "sequenced": 30618,
+      "fetched": 3844,
+      "skipped": 25479,
+      "coverage": 0.1255,
+      "errors": 3,
+      "parse_errors": 0,
+      "names_brand_gated": 368,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "DigiCert",
+      "log": "DigiCert Wyvern2027h2",
+      "sequenced": 2,
+      "fetched": 2,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "DigiCert",
+      "log": "DigiCert Sphinx2026h2",
+      "sequenced": 3224,
+      "fetched": 135,
+      "skipped": 0,
+      "coverage": 0.0419,
+      "errors": 1,
+      "parse_errors": 0,
+      "names_brand_gated": 88,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "DigiCert",
+      "log": "DigiCert Sphinx2027h1",
+      "sequenced": 57405,
+      "fetched": 3454,
+      "skipped": 51003,
+      "coverage": 0.0602,
+      "errors": 2,
+      "parse_errors": 0,
+      "names_brand_gated": 452,
+      "alerts": 2
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "DigiCert",
+      "log": "DigiCert Sphinx2027h2",
+      "sequenced": 2,
+      "fetched": 2,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Sectigo",
+      "log": "Sectigo Elephant2026h2",
+      "sequenced": 4172,
+      "fetched": 143,
+      "skipped": 0,
+      "coverage": 0.0343,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 76,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Sectigo",
+      "log": "Sectigo Elephant2027h1",
+      "sequenced": 24706,
+      "fetched": 1051,
+      "skipped": 19706,
+      "coverage": 0.0425,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 53,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Sectigo",
+      "log": "Sectigo Elephant2027h2",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Sectigo",
+      "log": "Sectigo Tiger2026h2",
+      "sequenced": 4443,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": 0,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Sectigo",
+      "log": "Sectigo Tiger2027h1",
+      "sequenced": 50574,
+      "fetched": 6100,
+      "skipped": 40574,
+      "coverage": 0.1206,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 439,
+      "alerts": 12
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Sectigo",
+      "log": "Sectigo Tiger2027h2",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Sycamore2026h2",
+      "sequenced": 449,
+      "fetched": 281,
+      "skipped": 0,
+      "coverage": 0.6258,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Sycamore2027h1",
+      "sequenced": 120836,
+      "fetched": 71130,
+      "skipped": 49706,
+      "coverage": 0.5886,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 10614,
+      "alerts": 32
+    },
+    {
+      "kind": "tiled",
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Sycamore2027h2",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Willow2026h2",
+      "sequenced": 1637,
+      "fetched": 1413,
+      "skipped": 0,
+      "coverage": 0.8632,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Willow2027h1",
+      "sequenced": 86366,
+      "fetched": 45157,
+      "skipped": 37701,
+      "coverage": 0.5229,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 6632,
+      "alerts": 16
+    },
+    {
+      "kind": "tiled",
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Willow2027h2",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "TrustAsia",
+      "log": "TrustAsia log2026a",
+      "sequenced": 7381,
+      "fetched": 1150,
+      "skipped": 2381,
+      "coverage": 0.1558,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 450,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "TrustAsia",
+      "log": "TrustAsia log2026b",
+      "sequenced": 3953,
+      "fetched": 1069,
+      "skipped": 0,
+      "coverage": 0.2704,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 377,
+      "alerts": 0
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "TrustAsia",
+      "log": "TrustAsia HETU2027",
+      "sequenced": 117245,
+      "fetched": 16150,
+      "skipped": 97245,
+      "coverage": 0.1377,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 1579,
+      "alerts": 14
+    },
+    {
+      "kind": "tiled",
+      "operator": "TrustAsia",
+      "log": "TrustAsia Luoshu2027",
+      "sequenced": 84784,
+      "fetched": 73298,
+      "skipped": 10324,
+      "coverage": 0.8645,
+      "errors": 21,
+      "parse_errors": 0,
+      "names_brand_gated": 8972,
+      "alerts": 38
+    },
+    {
+      "kind": "tiled",
+      "operator": "Geomys",
+      "log": "Geomys Tuscolo2026h2",
+      "sequenced": 344,
+      "fetched": 22,
+      "skipped": 0,
+      "coverage": 0.064,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 8,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Geomys",
+      "log": "Geomys Tuscolo2027h1",
+      "sequenced": 47757,
+      "fetched": 16373,
+      "skipped": 29099,
+      "coverage": 0.3428,
+      "errors": 12,
+      "parse_errors": 0,
+      "names_brand_gated": 1867,
+      "alerts": 11
+    },
+    {
+      "kind": "tiled",
+      "operator": "Geomys",
+      "log": "Geomys Tuscolo2027h2",
+      "sequenced": 10,
+      "fetched": 10,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 1,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Geomys",
+      "log": "Geomys Tuscolo2028h1",
+      "sequenced": 11,
+      "fetched": 11,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 3,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Geomys",
+      "log": "Geomys Tuscolo2028h2",
+      "sequenced": 10,
+      "fetched": 10,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 2,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Geomys",
+      "log": "Geomys Trastevere2026h2",
+      "sequenced": 347,
+      "fetched": 46,
+      "skipped": 0,
+      "coverage": 0.1326,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 40,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Geomys",
+      "log": "Geomys Trastevere2027h1",
+      "sequenced": 7647,
+      "fetched": 3332,
+      "skipped": 0,
+      "coverage": 0.4357,
+      "errors": 1,
+      "parse_errors": 0,
+      "names_brand_gated": 178,
+      "alerts": 2
+    },
+    {
+      "kind": "tiled",
+      "operator": "Geomys",
+      "log": "Geomys Trastevere2027h2",
+      "sequenced": 10,
+      "fetched": 10,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Geomys",
+      "log": "Geomys Trastevere2028h1",
+      "sequenced": 10,
+      "fetched": 10,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "Geomys",
+      "log": "Geomys Trastevere2028h2",
+      "sequenced": 10,
+      "fetched": 10,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "IPng Networks",
+      "log": "IPng Networks Halloumi2026h2a",
+      "sequenced": 15396,
+      "fetched": 15396,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 5761,
+      "alerts": 4
+    },
+    {
+      "kind": "tiled",
+      "operator": "IPng Networks",
+      "log": "IPng Networks Halloumi2027h1",
+      "sequenced": 118280,
+      "fetched": 116715,
+      "skipped": 1427,
+      "coverage": 0.9868,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 5792,
+      "alerts": 62
+    },
+    {
+      "kind": "tiled",
+      "operator": "IPng Networks",
+      "log": "IPng Networks Halloumi2027h2",
+      "sequenced": 1,
+      "fetched": 1,
+      "skipped": 0,
+      "coverage": 1,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "IPng Networks",
+      "log": "IPng Networks Gouda2026h2",
+      "sequenced": 13993,
+      "fetched": 13858,
+      "skipped": 0,
+      "coverage": 0.9904,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 5706,
+      "alerts": 4
+    },
+    {
+      "kind": "tiled",
+      "operator": "IPng Networks",
+      "log": "IPng Networks Gouda2027h1",
+      "sequenced": 92720,
+      "fetched": 76650,
+      "skipped": 12538,
+      "coverage": 0.8267,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 1502,
+      "alerts": 39
+    },
+    {
+      "kind": "tiled",
+      "operator": "IPng Networks",
+      "log": "IPng Networks Gouda2027h2",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "IPng Networks",
+      "log": "IPng Networks Gouda2028h1",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "IPng Networks",
+      "log": "IPng Networks Gouda2028h2",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "IPng Networks",
+      "log": "IPng Networks Halloumi2028h1",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    },
+    {
+      "kind": "tiled",
+      "operator": "IPng Networks",
+      "log": "IPng Networks Halloumi2028h2",
+      "sequenced": 0,
+      "fetched": 0,
+      "skipped": 0,
+      "coverage": null,
+      "errors": 0,
+      "parse_errors": 0,
+      "names_brand_gated": 0,
+      "alerts": 0
+    }
+  ],
+  "logs_not_read": [
+    {
+      "kind": "rfc6962",
+      "operator": "Google",
+      "log": "Google Argon2026h2",
+      "state": "readonly"
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Google",
+      "log": "Google Argon2027h1",
+      "state": "readonly"
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Google",
+      "log": "Google Xenon2026h2",
+      "state": "readonly"
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Google",
+      "log": "Google Xenon2027h1",
+      "state": "readonly"
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Sectigo",
+      "log": "Sectigo Mammoth2026h2",
+      "state": "readonly"
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Sectigo",
+      "log": "Sectigo Sabre2026h2",
+      "state": "readonly"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Sectigo",
+      "log": "Sectigo Monument2027h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Sectigo",
+      "log": "Sectigo Monument2027h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Sectigo",
+      "log": "Sectigo Monument2028h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Sectigo",
+      "log": "Sectigo Monument2028h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Sectigo",
+      "log": "Sectigo Statue2027h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Sectigo",
+      "log": "Sectigo Statue2027h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Sectigo",
+      "log": "Sectigo Statue2028h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Sectigo",
+      "log": "Sectigo Statue2028h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Oak2026h2",
+      "state": "retired"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Sycamore2028h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Sycamore2028h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Willow2028h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Let's Encrypt",
+      "log": "Let's Encrypt Willow2028h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "TrustAsia",
+      "log": "TrustAsia Luoshu2028h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "TrustAsia",
+      "log": "TrustAsia Luoshu2028h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "TrustAsia",
+      "log": "TrustAsia Taiji2028h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "TrustAsia",
+      "log": "TrustAsia Taiji2028h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "Geomys",
+      "log": "Bogus placeholder log to unbreak misbehaving CT libraries",
+      "state": "ended"
+    },
+    {
+      "kind": "rfc6962",
+      "operator": "IPng Networks",
+      "log": "Bogus RFC6962 log to avoid breaking misbehaving CT libraries",
+      "state": "ended"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Microsec",
+      "log": "Microsec Eszigno2026h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Microsec",
+      "log": "Microsec Eszigno2027h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Microsec",
+      "log": "Microsec Eszigno2027h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Microsec",
+      "log": "Microsec Eszigno2028h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "Microsec",
+      "log": "Microsec Eszigno2028h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "GoDaddy",
+      "log": "GoDaddy Aquamarine2026h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "GoDaddy",
+      "log": "GoDaddy Aquamarine2027h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "GoDaddy",
+      "log": "GoDaddy Aquamarine2027h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "GoDaddy",
+      "log": "GoDaddy Aquamarine2028h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "GoDaddy",
+      "log": "GoDaddy Aquamarine2028h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "HARICA",
+      "log": "HARICA Selene2027h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "HARICA",
+      "log": "HARICA Selene2027h2",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "HARICA",
+      "log": "HARICA Selene2028h1",
+      "state": "qualified"
+    },
+    {
+      "kind": "tiled",
+      "operator": "HARICA",
+      "log": "HARICA Selene2028h2",
+      "state": "qualified"
+    }
+  ],
+  "coverage": {
+    "sequenced": 1164667,
+    "fetched": 736333,
+    "share": 0.6322,
+    "skipped": 377183,
+    "entries_per_s": 1189.8,
+    "by_kind": {
+      "rfc6962": {
+        "logs": 17,
+        "sequenced": 303972,
+        "fetched": 33113,
+        "share": 0.1089
+      },
+      "tiled": {
+        "logs": 33,
+        "sequenced": 860695,
+        "fetched": 703220,
+        "share": 0.817
+      }
+    }
+  },
+  "enrichment": {
+    "alerts_queued": 83,
+    "enriched": 83,
+    "resolves": 60,
+    "no_dns": 23,
+    "errors": 0,
+    "domain_age_days": null,
+    "top_networks_asn": [
+      {
+        "k": "13335",
+        "n": 26
+      },
+      {
+        "k": "32244",
+        "n": 8
+      },
+      {
+        "k": "8075",
+        "n": 3
+      },
+      {
+        "k": "16509",
+        "n": 3
+      },
+      {
+        "k": "40034",
+        "n": 3
+      },
+      {
+        "k": "154653",
+        "n": 3
+      },
+      {
+        "k": "14618",
+        "n": 2
+      },
+      {
+        "k": "46606",
+        "n": 2
+      }
+    ],
+    "countries": [
+      {
+        "k": "US",
+        "n": 43
+      },
+      {
+        "k": "DE",
+        "n": 5
+      },
+      {
+        "k": "AU",
+        "n": 4
+      },
+      {
+        "k": "VG",
+        "n": 3
+      },
+      {
+        "k": "LT",
+        "n": 2
+      },
+      {
+        "k": "AE",
+        "n": 2
+      },
+      {
+        "k": "TH",
+        "n": 1
+      }
+    ],
+    "linked_groups": {
+      "ips_with_2_or_more_alerts": 10,
+      "alerts_in_them": 30
+    },
+    "private_file": "names and details are written outside the repository only"
+  },
+  "entries": {
+    "certs": 736333,
+    "by_type": {
+      "precert": 287213,
+      "x509": 449120
+    },
+    "parse_errors": 0,
+    "names_seen": 983294
+  },
+  "brand_gate": {
+    "names_judged": 67418,
+    "verdicts": {
+      "phishing": 53738,
+      "legitimate": 11931,
+      "suspicious": 1749
+    },
+    "flagged_popular_tranco": 55142,
+    "alerts": 345
+  },
+  "generic_sample": {
+    "names_judged": 23544,
+    "flagged": 6566,
+    "share": 0.2789,
+    "share_95ci": [
+      0.2732,
+      0.2846
+    ],
+    "verdicts": {
+      "legitimate": 16978,
+      "phishing": 5346,
+      "suspicious": 1220
+    }
+  },
+  "latency": {
+    "log_to_watch_all": {
+      "n": 736333,
+      "median_s": 16.78,
+      "p90_s": 45.77,
+      "p99_s": 360.04,
+      "max_s": 474.44
+    },
+    "log_to_watch_alerts": {
+      "n": 345,
+      "median_s": 21.37,
+      "p90_s": 52.51,
+      "p99_s": 399.88,
+      "max_s": 408.65
+    },
+    "not_before_offset_precert": {
+      "n": 286762,
+      "median_s": 3601.82,
+      "p90_s": 82005.5,
+      "p99_s": 82315.57,
+      "max_s": 168740.09
+    },
+    "issuance_to_watch_precert": {
+      "n": 286762,
+      "median_s": 3612.39,
+      "p90_s": 82036.03,
+      "p99_s": 82334.18,
+      "max_s": 168757.44
+    },
+    "issuance_to_watch_alerts": {
+      "n": 157,
+      "median_s": 3613.27,
+      "p90_s": 3784.85,
+      "p99_s": 82073.98,
+      "max_s": 82088.46
+    }
+  },
+  "fast_reader_check": {
+    "compared_with_node_x509": 300,
+    "mismatches": 0,
+    "fallbacks": 0
+  },
+  "judge_ms_per_name": 2.6394,
+  "judge_errors": 0,
+  "issuers_top": [
+    {
+      "issuer": "Let's Encrypt",
+      "certs": 366546
+    },
+    {
+      "issuer": "Google Trust Services",
+      "certs": 189785
+    },
+    {
+      "issuer": "Amazon",
+      "certs": 36486
+    },
+    {
+      "issuer": "GoDaddy.com",
+      "certs": 34293
+    },
+    {
+      "issuer": "ZeroSSL GmbH",
+      "certs": 31628
+    },
+    {
+      "issuer": "DigiCert, Inc.",
+      "certs": 28156
+    },
+    {
+      "issuer": "DigiCert Inc",
+      "certs": 18891
+    },
+    {
+      "issuer": "Microsoft Corporation",
+      "certs": 11955
+    },
+    {
+      "issuer": "SSL Corporation",
+      "certs": 10307
+    },
+    {
+      "issuer": "IdenTrust",
+      "certs": 5104
+    },
+    {
+      "issuer": "Sectigo Limited",
+      "certs": 1711
+    },
+    {
+      "issuer": "GlobalSign nv-sa",
+      "certs": 447
+    }
+  ],
+  "note": "counts and times only; no name is written; alerts are judgements of the offline judge, not confirmed scams"
+}

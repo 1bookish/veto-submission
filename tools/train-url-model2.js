@@ -62,6 +62,8 @@ for (const line of fs.readFileSync(arg('--phiusiil'), 'utf8').replace(/^﻿/, ''
   add(b === 0 ? test : b === 1 ? val : train, m[1], 0, 'phiusiil_legit');
 }
 // ---- legitimate deep links (crawl) + Tranco homepages ----------------------------------------
+// Optional: labelled SYNTHETIC phishing rows, added to the TRAINING set only (never to validation or test).
+if (arg('--synthetic')) { let n = 0; for (const line of fs.readFileSync(arg('--synthetic'), 'utf8').split('\n').slice(1)) { const [y, , , url] = line.split('\t'); if (y === '1' && url) { add(train, url, 1, 'synthetic_phishing'); n++; } } console.log('synthetic (labelled) phishing rows added to training: ' + n); }
 for (const line of fs.readFileSync(path.join(DATA, 'legit_crawl.tsv'), 'utf8').split('\n')) {
   const [dom, kind, u] = line.split('\t');
   if (!u) continue;
@@ -190,7 +192,7 @@ const report = {
 };
 console.log(JSON.stringify(report, null, 1));
 const version = `veto-url2-${new Date().toISOString().slice(0, 10)}`;
-fs.writeFileSync(path.join(ROOT, 'data', 'urlml2-model.json.gz'), zlib.gzipSync(JSON.stringify({ version, bias: +b.toFixed(6), scale, threshold: thr.t, weights: kept.length,
+fs.writeFileSync(arg('--out-model', path.join(ROOT, 'data', 'urlml2-model.json.gz')), zlib.gzipSync(JSON.stringify({ version, bias: +b.toFixed(6), scale, threshold: thr.t, weights: kept.length,
   idx: Buffer.from(varints).toString('base64'), val: vals.toString('base64'), report }), { level: 9 }));
-fs.writeFileSync(path.join(ROOT, 'data', 'urlml2-report.json'), JSON.stringify({ version, ...report }, null, 1));
-console.log(`wrote data/urlml2-model.json.gz (${kept.length} weights, ${(fs.statSync(path.join(ROOT, 'data', 'urlml2-model.json.gz')).size / 1024).toFixed(0)} KB)`);
+fs.writeFileSync(arg('--out-report', path.join(ROOT, 'data', 'urlml2-report.json')), JSON.stringify({ version, ...report }, null, 1));
+console.log(`wrote data/urlml2-model.json.gz (${kept.length} weights, ${(fs.statSync(arg('--out-model', path.join(ROOT, 'data', 'urlml2-model.json.gz'))).size / 1024).toFixed(0)} KB)`);

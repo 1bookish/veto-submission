@@ -3,8 +3,13 @@
 
 import { mlUrlScore } from './urlml.js';
 import { INSTITUTIONS, NEUTRAL_DOMAINS } from '../data/institutions.js';
+import { UAE_BRANDS } from '../data/uae-brands.js';
 import RADAR from '../data/radar.js';
 import { foldConfusables, scriptsOf } from './normalize.js';
+
+// The UAE brand watchlist (data/uae-brands.js), neighbour-letter swaps and "www"+brand: on unless VETO_NO_WATCHLIST=1
+// (the switch exists only to measure the change; docs/RESEARCH_LOG.md, "UAE brand watchlist").
+const WATCH_ON = !(typeof process !== 'undefined' && process.env && process.env.VETO_NO_WATCHLIST === '1');
 
 // Veto Radar: domains that imitated a UAE institution in Certificate Transparency logs.
 const RADAR_MAP = new Map((RADAR.domains || []).map(d => [d.registrable, d])); // only the strict, shipped list
@@ -53,6 +58,7 @@ const AFFIXES = new Set(['secure', 'security', 'login', 'signin', 'verify', 'ver
   'alerts', 'kyc', 'id', 'app', 'apps', 'mobile', 'portal', 'gov', 'official', 'refund', 'reward', 'rewards', 'gift', 'gifts', 'points', 'track',
   'tracking', 'delivery', 'post', 'parcel', 'fine', 'fines', 'customs', 'web', 'my', 'e', 'i', 'm', 'net', '24', '247', 'center', 'centre',
   'desk', 'team', 'info', 'pass', 'cards', 'card', 'check', 'confirm', 'unlock', 'block', 'new', 'now', 'go', 'get', 'claim', 'offer', 'offers', 'promo']);
+if (WATCH_ON) AFFIXES.add('www'); // "wwwadnoc.com": a brand with "www" glued in front
 
 // ---------- brand index ----------
 const OFFICIAL = new Map();   // registrable domain -> institution
@@ -204,23 +210,90 @@ export function extractLinks(text) {
   return { links: found.sort((a, b) => a.index - b.index), emails };
 }
 
+// ---------- the UAE brand watchlist: look-alike targets only (never official, never allowlisted) ----------
+const WATCHED_OWN = new Map(); // a watched brand's own registrable domain -> brand
+if (WATCH_ON) {
+  for (const b of UAE_BRANDS) {
+    const inst = { id: 'brand:' + b.id, type: 'brand', name: b.name, domains: b.domains, generic: false, watch: true, weak: !!b.weak, phones: [], tokens: b.tokens || [], aliases: [] };
+    for (const d of b.domains) {
+      WATCHED_OWN.set(d, inst);
+      const { sld } = splitDomain(d);
+      if (!b.weak && sld && sld.length >= 4 && !OFFICIAL_SLDS.some(o => o.sld === sld)) OFFICIAL_SLDS.push({ sld, inst });
+    }
+    for (const t of new Set([...(b.tokens || []), ...b.domains.map(d => splitDomain(d).sld)])) {
+      if (t && t.length >= 4 && !STOP_TOKENS.has(t) && !BRANDS.some(x => x.token === t)) BRANDS.push({ token: t, inst, weak: !!b.weak });
+    }
+  }
+}
+export const watchedBrandFor = registrable => WATCHED_OWN.get(registrable) || null;
+
 // ---------- analysis ----------
 const sig = (id, w, en, ar, extra = {}) => ({ id, w, en, ar, ...extra });
 
 export function brandMatch(hostLabels) {
-  // hostLabels: array of label parts (split on '.' and '-')
-  for (const { token, inst } of BRANDS) {
+  // hostLabels: array of label parts (split on '.' and '-'); a weak (everyday-word) brand never counts as strong alone
+  for (const { token, inst, weak } of BRANDS) {
     for (const part of hostLabels) {
       if (!part) continue;
-      if (part === token) return { inst, token, strength: token.length >= 5 ? 'strong' : 'weak' };
-      if (token.length >= 8 && part.includes(token)) return { inst, token, strength: 'strong' };
+      if (part === token) return { inst, token, strength: token.length >= 5 && !weak ? 'strong' : 'weak' };
+      if (token.length >= 8 && part.includes(token)) return { inst, token, strength: weak ? 'weak' : 'strong' };
       if (token.length >= 5 && (part.startsWith(token) || part.endsWith(token))) {
         const rest = part.startsWith(token) ? part.slice(token.length) : part.slice(0, part.length - token.length);
-        if (AFFIXES.has(rest) || /^\d+$/.test(rest)) return { inst, token, strength: 'strong' };
+        if (AFFIXES.has(rest) || /^\d+$/.test(rest)) return { inst, token, strength: weak ? 'weak' : 'strong' };
       }
     }
   }
   return null;
+}
+
+// What a look-alike changed, in plain words. Used only for the explanation text, never for the verdict.
+const isDigit = c => c >= '0' && c <= '9';
+const maxRun = (s, c) => { let best = 0, cur = 0; for (const x of s) { cur = x === c ? cur + 1 : 0; if (cur > best) best = cur; } return best; };
+export function describeChange(raw, target) {
+  const a = String(raw || '').toLowerCase(), b = String(target || '').toLowerCase();
+  if (!a || !b || a === b || a.length > 40 || b.length > 40) return null;
+  if (a.length === b.length) {
+    const diffs = [];
+    for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) diffs.push(i);
+    if (diffs.length === 2 && diffs[1] === diffs[0] + 1 && a[diffs[0]] === b[diffs[1]] && a[diffs[1]] === b[diffs[0]])
+      return { en: 'swaps two neighbouring letters', ar: 'يبدّل حرفين متجاورين' };
+  }
+  const n = a.length, m = b.length;
+  const d = [];
+  for (let i = 0; i <= n; i++) { d.push(new Array(m + 1).fill(0)); d[i][0] = i; }
+  for (let j = 0; j <= m; j++) d[0][j] = j;
+  for (let i = 1; i <= n; i++) for (let j = 1; j <= m; j++) {
+    const c = a[i - 1] === b[j - 1] ? 0 : 1;
+    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + c);
+  }
+  const ops = [];
+  let i = n, j = m;
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0 && d[i][j] === d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)) {
+      if (a[i - 1] !== b[j - 1]) ops.push({ op: 'sub', raw: a[i - 1], want: b[j - 1] });
+      i--; j--;
+    } else if (i > 0 && d[i][j] === d[i - 1][j] + 1) { ops.push({ op: 'ins', raw: a[i - 1] }); i--; }
+    else { ops.push({ op: 'del', want: b[j - 1] }); j--; }
+  }
+  ops.reverse();
+  if (!ops.length) return null;
+  if (ops.length === 1) {
+    const o = ops[0];
+    if (o.op === 'ins') {
+      const c = o.raw;
+      if (isDigit(c)) return { en: `adds the digit ${c} to the real name`, ar: `يضيف الرقم ${c} إلى الاسم الحقيقي` };
+      if (c === '-') return { en: 'adds a hyphen', ar: 'يضيف شرطة' };
+      if (c === '_') return { en: 'adds an underscore', ar: 'يضيف شرطة سفلية' };
+      if (maxRun(a, c) > maxRun(b, c)) return { en: `repeats the letter ${c}`, ar: `يكرر الحرف ${c}` };
+      return { en: `adds the letter ${c}`, ar: `يضيف الحرف ${c}` };
+    }
+    if (o.op === 'del') return { en: `drops the letter ${o.want}`, ar: `يحذف الحرف ${o.want}` };
+    if (isDigit(o.raw)) return { en: `uses the digit ${o.raw} in place of the letter ${o.want}`, ar: `يستخدم الرقم ${o.raw} بدل الحرف ${o.want}` };
+    return { en: `swaps the letter ${o.want} for ${o.raw}`, ar: `يستبدل الحرف ${o.want} بالحرف ${o.raw}` };
+  }
+  const digits = ops.filter(o => o.op === 'ins' && isDigit(o.raw)).map(o => o.raw);
+  if (digits.length === ops.length) return { en: `adds the digits ${digits.join(' and ')} to the real name`, ar: `يضيف الأرقام ${digits.join(' و')} إلى الاسم الحقيقي` };
+  return { en: `changes ${ops.length} characters of the real name`, ar: `يغيّر ${ops.length} أحرف من الاسم الحقيقي` };
 }
 
 function lookalike(sld, hostUnicode) {
@@ -230,11 +303,22 @@ function lookalike(sld, hostUnicode) {
     if (o.length < 4) continue;
     const fo = foldLook(o);
     if (raw === o) continue;
-    if (folded === fo) return { inst, kind: /[^\x00-\x7f]/.test(hostUnicode) ? 'homoglyph' : 'typo', target: o };
+    if (folded === fo) {
+      const kind = /[^\x00-\x7f]/.test(hostUnicode) ? 'homoglyph' : 'typo';
+      return { inst, kind, target: o, change: kind === 'typo' ? describeChange(raw, o) : null };
+    }
     const max = o.length >= 9 ? 2 : o.length >= 5 ? 1 : 0;
-    if (max && editDistance(folded, fo, max) <= max) return { inst, kind: 'typo', target: o };
+    if (max && editDistance(folded, fo, max) <= max) return { inst, kind: 'typo', target: o, change: describeChange(raw, o) };
+    // two neighbouring letters swapped ("adnco" for "adnoc"): one change to the eye, two to plain edit distance
+    if (WATCH_ON && o.length >= 5 && swappedNeighbours(folded, fo)) return { inst, kind: 'typo', target: o, change: describeChange(raw, o) };
   }
   return null;
+}
+function swappedNeighbours(a, b) {
+  if (a.length !== b.length || a === b) return false;
+  let i = 0;
+  while (i < a.length && a[i] === b[i]) i++;
+  return i + 1 < a.length && a[i] === b[i + 1] && a[i + 1] === b[i] && a.slice(i + 2) === b.slice(i + 2);
 }
 
 export function analyzeUrl(raw) {
@@ -289,7 +373,8 @@ export function analyzeUrl(raw) {
   }
   if (IP_LOGGERS.has(registrable)) S.push(sig('ip_logger', 0.85, 'This is an IP-logger link: opening it reveals your location and device to the sender.', 'هذا رابط لتسجيل عنوان IP: فتحه يكشف موقعك وجهازك للمرسل.'));
 
-  if (!out.official && !isIp) {
+  out.watchedOwn = WATCHED_OWN.get(registrable) || null; // a watched brand's own site: no look-alike checks against itself
+  if (!out.official && !isIp && !out.watchedOwn) {
     const mixed = out.hostUnicode !== host && out.hostUnicode.split('.').some(l => {
       const sc = scriptsOf(l);
       return sc.length > 1 || (sc.length === 1 && sc[0] !== 'latin' && sc[0] !== 'arabic');
@@ -298,11 +383,13 @@ export function analyzeUrl(raw) {
     const look = lookalike(sldUnicode, sldUnicode);
     if (look) {
       out.lookalike = look;
-      const how = look.kind === 'homoglyph' ? 'swaps letters for look-alike characters from another alphabet' : 'is one or two letters away from the real name';
-      const howAr = look.kind === 'homoglyph' ? 'يستبدل حروفاً بحروف متشابهة من أبجدية أخرى' : 'يختلف بحرف أو حرفين عن الاسم الحقيقي';
+      const homo = look.kind === 'homoglyph';
+      const ch = look.change;
+      const how = homo ? 'swaps letters for look-alike characters from another alphabet' : (ch ? ch.en : 'is one or two letters away from the real name');
+      const howAr = homo ? 'يستبدل حروفاً بحروف متشابهة من أبجدية أخرى' : (ch ? ch.ar : 'يختلف بحرف أو حرفين عن الاسم الحقيقي');
       S.push(sig('lookalike_domain', 0.93,
-        `“${out.hostUnicode}” imitates ${look.inst.name.en} (${look.inst.domains[0]}). It ${how}.`,
-        `«${out.hostUnicode}» يقلّد ${look.inst.name.ar} (${look.inst.domains[0]})، فهو ${howAr}.`, { inst: look.inst.id }));
+        `“${out.hostUnicode}” imitates ${look.inst.name.en} (${look.inst.domains[0]}). It ${how}${homo ? '.' : ', a common trick that keeps the name recognisable at a glance.'}`,
+        `«${out.hostUnicode}» يقلّد ${look.inst.name.ar} (${look.inst.domains[0]})${homo ? '، فهو ' : '، '}${howAr}${homo ? '.' : '، وهي حيلة شائعة تُبقي الاسم مألوفاً للوهلة الأولى.'}`, { inst: look.inst.id }));
     } else if (mixed) {
       S.push(sig('mixed_script_host', 0.85, `The address mixes letters from different alphabets (${out.hostUnicode}), a classic disguise.`, `العنوان يخلط حروفاً من أبجديات مختلفة (${out.hostUnicode})، تمويه معروف.`));
     }

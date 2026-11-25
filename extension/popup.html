@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Veto.ai</title>
+<link rel="stylesheet" href="ui.css">
+<style>
+  body { width: 380px; }
+</style>
+</head>
+<body>
+<header>
+  <img src="icons/icon-192.png" alt="">
+  <span class="name">Veto.ai</span>
+  <button class="link" id="lang" type="button">عربي</button>
+  <button class="link" id="opts" type="button" data-t="settings">Settings</button>
+</header>
+<main>
+  <section class="card" id="tab" aria-live="polite">
+    <div class="label" data-t="thisSite">This website</div>
+    <div class="muted" data-t="checking">Checking…</div>
+  </section>
+  <section class="card">
+    <label class="label" for="input" data-t="pasteLabel">Check a message or link</label>
+    <textarea id="input" placeholder="Paste a text, WhatsApp message, e-mail or link you received"></textarea>
+    <div class="row">
+      <button class="primary" id="check" type="button" data-t="check">Check</button>
+      <button id="askAi" type="button" data-t="askAi" hidden>Ask the AI too</button>
+      <span class="muted" id="status"></span>
+    </div>
+  </section>
+  <section class="card" id="result" hidden aria-live="polite"></section>
+  <p class="muted" data-t="privacy">Checks run on this computer. Nothing is sent anywhere unless you turn on online checks or the AI in Settings.</p>
+</main>
+<script src="popup.js" type="module"></script>
+</body>
+</html>
