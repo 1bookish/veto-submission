@@ -58,6 +58,7 @@ export function recordCase(x, { source = 'xray', extra = {} } = {}) {
   const rec = {
     id, source: prev?.source || source, firstSeen: prev?.firstSeen || new Date().toISOString(), lastSeen: new Date().toISOString(),
     input: stripQuery(x.input), finalUrl: stripQuery(x.finalUrl), finalHost: x.finalHost, chain: (x.chain || []).map(stripQuery).slice(0, 8),
+    browserStatus: x.browserStatus ?? null, redirectObservation: x.redirectObservation ?? null,
     registrable: regOf(x.finalHost), title: (x.title || '').slice(0, 140), verdict: x.verdict, risk: x.risk, armed: !!x.armed, proof: x.proof || [],
     imitates: f.logos?.[0] ? { id: f.logos[0].inst, name: f.logos[0].name } : extra.imitates || prev?.imitates || null,
     imitationText: imitation ? { en: imitation.en, ar: imitation.ar } : null,
