@@ -4,7 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mmh3, shodanFaviconHash, sameImage, hamming64, simhash64, kitPrint, campaignKeys, matchLogos, brandSibling, cloakSignal } from '../server/forensics.js';
 import { campaigns, _resetForTests } from '../server/cases.js';
-import { permutations, scoreSuspect } from '../server/sentinel.js';
+import { permutations, scoreSuspect, listingSuspect } from '../server/sentinel.js';
 import { reportTexts, dossierHtml, stixBundle } from '../server/dossier.js';
 import { checkListing, outgoingCheck, contactsAudit, numberOwner } from '../engine/ledger.js';
 import { INSTITUTIONS } from '../data/institutions.js';
@@ -184,5 +184,14 @@ test('MOI caller advisory requires both the claimed ministry and exact displayed
   assert.equal(hit.signals[0].source.url, 'https://x.com/moiuae/status/2028040738475483569');
   for (const result of [check('+97170614213'), check('70614213', 'Unrelated help desk')]) {
     assert.ok(!result.signals.some(signal => signal.id === 'moi_reported_caller'));
+  }
+});
+
+test('reviewed Wio guide is attributed to its publisher only with matching evidence', () => {
+  const guide = { name: 'Wio Bank Business Account UAE', phone: '+971 50 496 3962', website: 'https://www.emirhub.ae/banking/wio/' };
+  assert.equal(checkListing(guide).verdict, 'guide');
+  assert.equal(listingSuspect(guide), null);
+  for (const change of [{name:'Official Wio Customer Support'}, {phone:'0501234567'}, {website:'https://emirhub.ae.example/banking/wio/'}, {text:'Call our Wio customer support desk'}]) {
+    assert.equal(checkListing({...guide, ...change}).verdict, 'fake');
   }
 });

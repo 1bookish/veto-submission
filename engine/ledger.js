@@ -33,6 +33,22 @@ export function historicalPhoneAlert(number) {
   return null;
 }
 
+// Scope reviewed guides to the article, its advertised contact and its title.
+// A bank-support claim, a look-alike URL or a different phone remains subject to the usual checks.
+export function guidePublisher(listing) {
+  const title = String(listing.name || '').trim();
+  if (!/^Wio Bank Business Account UAE(?:\s*\|\s*EmirHub)?$/i.test(title)) return null;
+  if (!sameNumber(listing.phone, '+971 50 496 3962') || listing.whatsapp) return null;
+  if (/customer (?:care|support|service)|helpline|official support|خدمة العملاء|الدعم الرسمي/i.test(listing.text || '')) return null;
+  const address = String(listing.website || '').trim();
+  if (!/^(?:https:\/\/)?(?:www\.)?emirhub\.ae\/banking\/wio\/?$/i.test(address)) return null;
+  return {
+    en: 'EmirHub publishes this number for its account-opening consultancy. Contact Wio directly for bank support.',
+    ar: 'تنشر إمير هب هذا الرقم لاستشارات فتح الحسابات. تواصل مع بنك ويو مباشرةً للحصول على الدعم المصرفي.',
+    source: { en: 'EmirHub contact details', ar: 'بيانات التواصل مع إمير هب', url: 'https://www.emirhub.ae/contact-us/' }
+  };
+}
+
 /** Which institution publishes this number (or null). */
 export function numberOwner(number) {
   return INSTITUTIONS.find(i => (i.phones || []).some(p => sameNumber(p.n, number) || exactShort(p.n, number))) || null;
@@ -40,12 +56,14 @@ export function numberOwner(number) {
 
 /**
  * @param {{name?:string, phone?:string, website?:string, whatsapp?:string, text?:string}} listing
- * @returns {{inst, verdict:'official'|'fake'|'suspicious'|'unknown', signals, positives, official}}
+ * @returns {{inst, verdict:'official'|'fake'|'suspicious'|'unknown'|'guide', signals, positives, official}}
  */
 export function checkListing(listing = {}) {
   const name = String(listing.name || '').trim();
   const text = `${name} ${listing.text || ''}`.trim();
   const signals = [], positives = [];
+  const publisher = guidePublisher(listing);
+  if (publisher) return { inst: null, verdict: 'guide', risk: 0, signals, positives: [publisher], official: null };
   const historical = historicalPhoneAlert(listing.phone);
   if (historical) signals.push(historical);
   // who does the listing CLAIM to be? its name first, else what its website or number belongs to

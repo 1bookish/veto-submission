@@ -62,7 +62,7 @@ const TX = {
     listHelp: 'Paste links, one per line, or a CSV with a url column and an optional label column (1 or 0). Judged offline in about a millisecond each, up to 20,000.', listBtn: 'Judge the list', listPh: 'https://…\nhttps://…', csv: 'Download CSV', judged: 'links judged',
     precision: 'Precision', recall: 'Recall', falseAlarms: 'False alarms', cScore: 'Score', cReason: 'Main reason',
     listingHelp: 'Compare a search result, ad or Maps listing with what the institution itself publishes. Fake customer-care numbers are the usual trick.', lName: 'Listing name', lPhone: 'Phone number', lWeb: 'Website', listingBtn: 'Check the listing',
-    lv_fake: 'Fake listing', lv_suspicious: 'Suspicious listing', lv_official: 'Matches the official details', lv_unknown: 'Insufficient evidence to verify this listing', officialIs: 'Official',
+    lv_guide: 'Third-party guide', lv_fake: 'Fake listing', lv_suspicious: 'Suspicious listing', lv_official: 'Matches the official details', lv_unknown: 'Insufficient evidence to verify this listing', officialIs: 'Official',
     connOff: 'Live search and Maps sweeps are switched off on this server until an API key is added. The listing check below works without one.',
     chainOk: 'Log intact', chainBad: 'Log broken at entry', entries: 'entries', noAudit: 'No decisions recorded yet.', aTime: 'Time (UTC)', aDecision: 'Decision', aOfficer: 'Officer', aHash: 'SHA-256', aNote: 'Note',
     humanRule: 'Human in the loop: Veto collects and explains. It never sends a takedown request or blocks anything by itself.',
@@ -125,7 +125,7 @@ const TX = {
     listHelp: 'الصق الروابط، رابط في كل سطر، أو ملف CSV بعمود url وعمود label اختياري (1 أو 0). يُفحص كل رابط دون اتصال في نحو جزء من الألف من الثانية، حتى 20,000 رابط.', listBtn: 'افحص القائمة', listPh: 'https://…\nhttps://…', csv: 'تنزيل CSV', judged: 'رابطاً تم فحصه',
     precision: 'الدقة', recall: 'الاستدعاء', falseAlarms: 'إنذارات خاطئة', cScore: 'الدرجة', cReason: 'السبب الرئيسي',
     listingHelp: 'قارن نتيجة بحث أو إعلاناً أو إدراجاً على الخرائط بما تنشره الجهة نفسها. أرقام خدمة العملاء المزيفة هي الحيلة المعتادة.', lName: 'اسم الإدراج', lPhone: 'رقم الهاتف', lWeb: 'الموقع', listingBtn: 'افحص الإدراج',
-    lv_fake: 'إدراج مزيف', lv_suspicious: 'إدراج مشبوه', lv_official: 'يطابق البيانات الرسمية', lv_unknown: 'الأدلة غير كافية للتحقق من هذا الإدراج', officialIs: 'الرسمي',
+    lv_guide: 'دليل من جهة مستقلة', lv_fake: 'إدراج مزيف', lv_suspicious: 'إدراج مشبوه', lv_official: 'يطابق البيانات الرسمية', lv_unknown: 'الأدلة غير كافية للتحقق من هذا الإدراج', officialIs: 'الرسمي',
     connOff: 'عمليات البحث والخرائط المباشرة متوقفة على هذا الخادم إلى أن يُضاف مفتاح API. فحص الإدراج أدناه يعمل دونه.',
     chainOk: 'السجل سليم', chainBad: 'السجل مكسور عند القيد', entries: 'قيداً', noAudit: 'لم يُسجَّل أي قرار بعد.', aTime: 'الوقت (UTC)', aDecision: 'القرار', aOfficer: 'الضابط', aHash: 'SHA-256', aNote: 'ملاحظة',
     humanRule: 'القرار للإنسان: فيتو يجمع ويشرح. لا يرسل طلب إزالة ولا يحجب شيئاً من تلقاء نفسه.',
@@ -343,7 +343,7 @@ function huntView(d) {
       Object.entries(S.phoneRun.counts || {}).map(([k,v])=>h('span',{class:'tag'},k+' '+(v ?? '—'))),
       (S.phoneRun.errors || []).map(e=>h('p',{class:'notice'},e)),
       (S.phoneRun.rows || []).map(r=>h('div',{class:'src'},h('span',{},r.channel+' · '+r.title),
-        h('code',{dir:'ltr'},r.phone),r.advisory ? h('span',{class:'notice warn'},L(r.advisory),h('a',{href:r.advisory.source.url,target:'_blank',rel:'noopener noreferrer'}, ' · '+L(r.advisory.source))) : h('span',{},r.match ? L({en:'Published number',ar:'رقم منشور'}) : L({en:'Unverified number',ar:'رقم غير متحقق منه'}))))) : null,
+        h('code',{dir:'ltr'},r.phone),r.advisory ? h('span',{class:'notice warn'},L(r.advisory),h('a',{href:r.advisory.source.url,target:'_blank',rel:'noopener noreferrer'}, ' · '+L(r.advisory.source))) : h('span',{},r.guide ? T('lv_guide') : r.match ? L({en:'Published number',ar:'رقم منشور'}) : L({en:'Unverified number',ar:'رقم غير متحقق منه'}))))) : null,
     h('section', { class: 'panel' }, h('h2', {}, ic('crosshair'), T('hunt')), h('p', { class: 'help' }, T('huntHelp')),
       h('div', { class: 'kinds' }, kind('lookalike', T('srcLook')), kind('nrd', T('srcNrd')), kind('ct', T('srcCt')), kind('search', T('srcSearch'), 'search'), kind('maps', T('srcMaps'), 'maps')),
       h('div', { class: 'hunt-row' },
@@ -505,7 +505,7 @@ function toolsView(d) {
   } else {
     const r = S.listingRes, fld = (k, label, ph, dir) => h('label', { class: 'lbl' }, label, h('input', { id: 'l_' + k, class: 'field', type: 'text', dir: dir || 'auto', placeholder: ph, value: S.listing[k], oninput: e => { S.listing[k] = e.target.value; } }));
     const evidence = s => h('li', {}, L(s), s.source ? h('a', { href: s.source.url, target: '_blank', rel: 'noopener noreferrer' }, ' · ' + L(s.source)) : null);
-    const tone = { fake: 'bad', suspicious: 'mid', official: 'ok', unknown: '' };
+    const tone = { fake: 'bad', suspicious: 'mid', official: 'ok', guide: '', unknown: '' };
     body = [d.connectors.search || d.connectors.maps ? null : h('div', { class: 'notice warn' }, ic('info'), h('span', {}, T('connOff'))), h('p', { class: 'help' }, T('listingHelp')),
       h('form', { class: 'form-row', onsubmit: e => { e.preventDefault(); S.listingRes = checkListing(S.listing); render(); } },
         fld('name', T('lName'), 'Emirates NBD Customer Care 24/7'), fld('phone', T('lPhone'), '+971 5x xxx xxxx', 'ltr'), fld('website', T('lWeb'), 'example.com', 'ltr'),

@@ -299,7 +299,7 @@ export async function xraySuspect(host, xray) {
 /** A listing from maps/search, checked against the ledger and added as a suspect when it lies. */
 export function listingSuspect(listing, { source = 'maps', query = null } = {}) {
   const chk = checkListing(listing);
-  if (chk.verdict === 'official' || chk.verdict === 'unknown') return null;
+  if (!['fake', 'suspicious'].includes(chk.verdict)) return null;
   let host = null;
   try { host = listing.website ? new URL(/^https?:/i.test(listing.website) ? listing.website : 'http://' + listing.website).hostname.toLowerCase() : null; } catch { /* none */ }
   return { host: host || `listing:${(listing.phone || listing.name || '').replace(/\W+/g, '')}`, inst: chk.inst?.id, how: `${source} listing “${listing.name || ''}”`,

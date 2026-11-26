@@ -12,7 +12,7 @@ import { analyzeUrl, splitDomain, officialFor } from '../engine/url.js';
 import { findInstitutions } from '../engine/extract.js';
 import { foldDigits, matchForm } from '../engine/normalize.js';
 import { NEUTRAL_DOMAINS } from '../data/institutions.js';
-import { checkListing } from '../engine/ledger.js';
+import { checkListing, guidePublisher } from '../engine/ledger.js';
 import { sameNumber, exactShort } from '../engine/context.js';
 import { listingSuspect } from './sentinel.js';
 
@@ -51,17 +51,18 @@ export async function helplineHunt(inst) {
   const q = inst.name.en + ' customer service phone number UAE';
   const [web, maps] = await Promise.allSettled([searchApiResults(q), searchApiMaps(q)]);
   const rows = [];
-  const add = (channel,title,phone,url) => {
+  const add = (channel,title,phone,url,text) => {
     if (!phone) return;
     const match = (inst.phones || []).some(p => p.v && (sameNumber(p.n, phone) || exactShort(p.n, phone)));
-    const advisory = checkListing({ name: title, phone }).signals.find(signal => signal.source) || null;
-    rows.push({channel,title,phone,url,match,advisory});
+    const result = checkListing({ name: title, phone, website: url, text });
+    const advisory = result.signals.find(signal => signal.source) || null;
+    rows.push({channel,title,phone,url,match,advisory,guide:result.verdict === 'guide'});
   };
   for (const r of web.value || []) {
     const snippet = foldDigits(r.title + ' ' + r.description);
     const labelled = snippet.matchAll(/(?:phone|call|tel|helpline|رقم|اتصل)\s*[:：]?\s*(\d{8})(?![\d-])/gi);
     const phones = new Set([r.phone, ...(snippet.match(PHONE_RX) || []), ...Array.from(labelled, m => m[1])]);
-    for (const phone of phones) add(r.ad ? 'Ads' : 'Search',r.title,phone,r.url);
+    for (const phone of phones) add(r.ad ? 'Ads' : 'Search',r.title,phone,r.url,r.description);
   }
   for (const r of maps.value || []) add('Maps',r.name,r.phone,r.website);
   return { at: new Date().toISOString(), query:q, rows, counts: {
@@ -179,6 +180,7 @@ export const connectors = {
             const blob = `${r.title} ${r.description}`;
             // a phone number shown in the result for this institution, which the institution does not publish
             for (const m of blob.match(PHONE_RX) || []) {
+              if (guidePublisher({name:r.title, website:r.url, phone:m, text:r.description})) continue;
               const s = listingSuspect({ name: inst.name.en, phone: m }, { source: 'search', query: q });
               if (s && s.listing.verdict !== 'official') out.push({ ...s, how: `number in search result #${r.rank} for “${q}”`, resultUrl: r.url });
             }
