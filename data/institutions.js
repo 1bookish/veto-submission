@@ -198,7 +198,9 @@ export const INSTITUTIONS = [
     aliases: ['federal authority for identity', 'identity and citizenship', 'الهيئة الاتحادية للهوية', 'الهوية والجنسية', 'هيئة الهوية'], strict: ['ICP'],
     domains: ['icp.gov.ae'], tokens: ['icp', 'emiratesid'], phones: [P('600522222', '600 52 2222')]
   }),
-  I('gdrfa', 'gov', 'GDRFA Dubai (residency)', 'الإدارة العامة للإقامة وشؤون الأجانب', { aliases: ['gdrfa', 'general directorate of residency', 'الإقامة وشؤون الأجانب'], domains: ['gdrfad.gov.ae'], tokens: ['gdrfa', 'gdrfad'] }),
+  I('gdrfa', 'gov', 'GDRFA Dubai (residency)', 'الإدارة العامة للإقامة وشؤون الأجانب', { aliases: ['gdrfa', 'general directorate of residency', 'الإقامة وشؤون الأجانب'], domains: ['gdrfad.gov.ae'], tokens: ['gdrfa', 'gdrfad'],
+    phones: [P('8005111', '800 5111', true), P('97143139999', '+971 4 313 9999', true)] // https://gdrfad.gov.ae/en/contact-information
+  }),
   I('uaepass', 'gov', 'UAE PASS', 'الهوية الرقمية (UAE PASS)', { aliases: ['uae pass', 'uaepass', 'الهوية الرقمية', 'يو اي اي باس'], domains: ['uaepass.ae'], tokens: ['uaepass'] }),
   I('tdra', 'gov', 'TDRA', 'هيئة تنظيم الاتصالات والحكومة الرقمية', { aliases: ['tdra', 'telecommunications and digital government regulatory authority', 'هيئة تنظيم الاتصالات'], domains: ['tdra.gov.ae'], tokens: ['tdra'] }),
   I('digitaldubai', 'gov', 'Digital Dubai', 'دبي الرقمية', { aliases: ['digital dubai', 'دبي الرقمية'], domains: ['digitaldubai.ae'], tokens: ['digitaldubai'] }),
