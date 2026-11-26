@@ -110,3 +110,15 @@ test('a missing file with an extension returns 404', async () => {
   const r = await get('/no-such-file-' + Date.now() + '.js');
   assert.equal(r.status, 404);
 });
+
+test('stored case files and exports require officer access before lookup', async () => {
+  const id = '000000000000';
+  const routes = ['/api/dossier/' + id, ...['', '/shot.jpg', '/stix', '/evidence.pdf', '/evidence.zip', '/review'].map(suffix => '/api/case/' + id + suffix)];
+  for (const route of routes) {
+    const response = await fetch(base + route, { headers: { 'x-forwarded-for': '192.0.2.1' } });
+    assert.equal(response.status, 403, route);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+    assert.equal((await response.json()).error, 'console');
+    assert.equal((await get(route)).status, 404, route);
+  }
+});

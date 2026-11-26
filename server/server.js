@@ -211,6 +211,10 @@ const server = http.createServer(async (req, res) => {
       }
       return send(res, 200, result);
     }
+    // Every representation of a stored case shares the police console's access policy.
+    if ((url.pathname.startsWith('/api/case/') || url.pathname.startsWith('/api/dossier/')) && !consoleOk(req)) {
+      return send(res, 403, { error: 'console', message: 'Sign in at /police to access stored case evidence.' });
+    }
     const dm = /^\/api\/dossier\/([a-f0-9]{12})$/.exec(url.pathname);
     if (dm) {
       const rec = getCase(dm[1]);
@@ -228,7 +232,6 @@ const server = http.createServer(async (req, res) => {
     // ---------- police console: one case in full, its picture, and the officer sign-off ----------
     const cm = /^\/api\/case\/([a-f0-9]{12})(\/shot\.jpg|\/review)?$/.exec(url.pathname);
     if (cm) {
-      if (!consoleOk(req)) return send(res, 403, { error: 'console' });
       const rec = getCase(cm[1]);
       if (!rec) return send(res, 404, { error: 'no such case' });
       if (cm[2] === '/shot.jpg') {
