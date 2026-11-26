@@ -11,9 +11,9 @@
   "dir": "auto",
   "icons": [
     {
-      "src": "/brand/officer-shield.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "/brand/officer-kiki.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any"
     }
   ]

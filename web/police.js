@@ -253,7 +253,7 @@ async function copyText(text) { try { await navigator.clipboard.writeText(text);
 
 // ---------------- pieces ----------------
 const langBtn = () => h('button', { class: 'btn sm', type: 'button', onclick: () => { setLang(lang.cur === 'ar' ? 'en' : 'ar'); render(); renderDrawer(); } }, ic('languages'), T('langBtn'));
-const brand = () => h('a', { class: 'brand', href: '/' }, h('img', { class: 'mark', src: '/brand/officer-shield.svg', alt: '', width: 40, height: 40 }),
+const brand = () => h('a', { class: 'brand', href: '/' }, h('img', { class: 'mark', src: '/brand/officer-kiki.png', alt: '', width: 40, height: 40 }),
   h('span', {}, h('strong', { dir: 'ltr' }, 'Veto.ai'), h('small', {}, T('brandSub'))));
 const reviewTag = c => { const d = c.review?.decision || 'pending'; return h('span', { class: `tag ${d === 'approved' ? 'ok' : d === 'pending' ? (waiting(c) ? 'mid' : '') : d === 'needs_info' ? 'info' : ''}` }, T('r_' + d)); };
 const evidenceTags = c => h('div', { class: 'tags' }, (c.asks || []).map(a => h('span', { class: 'tag' }, a)), (c.exfil || []).map(x => h('span', { class: 'tag bad' }, String(x.kind || x).replace(/_/g, ' '))),
@@ -294,7 +294,7 @@ function overviewView(d) {
   const empty = !d.cases.length && !d.suspects.length;
   return [
     kpis(d),
-    empty ? h('section', { class: 'panel empty' }, h('img', { src: '/brand/officer-shield.svg', alt: '' }), h('h2', {}, T('emptyTitle')), h('p', {}, T('emptyText')),
+    empty ? h('section', { class: 'panel empty' }, h('img', { src: '/brand/officer-kiki.png', alt: '' }), h('h2', {}, T('emptyTitle')), h('p', {}, T('emptyText')),
       h('div', { class: 'acts' }, h('button', { class: 'btn blue', type: 'button', onclick: () => go('hunt') }, ic('play'), T('runFirst')),
         h('button', { class: `btn${S.training ? ' spin' : ''}`, type: 'button', disabled: S.training, onclick: loadTraining }, ic(S.training ? 'refresh-cw' : 'graduation-cap'), S.training ? T('loadingTraining') : T('loadTraining'))),
       h('p', { class: 'tiny' }, T('trainingNote'))) : null,
@@ -449,7 +449,7 @@ function campaignsView(d) {
         h('span', { class: 'tiny muted' }, `${T('firstSeen')} ${fmtDate(c.firstSeen)}`)),
       h('ul', {}, [...new Map(c.links.map(l => [l.why + l.value, l])).values()].slice(0, 6).map(l => h('li', {}, ic('link'), h('span', {}, L(l) + ':'), h('code', {}, l.value)))),
       h('div', { class: 'tags' }, c.members.map(m => h('button', { class: `tag ${verdictTone(m.verdict)}`, type: 'button', onclick: () => openCase(m.id) }, m.host)))))]
-      : h('div', { class: 'empty' }, h('img', { src: '/brand/officer-shield.svg', alt: '' }), h('p', {}, T('noCamps'))))];
+      : h('div', { class: 'empty' }, h('img', { src: '/brand/officer-kiki.png', alt: '' }), h('p', {}, T('noCamps'))))];
 }
 
 function toolsView(d) {
@@ -589,7 +589,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && S.drawer) 
 function gate() {
   const ses = S.session || {};
   return h('div', { class: 'gate' }, h('form', { class: 'card', onsubmit: signIn },
-    h('img', { class: 'officer-mark', src: '/brand/officer-shield.svg', alt: '' }), h('h1', {}, T('gateTitle')),
+    h('img', { class: 'officer-mark', src: '/brand/officer-kiki.png', alt: '' }), h('h1', {}, T('gateTitle')),
     ses.codeConfigured === false ? h('p', { class: 'err' }, T('notConfigured')) : [h('p', {}, T('gateText')),
       h('label', { class: 'lbl' }, T('code'), h('input', { id: 'codeIn', class: 'field', type: 'password', autocomplete: 'current-password', required: true, value: S.gateCode, oninput: e => { S.gateCode = e.target.value; } })),
       S.gateErr ? h('p', { class: 'err', role: 'alert' }, T(S.gateErr)) : null, h('button', { class: 'btn blue', type: 'submit' }, ic('lock'), T('enter'))],
@@ -613,7 +613,7 @@ function render() {
       h('div', { class: 'foot' },
         S.session.mode === 'code' ? h('button', { type: 'button', onclick: signOut }, ic('lock'), T('signOut')) : null)),
     h('main', { class: 'main' },
-      h('div', { class: 'mobile-top' }, h('a', { class: 'brand', href: '/' }, h('img', { class: 'mark', src: '/brand/officer-shield.svg', alt: 'Veto.ai', width: 36, height: 36 }), h('b', {}, T('brandSub'))), langBtn()),
+      h('div', { class: 'mobile-top' }, h('a', { class: 'brand', href: '/' }, h('img', { class: 'mark', src: '/brand/officer-kiki.png', alt: 'Veto.ai', width: 36, height: 36 }), h('b', {}, T('brandSub'))), langBtn()),
       h('div', { class: 'bar' }, h('h1', {}, T(titleKey)), h('span', { class: 'live-dot' }, T('live')), h('span', { class: 'grow' }),
         h('button', { class: 'btn sm', type: 'button', onclick: () => (S.view === 'audit' ? loadAudit() : loadData()) }, ic('refresh-cw'), T('refresh')), h('span', { class: 'desk-lang' }, langBtn()),
         h('p', { class: 'sub' }, T(subKey))),
