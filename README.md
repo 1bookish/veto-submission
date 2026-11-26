@@ -12,8 +12,8 @@
 
 | | |
 |---|---|
+| **Police dashboard** | **[Open the live police dashboard](https://vetoai.mubadara.app/police)** · Officer code required. [Walk through a case](#police-dashboard). |
 | **Live site** | **https://milki0069.github.io/veto-submission/** · download the Android app, open the web app, get the extension |
-| **Police dashboard** | [Open the officer workspace](https://vetoai.mubadara.app/police) · officer access code required |
 | **Resident app (no install)** | https://milki0069.github.io/veto-submission/app/ · the same Veto screens in any browser |
 | **Test it in the browser** | https://milki0069.github.io/veto-submission/check/ · paste a message, a link or a whole list of links; same engine |
 | **Demo video (1 minute)** | [watch on Google Drive](https://drive.google.com/file/d/1m2Z7aZArLyuuMnj-L3TL_YaR12q4Xx1p/view?usp=sharing); the source and the real screenshots it uses are in [`tools/video-render.js`](tools/video-render.js) and [`docs/img/demo/`](docs/img/demo/) |
@@ -373,7 +373,9 @@ Status: designed, not built yet. It needs opt-in family linking, and a review of
 
 ## Police dashboard
 
-Open `/` or `/police` to review the priority queue, inspect evidence, link campaigns, and record an officer decision in English or Arabic. Previous resident bookmarks redirect to the officer workspace.
+1. Open the [live police dashboard](https://vetoai.mubadara.app/police) and enter the officer code provided by the team. The workspace supports English and Arabic.
+2. In **Overview**, select **Review** beside a case under **Needs an officer**. Inspect the risk score, the reasons for the flag and the available screenshot.
+3. Select **Evidence ZIP** to download the case report and its integrity manifest. Downloading the evidence leaves the officer’s decision pending until an officer records one.
 
 The deployed watchlist includes 34 additional UAE brands. The separate brand stress test covered 46 UAE brands across 452 generated look-alikes ([research log](docs/RESEARCH_LOG.md)).
 
