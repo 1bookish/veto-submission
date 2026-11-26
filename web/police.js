@@ -66,7 +66,7 @@ const TX = {
     connOff: 'Live search and Maps sweeps are switched off on this server until an API key is added. The listing check below works without one.',
     chainOk: 'Log intact', chainBad: 'Log broken at entry', entries: 'entries', noAudit: 'No decisions recorded yet.', aTime: 'Time (UTC)', aDecision: 'Decision', aOfficer: 'Officer', aHash: 'SHA-256', aNote: 'Note',
     humanRule: 'Human in the loop: Veto collects and explains. It never sends a takedown request or blocks anything by itself.',
-    gateTitle: 'Police dashboard', gateText: 'This area shows suspect sites and evidence. Enter the officer access code to continue.', code: 'Access code', enter: 'Sign in', wrong: 'That code is not right.', rate: 'Too many tries. Wait a minute.',
+    gateTitle: 'Police dashboard', gateText: 'This area shows suspect sites and evidence. Enter the officer access code to continue.', code: 'Access code', enter: 'Sign in', wrong: 'That code is not right.', rate: 'Too many tries. Wait a minute.', down: 'The server is waking up. Try again in a minute.',
     notConfigured: 'The dashboard is not opened on this server yet: no access code has been set.', gatePilot: 'Pilot sign-in. A police deployment would use the force’s own single sign-on.', back: 'Back to the front door',
     loadErr: 'Could not reach the server.', error: 'Something went wrong.'
   },
@@ -129,7 +129,7 @@ const TX = {
     connOff: 'عمليات البحث والخرائط المباشرة متوقفة على هذا الخادم إلى أن يُضاف مفتاح API. فحص الإدراج أدناه يعمل دونه.',
     chainOk: 'السجل سليم', chainBad: 'السجل مكسور عند القيد', entries: 'قيداً', noAudit: 'لم يُسجَّل أي قرار بعد.', aTime: 'الوقت (UTC)', aDecision: 'القرار', aOfficer: 'الضابط', aHash: 'SHA-256', aNote: 'ملاحظة',
     humanRule: 'القرار للإنسان: فيتو يجمع ويشرح. لا يرسل طلب إزالة ولا يحجب شيئاً من تلقاء نفسه.',
-    gateTitle: 'لوحة الشرطة', gateText: 'تعرض هذه المنطقة مواقع مشتبهاً بها وأدلة. أدخل رمز دخول الضابط للمتابعة.', code: 'رمز الدخول', enter: 'دخول', wrong: 'الرمز غير صحيح.', rate: 'محاولات كثيرة. انتظر دقيقة.',
+    gateTitle: 'لوحة الشرطة', gateText: 'تعرض هذه المنطقة مواقع مشتبهاً بها وأدلة. أدخل رمز دخول الضابط للمتابعة.', code: 'رمز الدخول', enter: 'دخول', wrong: 'الرمز غير صحيح.', rate: 'محاولات كثيرة. انتظر دقيقة.', down: 'الخادم قيد التشغيل. حاول بعد دقيقة.',
     notConfigured: 'لوحة التحكم غير مفعّلة على هذا الخادم بعد: لم يُحدَّد رمز دخول.', gatePilot: 'دخول تجريبي. في التشغيل الفعلي يُستخدم نظام الدخول الموحد للجهة الشرطية.', back: 'العودة إلى الصفحة الرئيسية',
     loadErr: 'تعذّر الاتصال بالخادم.', error: 'حدث خطأ.'
   }
@@ -224,9 +224,9 @@ async function signOff(decision) {
 }
 async function signIn(e) {
   e.preventDefault();
-  const r = await fetch('/api/console/login', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ code: S.gateCode }) }).catch(() => null);
+  const r = await fetch('/api/console/login', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ code: S.gateCode.trim() }) }).catch(() => null);
   if (r?.ok) { S.gateCode = ''; S.gateErr = null; await loadSession(); await loadData(); return; }
-  S.gateErr = r?.status === 429 ? 'rate' : 'wrong'; render();
+  S.gateErr = r?.status === 429 ? 'rate' : r?.status === 401 ? 'wrong' : 'down'; render();
   document.getElementById('codeIn')?.focus();
 }
 async function signOut() { await fetch('/api/console/logout', { method: 'POST' }).catch(() => {}); S.data = null; await loadSession(); render(); }

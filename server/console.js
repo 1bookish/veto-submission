@@ -32,7 +32,9 @@ export const codeConfigured = () => TOKEN().length >= 8;
 
 /** Does the access code match? Constant-time, and never true when no code is set. */
 export function checkCode(code) {
-  return codeConfigured() && safeEqual(crypto.createHash('sha256').update(String(code || '')).digest('hex'), crypto.createHash('sha256').update(TOKEN()).digest('hex'));
+  // spaces around the code and letter case are forgiven: codes get pasted from chats and typed on phones
+  const norm = v => String(v || '').trim().toLowerCase();
+  return codeConfigured() && safeEqual(crypto.createHash('sha256').update(norm(code)).digest('hex'), crypto.createHash('sha256').update(norm(TOKEN())).digest('hex'));
 }
 
 export function sessionCookie(req) {

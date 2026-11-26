@@ -69,3 +69,10 @@ test('a decision needs a known value and an officer name', () => {
   assert.throws(() => c.recordReview({ caseId: 'x', decision: 'approved', officer: ' ' }), /officer name required/);
   assert.equal(c.auditLog().count, 0);
 });
+
+test('the access code forgives surrounding spaces and letter case', () => {
+  process.env.VETO_CONSOLE_TOKEN = 'ADP-Officer-123';
+  assert.equal(c.checkCode(' adp-officer-123 \n'), true);
+  assert.equal(c.checkCode('ADP-Officer-124'), false);
+  process.env.VETO_CONSOLE_TOKEN = 'officer-code-123';
+});
