@@ -89,3 +89,15 @@ test('RAKBANK hunt preserves the full service number and drops incomplete fragme
     ['600 576 361', true], ['600 544049', true], ['+971600576361', true], ['800 4048', true]
   ]);
 });
+
+test('helpline hunt keeps Google Maps results when SearchApi reaches its limit', async () => {
+  setKeys({ SEARCHAPI_KEY: 'test', GOOGLE_PLACES_KEY: 'places-test' });
+  globalThis.fetch = async url => String(url).startsWith('https://places.googleapis.com/')
+    ? reply({ places: [{ displayName: {text:'FAB'}, nationalPhoneNumber:'600 525500' }] })
+    : { ok: false, status: 429 };
+  const run = await helplineHunt(INSTITUTIONS.find(i => i.id === 'fab'));
+  assert.deepEqual(run.counts, { Search: null, Ads: null, Maps: 1 });
+  assert.equal(run.mapsProvider, 'Google Maps');
+  assert.equal(run.rows[0].match, true);
+  assert.match(run.errors[0], /SearchApi request limit reached/);
+});

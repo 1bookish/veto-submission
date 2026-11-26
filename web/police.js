@@ -351,6 +351,7 @@ function huntView(d) {
         d.institutions.map(i=>h('option',{value:i.id,selected:i.id===(S.phoneInst || 'fab')},L(i.name)))),
         h('button',{class:'btn primary',type:'submit',disabled:S.phoneBusy},S.phoneBusy ? T('running') : L({en:'Check live listings',ar:'فحص الإدراجات مباشرة'})))),
     S.phoneRun ? h('section',{class:'panel'},h('b',{},S.phoneRun.query), h('p',{},S.phoneRun.at),
+      S.phoneRun.mapsProvider === 'Google Maps' && S.phoneRun.counts?.Maps != null ? h('p', {class:'small'}, 'Google Maps') : null,
       Object.entries(S.phoneRun.counts || {}).map(([k,v])=>h('span',{class:'tag'},k+' '+(v ?? '—'))),
       (S.phoneRun.errors || []).map(e=>h('p',{class:'notice'},e)),
       (S.phoneRun.rows || []).map(r=>h('div',{class:'src'},h('div',{},h('span',{},r.channel+' · '+r.title),

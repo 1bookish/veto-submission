@@ -26,11 +26,12 @@ export const connectorsConfigured = () => ({ search: !!(searchApiKey() || BRAVE(
 let searchApiCalls = 0;
 async function searchApi(engine, q) {
   if (!searchApiKey()) throw new Error('SearchApi key missing');
-  if (searchApiCalls >= 50) throw new Error('SearchApi process limit reached');
+  if (searchApiCalls >= 50) throw new Error('Veto’s SearchApi safety limit was reached for this server run.');
   searchApiCalls++;
   const url = new URL('https://www.searchapi.io/api/v1/search');
   url.search = new URLSearchParams({ engine, q, hl: 'en', ...(engine === 'google' ? { gl: 'ae', location: 'United Arab Emirates' } : { ll: '@24.4539,54.3773,12z' }) });
   const r = await fetch(url, { headers: { Authorization: 'Bearer ' + searchApiKey() }, signal: AbortSignal.timeout(30000) });
+  if (r.status === 429) throw new Error('SearchApi request limit reached. Check remaining credits and hourly usage.');
   if (!r.ok) throw new Error('SearchApi HTTP ' + r.status);
   const j = await r.json();
   if (j.error) throw new Error('SearchApi query rejected');
@@ -49,7 +50,8 @@ async function searchApiMaps(q) {
 }
 export async function helplineHunt(inst) {
   const q = inst.name.en + ' customer service phone number UAE';
-  const [web, maps] = await Promise.allSettled([searchApiResults(q), searchApiMaps(q)]);
+  const googleMaps = Boolean(PLACES());
+  const [web, maps] = await Promise.allSettled([searchApiResults(q), googleMaps ? placesSearch(inst.name.en + ' UAE') : searchApiMaps(q)]);
   const rows = [];
   const add = (channel,title,phone,url,text,sourceUrl = url) => {
     if (!phone) return;
@@ -66,7 +68,7 @@ export async function helplineHunt(inst) {
   }
   for (const r of maps.value || []) add('Maps',r.name,r.phone,r.website,undefined,
     r.placeId ? 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(r.name)+'&query_place_id='+encodeURIComponent(r.placeId) : r.website);
-  return { at: new Date().toISOString(), query:q, rows, counts: {
+  return { at: new Date().toISOString(), query:q, rows, mapsProvider: googleMaps ? 'Google Maps' : 'SearchApi', counts: {
     Search:web.value?.filter(r=>!r.ad).length ?? null, Ads:web.value?.filter(r=>r.ad).length ?? null, Maps:maps.value?.length ?? null
   }, errors:[web,maps].flatMap((r,i)=>r.status==='rejected' ? [(i?'Maps':'Search / Ads')+' · '+r.reason.message] : []) };
 }
@@ -155,6 +157,7 @@ export async function placesSearch(textQuery) {
       'x-goog-fieldmask': 'places.id,places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.internationalPhoneNumber,places.websiteUri,places.googleMapsUri' },
     body: JSON.stringify({ textQuery, regionCode: 'AE', languageCode: 'en', pageSize: 20 })
   });
+  if (r.status === 429) throw new Error('Google Maps request limit reached. Check the Places API quota.');
   if (!r.ok) throw new Error(`Places HTTP ${r.status}`);
   const j = await r.json();
   return (j.places || []).map(p => ({ name: p.displayName?.text || '', phone: p.internationalPhoneNumber || p.nationalPhoneNumber || null, website: p.websiteUri || null,
