@@ -117,7 +117,7 @@ export const INSTITUTIONS = [
   }),
   I('dib', 'bank', 'Dubai Islamic Bank', 'بنك دبي الإسلامي', {
     aliases: ['dubai islamic bank', 'بنك دبي الإسلامي'], strict: ['DIB'],
-    domains: ['dib.ae'], tokens: ['dib', 'dubaiislamic'], phones: [P('046092222', '04 609 2222')]
+    domains: ['dib.ae'], tokens: ['dib', 'dubaiislamic'], phones: [P('046092222', '04 609 2222', true)]
   }),
   I('adib', 'bank', 'Abu Dhabi Islamic Bank (ADIB)', 'مصرف أبوظبي الإسلامي', {
     aliases: ['adib', 'abu dhabi islamic bank', 'مصرف أبوظبي الإسلامي', 'مصرف ابوظبي الاسلامي'],

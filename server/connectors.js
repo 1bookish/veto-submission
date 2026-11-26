@@ -51,12 +51,12 @@ export async function helplineHunt(inst) {
   const q = inst.name.en + ' customer service phone number UAE';
   const [web, maps] = await Promise.allSettled([searchApiResults(q), searchApiMaps(q)]);
   const rows = [];
-  const add = (channel,title,phone,url,text) => {
+  const add = (channel,title,phone,url,text,sourceUrl = url) => {
     if (!phone) return;
     const match = (inst.phones || []).some(p => p.v && (sameNumber(p.n, phone) || exactShort(p.n, phone)));
     const result = checkListing({ name: title, phone, website: url, text });
     const advisory = result.signals.find(signal => signal.source) || null;
-    rows.push({channel,title,phone,url,match,advisory,guide:result.verdict === 'guide'});
+    rows.push({channel,title,phone,url,sourceUrl,excerpt:text || '',match,advisory,guide:result.verdict === 'guide'});
   };
   for (const r of web.value || []) {
     const snippet = foldDigits(r.title + ' ' + r.description);
@@ -64,7 +64,8 @@ export async function helplineHunt(inst) {
     const phones = new Set([r.phone, ...(snippet.match(PHONE_RX) || []), ...Array.from(labelled, m => m[1])]);
     for (const phone of phones) add(r.ad ? 'Ads' : 'Search',r.title,phone,r.url,r.description);
   }
-  for (const r of maps.value || []) add('Maps',r.name,r.phone,r.website);
+  for (const r of maps.value || []) add('Maps',r.name,r.phone,r.website,undefined,
+    r.placeId ? 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(r.name)+'&query_place_id='+encodeURIComponent(r.placeId) : r.website);
   return { at: new Date().toISOString(), query:q, rows, counts: {
     Search:web.value?.filter(r=>!r.ad).length ?? null, Ads:web.value?.filter(r=>r.ad).length ?? null, Maps:maps.value?.length ?? null
   }, errors:[web,maps].flatMap((r,i)=>r.status==='rejected' ? [(i?'Maps':'Search / Ads')+' · '+r.reason.message] : []) };
