@@ -151,7 +151,9 @@ export const INSTITUTIONS = [
   }),
   I('bos', 'bank', 'Bank of Sharjah', 'بنك الشارقة', { aliases: ['bank of sharjah', 'بنك الشارقة'], domains: ['bankofsharjah.com'], tokens: ['bankofsharjah'] }),
   I('alhilal', 'bank', 'Al Hilal Bank', 'مصرف الهلال', { aliases: ['al hilal bank', 'alhilal bank', 'مصرف الهلال'], domains: ['alhilalbank.ae'], tokens: ['alhilalbank', 'alhilal'] }),
-  I('wio', 'bank', 'Wio Bank', 'ويو بنك', { aliases: ['wio bank', 'wio'], domains: ['wio.io'], tokens: ['wio'] }),
+  I('wio', 'bank', 'Wio Bank', 'ويو بنك', { aliases: ['wio bank', 'wio'], domains: ['wio.io'], tokens: ['wio'],
+    phones: [P('600500946', '600 500 946', true)] // https://desk.wio.io/support/solutions/articles/501000417121-wio-security-fraud-protection-complete-customer-guide-faqs
+  }),
   I('liv', 'bank', 'Liv (Emirates NBD)', 'ليف', { aliases: ['liv bank', 'liv by emirates nbd'], domains: ['liv.me'], tokens: ['livbank'] }),
   I('mbank', 'bank', 'Mbank (Al Maryah Community Bank)', 'إم بنك', { aliases: ['mbank', 'al maryah community bank'], domains: ['mbank.ae'], tokens: ['mbank'] }),
   I('zand', 'bank', 'Zand Bank', 'بنك زاند', { aliases: ['zand bank', 'زاند'], domains: ['zand.ae'], tokens: ['zand'] }),
