@@ -78,3 +78,14 @@ test('ministry hunt scopes the caller warning to the result title and exact phon
   assert.equal(rows[0].advisory.id, 'moi_reported_caller');
   assert.equal(rows[1].advisory, null);
 });
+
+test('RAKBANK hunt preserves the full service number and drops incomplete fragments', async () => {
+  setKeys({ SEARCHAPI_KEY: 'test' });
+  globalThis.fetch = async url => reply(url.searchParams.get('engine') === 'google_maps'
+    ? { local_results: [{title: 'RAKBANK Elite', phone: '800 4048'}] }
+    : { organic_results: [{title: 'RAKBANK', snippet: 'Call 600 576 361 or 600 544049. Incomplete: 600 576.'}] });
+  const { rows } = await helplineHunt(INSTITUTIONS.find(i => i.id === 'rakbank'));
+  assert.deepEqual(rows.map(row => [row.phone, row.match]), [
+    ['600 576 361', true], ['600 544049', true], ['800 4048', true]
+  ]);
+});

@@ -129,7 +129,12 @@ export const INSTITUTIONS = [
   }),
   I('rakbank', 'bank', 'RAKBANK', 'بنك رأس الخيمة الوطني', {
     aliases: ['rakbank', 'rak bank', 'national bank of ras al khaimah', 'بنك رأس الخيمة', 'راك بنك'],
-    domains: ['rakbank.ae'], tokens: ['rakbank'], phones: [P('042130000', '04 213 0000')]
+    domains: ['rakbank.ae'], tokens: ['rakbank'],
+    phones: [
+      P('042130000', '04 213 0000', true), // Phone banking: /en/islamic/personal/digital-banking/stay-safe/security-tips
+      P('600544049', '600 544049', true), P('8004048', '800 4048', true), // General and Elite: https://www.rakbank.ae/ar/contact-us
+      P('600576361', '600 576 361', true) // https://www.rakbank.ae/en/help-centre/debt-counseling/ask-us-anything
+    ]
   }),
   I('ei', 'bank', 'Emirates Islamic', 'مصرف الإمارات الإسلامي', {
     aliases: ['emirates islamic', 'emiratesislamic', 'الإمارات الإسلامي'],
