@@ -133,7 +133,7 @@ export async function serpMaps(q) {
   return (j.local_results || []).map(p => ({ name: p.title || '', phone: p.phone || null, website: p.website || null, address: p.address || null, mapsUri: p.place_id ? `https://www.google.com/maps/place/?q=place_id:${p.place_id}` : null, placeId: p.place_id || null }));
 }
 const NEUTRAL = new Set(NEUTRAL_DOMAINS || []);
-const PHONE_RX = /(?:(?:\+|00)971[\s-]?)?\b600(?:[\s-]?\d){6}\b|(?:\+|00)971[\s-]?\d{1,2}[\s-]?\d{3}[\s-]?\d{3,4}|\b0(?:5\d|[2-4679])[\s-]?\d{3}[\s-]?\d{4}\b|\b800[\s-]?\d{3,7}\b/g;
+const PHONE_RX = /(?<![\w+])(?:(?:\+|00)971[\s-]?)?600(?:[\s-]?\d){6}\b|(?:\+|00)971[\s-]?\d{1,2}[\s-]?\d{3}[\s-]?\d{3,4}|\b0(?:5\d|[2-4679])[\s-]?\d{3}[\s-]?\d{4}\b|\b800[\s-]?\d{3,7}\b/g;
 
 export async function braveSearch(q, count = 20) {
   if (!BRAVE()) return null;

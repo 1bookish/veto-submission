@@ -83,9 +83,9 @@ test('RAKBANK hunt preserves the full service number and drops incomplete fragme
   setKeys({ SEARCHAPI_KEY: 'test' });
   globalThis.fetch = async url => reply(url.searchParams.get('engine') === 'google_maps'
     ? { local_results: [{title: 'RAKBANK Elite', phone: '800 4048'}] }
-    : { organic_results: [{title: 'RAKBANK', snippet: 'Call 600 576 361 or 600 544049. Incomplete: 600 576.'}] });
+    : { organic_results: [{title: 'RAKBANK', snippet: 'Call 600 576 361 or 600 544049. International: +971600576361. Incomplete: 600 576.'}] });
   const { rows } = await helplineHunt(INSTITUTIONS.find(i => i.id === 'rakbank'));
   assert.deepEqual(rows.map(row => [row.phone, row.match]), [
-    ['600 576 361', true], ['600 544049', true], ['800 4048', true]
+    ['600 576 361', true], ['600 544049', true], ['+971600576361', true], ['800 4048', true]
   ]);
 });
