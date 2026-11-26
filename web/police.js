@@ -256,8 +256,19 @@ const langBtn = () => h('button', { class: 'btn sm', type: 'button', onclick: ()
 const brand = () => h('a', { class: 'brand', href: '/' }, h('img', { class: 'mark', src: '/brand/officer-kiki.png', alt: '', width: 40, height: 40 }),
   h('span', {}, h('strong', { dir: 'ltr' }, 'Veto.ai'), h('small', {}, T('brandSub'))));
 const reviewTag = c => { const d = c.review?.decision || 'pending'; return h('span', { class: `tag ${d === 'approved' ? 'ok' : d === 'pending' ? (waiting(c) ? 'mid' : '') : d === 'needs_info' ? 'info' : ''}` }, T('r_' + d)); };
-const evidenceTags = c => h('div', { class: 'tags' }, (c.asks || []).map(a => h('span', { class: 'tag' }, a)), (c.exfil || []).map(x => h('span', { class: 'tag bad' }, String(x.kind || x).replace(/_/g, ' '))),
-  c.cloaked ? h('span', { class: 'tag bad' }, T('ev_cloaked')) : null, c.copiedLogo ? h('span', { class: 'tag bad' }, T('ev_logo')) : null);
+function evidenceTags(c) {
+  const badge = (label, tone = '') => h('span', { class: `tag ${tone}` }, label);
+  const tags = [
+    ...(c.asks || []).map(a => badge(a)),
+    ...(c.exfil || []).map(kind => badge(String(kind).replace(/_/g, ' '), 'bad'))
+  ];
+  if (c.cloaked) tags.push(badge(T('ev_cloaked'), 'bad'));
+  if (c.copiedLogo) tags.push(badge(T('ev_logo')));
+  if (c.hasShot) tags.push(badge(L({ en: 'Screenshot', ar: 'لقطة شاشة' }), 'info'));
+  if (c.redirectCount) tags.push(badge(L({ en: 'Redirects', ar: 'إعادات التوجيه' }) + ' · ' + fmtNum(c.redirectCount)));
+  if (c.findingCount) tags.push(badge(L({ en: 'Findings', ar: 'المؤشرات' }) + ' · ' + fmtNum(c.findingCount)));
+  return tags.length ? h('div', { class: 'tags' }, tags) : h('span', { class: 'muted' }, L({ en: 'No indicators listed', ar: 'لا توجد مؤشرات مدرجة' }));
+}
 const segs = (items, cur, set) => h('div', { class: 'segs', role: 'group' }, items.map(([id, label]) => h('button', { type: 'button', class: 'seg', 'aria-pressed': String(cur === id), onclick: () => { set(id); render(); } }, label)));
 const searchBox = (id, value, set) => h('label', { class: 'search' }, ic('search'), h('span', { class: 'sr' }, T('searchPh')),
   h('input', { id, class: 'field', type: 'search', placeholder: T('searchPh'), value, oninput: e => { set(e.target.value); render(); } }));
@@ -387,8 +398,8 @@ function casesView(d) {
       h('tbody', {}, rows.map(c => h('tr', { class: 'click', tabindex: 0, onclick: () => openCase(c.id), onkeydown: e => { if (e.key === 'Enter') openCase(c.id); } },
         h('td', {}, h('code', { dir: 'ltr' }, c.host), c.source === 'training' ? h('span', { class: 'tag', style: 'margin-inline-start:6px' }, T('src_training')) : null, c.title ? h('div', { class: 'tiny muted' }, `“${c.title.slice(0, 60)}”`) : null),
         h('td', { 'data-l': T('cVerdict') }, h('span', { class: `tag ${verdictTone(c.verdict)}` }, `${T('v_' + c.verdict)} ${pct(c.risk)}`)),
-        h('td', { 'data-l': T('cImitates') }, L(c.imitates?.name) || ''),
-        h('td', { 'data-l': T('cEvidence') }, evidenceTags({ ...c, exfil: (c.exfil || []).map(kind => ({ kind })) })),
+        h('td', { 'data-l': T('cImitates') }, L(c.imitates?.name) || h('span', { class: 'muted' }, L({ en: 'Unassigned', ar: 'غير محدد' }))),
+        h('td', { 'data-l': T('cEvidence') }, evidenceTags(c)),
         h('td', { 'data-l': T('cSeen'), class: 'small' }, fmtDate(c.lastSeen)),
         h('td', { 'data-l': T('cSignoff') }, reviewTag(c)))))))
       : h('p', { class: 'muted' }, d.cases.length ? T('noMatch') : T('noCases')))];

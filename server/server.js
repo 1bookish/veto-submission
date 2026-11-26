@@ -63,7 +63,7 @@ const clientIp = req => (!isLocal(req) && String(req.headers['x-forwarded-for'] 
 const policeAliases = new Set(['/resident', '/index.html', '/home.html', '/sentinel.html', '/share']);
 const TRAINING_HOSTS = ['secure-verify-uae', 'parcel-redelivery', 'salik-fine-pay', 'bank-app-update', 'phone-cleaner'];
 const brief = c => ({ id: c.id, host: c.finalHost, registrable: c.registrable, verdict: c.verdict, risk: c.risk, imitates: c.imitates, firstSeen: c.firstSeen, lastSeen: c.lastSeen,
-  source: c.source, armed: !!c.armed, asks: c.asks, title: c.title, review: (r => r && { decision: r.decision, officer: r.officer, t: r.t })(reviewOf(c.id)), exfil: (c.exfil || []).map(e => e.kind), cloaked: c.cloaking?.verdict === 'cloaked', copiedLogo: !!c.logos?.length, hasShot: c.hasShot });
+  source: c.source, armed: !!c.armed, asks: c.asks, title: c.title, review: (r => r && { decision: r.decision, officer: r.officer, t: r.t })(reviewOf(c.id)), exfil: (c.exfil || []).map(e => e.kind), cloaked: c.cloaking?.verdict === 'cloaked', copiedLogo: !!c.logos?.length, hasShot: c.hasShot, redirectCount: Math.max(0, (c.chain?.length || 0) - 1), findingCount: c.signals?.length || 0 });
 
 // very small per-IP rate limit for the server-side helpers
 const hits = new Map();
